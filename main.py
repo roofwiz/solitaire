@@ -2596,7 +2596,7 @@ class Tetris:
         
         # --- BUTTON: PLAY MARIO TETRIS ---
         tetris_btn_rect = pygame.Rect(0, 0, 300, 60)
-        tetris_btn_rect.center = (cx, cy - 30)
+        tetris_btn_rect.center = (cx, cy + 20)
         self.btn_tetris_rect = tetris_btn_rect
         
         # Draw Styled Button
@@ -2607,18 +2607,6 @@ class Tetris:
         t_text = "PLAY MARIO TETRIS"
         t_surf = self.font_small.render(t_text, True, C_WHITE)
         self.screen.blit(t_surf, t_surf.get_rect(center=tetris_btn_rect.center))
-
-        # --- BUTTON: PLAY MARIO DARK ---
-        dark_btn_rect = pygame.Rect(0, 0, 300, 60)
-        dark_btn_rect.center = (cx, cy + 50)
-        self.play_mario_btn_rect = dark_btn_rect 
-        
-        pygame.draw.rect(self.screen, (255, 215, 0), dark_btn_rect, border_radius=15) # Gold Body
-        pygame.draw.rect(self.screen, (255, 255, 100), dark_btn_rect, 4, border_radius=15) # Light Border
-        
-        d_text = "PLAY MARIO DARK"
-        d_surf = self.font_small.render(d_text, True, (0,0,0)) # Black text
-        self.screen.blit(d_surf, d_surf.get_rect(center=dark_btn_rect.center))
         
         pygame.display.flip()
 
@@ -2805,20 +2793,9 @@ class Tetris:
                                 import subprocess
                                 subprocess.Popen([sys.executable, 'asset_editor.py'], cwd=os.path.dirname(os.path.abspath(__file__)))
                             
-                        # Check Play Mario Button
-                        if self.game_state == 'INTRO' and hasattr(self, 'play_mario_btn_rect'):
-                            if self.play_mario_btn_rect.collidepoint(event.pos):
-                                print("Transitioning to Dark World...")
-                                self.game_state = 'DARK_WORLD'
-                                # Try to start music if available
-                                try:
-                                    pygame.mixer.music.load(os.path.join('sounds', 'music_dark_jazz.mp3'))
-                                    pygame.mixer.music.play(-1)
-                                except: 
-                                    print("Dark Jazz music missing, skipping track change.")
-                            
-                            # Check Tetris Button
-                            if hasattr(self, 'btn_tetris_rect') and self.btn_tetris_rect.collidepoint(event.pos):
+                        # Check Tetris Button (Main Game)
+                        if self.game_state == 'INTRO' and hasattr(self, 'btn_tetris_rect'):
+                            if self.btn_tetris_rect.collidepoint(event.pos):
                                  print("Starting Tetris Mode...")
                                  self.reset_game()
                                  self.game_state = 'PLAYING'
