@@ -1,10 +1,7 @@
 Traceback (most recent call last):
-  File "C:\Users\eric\React Projects\Mario-Tetris-main\main.py", line 2814, in <module>
-    game = Tetris()
-           ^^^^^^^^
-  File "C:\Users\eric\React Projects\Mario-Tetris-main\main.py", line 1741, in __init__
-    self.reset_game()
-  File "C:\Users\eric\React Projects\Mario-Tetris-main\main.py", line 1789, in reset_game
-    self.scanline_overlay = self.sprite_manager.get_image('scanline_overlay')
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'AssetLoader' object has no attribute 'get_image'
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\main.py", line 3390, in <module>
+    game.run()
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\main.py", line 3327, in run
+    self.slot_machine.handle_input(event)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SlotMachine' object has no attribute 'handle_input'

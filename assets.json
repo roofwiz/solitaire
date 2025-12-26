@@ -9,7 +9,8 @@
         "bonus_bg": "level_bonus_bg.png",
         "bonus_ref": "level_reference.png",
         "tetris": "tetris_sprite.png",
-        "rack": "rack_spritesheet.png"
+        "rack": "rack_spritesheet.png",
+        "items_coins": "items-coins.png"
     },
     "sounds": {
         "move": "move.wav",
@@ -27,442 +28,319 @@
         "lock": "lock.wav"
     },
     "sprite_coords": {
-        "rack_components": {
-            "switch_off": {
-                "file": "rack",
-                "x": 0,
-                "y": 0,
-                "w": 64,
-                "h": 64
-            },
-            "switch_on": {
-                "file": "rack",
-                "x": 64,
-                "y": 0,
-                "w": 64,
-                "h": 64
-            },
-            "light_off": {
-                "file": "rack",
-                "x": 128,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "light_on": {
-                "file": "rack",
-                "x": 160,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "knob_0": {
-                "file": "rack",
-                "x": 0,
-                "y": 64,
-                "w": 64,
-                "h": 64
-            },
-            "knob_1": {
-                "file": "rack",
-                "x": 64,
-                "y": 64,
-                "w": 64,
-                "h": 64
-            },
-            "knob_2": {
-                "file": "rack",
-                "x": 128,
-                "y": 64,
-                "w": 64,
-                "h": 64
-            },
-            "knob_3": {
-                "file": "rack",
-                "x": 192,
-                "y": 64,
-                "w": 64,
-                "h": 64
-            },
-            "slider_cap": {
-                "file": "rack",
-                "x": 0,
-                "y": 128,
-                "w": 32,
-                "h": 64
-            },
-            "btn_play": {
-                "file": "rack",
-                "x": 0,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_play_lit": {
-                "file": "rack",
-                "x": 48,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_stop": {
-                "file": "rack",
-                "x": 96,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_stop_lit": {
-                "file": "rack",
-                "x": 144,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_back": {
-                "file": "rack",
-                "x": 192,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_back_lit": {
-                "file": "rack",
-                "x": 240,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_fwd": {
-                "file": "rack",
-                "x": 288,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "btn_fwd_lit": {
-                "file": "rack",
-                "x": 336,
-                "y": 192,
-                "w": 48,
-                "h": 32
-            },
-            "vfd_screen": {
-                "file": "rack",
-                "x": 0,
-                "y": 256,
-                "w": 256,
-                "h": 64
-            }
-        },
-        "tetris_blocks": {
-            "cyan": {
-                "file": "tetris",
-                "x": 0,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "blue": {
-                "file": "tetris",
-                "x": 32,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "orange": {
-                "file": "tetris",
-                "x": 64,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "yellow": {
-                "file": "tetris",
-                "x": 96,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "green": {
-                "file": "tetris",
-                "x": 128,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "purple": {
-                "file": "tetris",
-                "x": 160,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "red": {
-                "file": "tetris",
-                "x": 192,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            },
-            "grey": {
-                "file": "tetris",
-                "x": 224,
-                "y": 0,
-                "w": 32,
-                "h": 32
-            }
-        },
         "items": {
             "mushroom_super": {
-                "file": "items",
-                "x": 0,
-                "y": 0,
+                "file": "items_coins",
+                "x": 2,
+                "y": 11,
                 "w": 16,
                 "h": 16
             },
             "mushroom_1up": {
-                "file": "items",
-                "x": 16,
-                "y": 0,
+                "file": "items_coins",
+                "x": 87,
+                "y": 29,
                 "w": 16,
                 "h": 16
             },
             "mushroom_poison": {
-                "file": "items",
-                "x": 32,
-                "y": 0,
-                "w": 16,
-                "h": 16
-            },
-            "flower_fire": {
-                "file": "items",
-                "x": 48,
-                "y": 0,
+                "file": "items_coins",
+                "x": 37,
+                "y": 12,
                 "w": 16,
                 "h": 16
             },
             "star_1": {
-                "file": "items",
-                "x": 0,
-                "y": 48,
+                "file": "items_coins",
+                "x": 54,
+                "y": 30,
                 "w": 16,
                 "h": 16
             },
             "star_2": {
-                "file": "items",
-                "x": 16,
-                "y": 48,
+                "file": "items_coins",
+                "x": 71,
+                "y": 29,
                 "w": 16,
                 "h": 16
             },
             "star_3": {
-                "file": "items",
+                "file": "items_coins",
                 "x": 32,
-                "y": 48,
+                "y": 16,
                 "w": 16,
                 "h": 16
             },
             "star_4": {
-                "file": "items",
-                "x": 48,
-                "y": 48,
+                "file": "items_coins",
+                "x": 105,
+                "y": 30,
                 "w": 16,
                 "h": 16
             },
             "coin_1": {
-                "file": "items",
-                "x": 0,
-                "y": 80,
-                "w": 16,
+                "file": "items_coins",
+                "x": 122,
+                "y": 30,
+                "w": 10,
                 "h": 16
             },
             "coin_2": {
-                "file": "items",
-                "x": 16,
-                "y": 80,
+                "file": "items_coins",
+                "x": 132,
+                "y": 31,
+                "w": 11,
+                "h": 14
+            },
+            "coin_3": {
+                "file": "items_coins",
+                "x": 143,
+                "y": 30,
+                "w": 11,
+                "h": 16
+            },
+            "flower_fire": {
+                "file": "items_coins",
+                "x": 36,
+                "y": 46,
                 "w": 16,
                 "h": 16
             },
-            "coin_3": {
-                "file": "items",
-                "x": 32,
-                "y": 80,
+            "coin_hit_1": {
+                "file": "items_coins",
+                "x": 6,
+                "y": 73,
                 "w": 16,
+                "h": 16
+            },
+            "coin_hit_2": {
+                "file": "items_coins",
+                "x": 26,
+                "y": 73,
+                "w": 16,
+                "h": 16
+            },
+            "coin_hit_3": {
+                "file": "items_coins",
+                "x": 49,
+                "y": 74,
+                "w": 12,
+                "h": 14
+            },
+            "coin_hit_4": {
+                "file": "items_coins",
+                "x": 70,
+                "y": 74,
+                "w": 12,
+                "h": 15
+            },
+            "coin_hit_5": {
+                "file": "items_coins",
+                "x": 89,
+                "y": 74,
+                "w": 16,
+                "h": 14
+            },
+            "coin_hit_6": {
+                "file": "items_coins",
+                "x": 109,
+                "y": 73,
+                "w": 16,
+                "h": 17
+            },
+            "coin_hit_7": {
+                "file": "items_coins",
+                "x": 129,
+                "y": 73,
+                "w": 19,
+                "h": 17
+            },
+            "coin_hit_8": {
+                "file": "items_coins",
+                "x": 149,
+                "y": 73,
+                "w": 22,
+                "h": 16
+            },
+            "coin_hit_9": {
+                "file": "items_coins",
+                "x": 171,
+                "y": 73,
+                "w": 21,
                 "h": 16
             }
         },
         "blocks": {
             "question_1": {
                 "file": "blocks",
-                "x": 0,
-                "y": 0,
+                "x": 80,
+                "y": 112,
                 "w": 16,
                 "h": 16
             },
             "question_2": {
                 "file": "blocks",
-                "x": 16,
-                "y": 0,
+                "x": 96,
+                "y": 112,
                 "w": 16,
                 "h": 16
             },
             "question_3": {
                 "file": "blocks",
-                "x": 32,
-                "y": 0,
+                "x": 112,
+                "y": 112,
                 "w": 16,
                 "h": 16
             },
             "empty": {
                 "file": "blocks",
-                "x": 48,
-                "y": 0,
+                "x": 240,
+                "y": 144,
                 "w": 16,
                 "h": 16
             },
             "brick": {
                 "file": "blocks",
-                "x": 64,
-                "y": 0,
+                "x": 369,
+                "y": 111,
                 "w": 16,
                 "h": 16
             }
         },
         "koopa_green": {
             "walk_1": {
-                "x": 208,
-                "y": 243,
-                "w": 16,
+                "x": 206,
+                "y": 242,
+                "w": 20,
                 "h": 27
             },
             "walk_2": {
-                "x": 248,
-                "y": 244,
-                "w": 16,
+                "x": 247,
+                "y": 242,
+                "w": 20,
                 "h": 27
             },
             "fly_1": {
-                "x": 288,
-                "y": 243,
-                "w": 16,
-                "h": 27
+                "x": 127,
+                "y": 242,
+                "w": 18,
+                "h": 25
             },
             "fly_2": {
-                "x": 328,
-                "y": 243,
-                "w": 16,
-                "h": 27
+                "x": 167,
+                "y": 242,
+                "w": 18,
+                "h": 25
             },
             "shell_1": {
-                "x": 208,
-                "y": 285,
+                "x": 288,
+                "y": 248,
                 "w": 16,
                 "h": 14
             },
             "shell_2": {
-                "x": 248,
-                "y": 285,
+                "x": 328,
+                "y": 248,
                 "w": 16,
                 "h": 14
             }
         },
         "koopa_red": {
             "walk_1": {
-                "x": 248,
-                "y": 323,
-                "w": 16,
+                "x": 206,
+                "y": 282,
+                "w": 20,
                 "h": 27
             },
             "walk_2": {
-                "x": 288,
-                "y": 323,
-                "w": 16,
+                "x": 245,
+                "y": 283,
+                "w": 20,
                 "h": 27
             },
             "fly_1": {
-                "x": 287,
-                "y": 325,
+                "x": 128,
+                "y": 283,
                 "w": 16,
                 "h": 24
             },
             "fly_2": {
-                "x": 328,
-                "y": 325,
+                "x": 168,
+                "y": 283,
                 "w": 16,
                 "h": 24
             },
             "shell_1": {
-                "x": 206,
-                "y": 365,
+                "x": 288,
+                "y": 287,
                 "w": 16,
                 "h": 16
             },
             "shell_2": {
-                "x": 247,
-                "y": 365,
+                "x": 328,
+                "y": 288,
                 "w": 16,
                 "h": 16
             }
         },
         "spiny": {
             "walk_1": {
-                "x": 8,
-                "y": 325,
-                "w": 16,
-                "h": 16
+                "x": 87,
+                "y": 366,
+                "w": 19,
+                "h": 17
             },
             "walk_2": {
-                "x": 48,
-                "y": 325,
-                "w": 16,
-                "h": 16
+                "x": 127,
+                "y": 366,
+                "w": 19,
+                "h": 17
             }
         },
         "mario": {
             "stand": {
-                "x": 170,
-                "y": 40,
-                "w": 16,
-                "h": 32
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
             },
             "walk": {
-                "x": 207,
-                "y": 41,
-                "w": 16,
-                "h": 32
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
             },
             "walk_1": {
-                "x": 170,
-                "y": 40,
-                "w": 16,
-                "h": 32
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
             },
             "walk_2": {
-                "x": 207,
-                "y": 41,
-                "w": 16,
-                "h": 32
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
             },
             "walk_3": {
-                "x": 247,
-                "y": 43,
-                "w": 16,
-                "h": 32
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
             }
         },
         "luigi": {
             "stand": {
-                "x": 170,
-                "y": 40,
-                "w": 16,
-                "h": 32
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
             },
             "walk": {
-                "x": 207,
-                "y": 41,
-                "w": 16,
-                "h": 32
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
             }
         },
         "lakitu": {
@@ -475,14 +353,14 @@
         },
         "cloud": {
             "walk_1": {
-                "x": 0,
-                "y": 0,
+                "x": 6,
+                "y": 364,
                 "w": 32,
                 "h": 24
             },
             "default": {
-                "x": 0,
-                "y": 0,
+                "x": 47,
+                "y": 364,
                 "w": 32,
                 "h": 24
             }

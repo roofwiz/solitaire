@@ -1,0 +1,21 @@
+CLICKED COORDINATES
+============================================================
+
+Click #1:
+  "x": 181,
+  "y": 151,
+  "w": 16,  // Standard sprite width
+  "h": 16   // Adjust if needed
+
+Click #2:
+  "x": 196,
+  "y": 96,
+  "w": 16,  // Standard sprite width
+  "h": 16   // Adjust if needed
+
+Click #3:
+  "x": 196,
+  "y": 96,
+  "w": 16,  // Standard sprite width
+  "h": 16   // Adjust if needed
+

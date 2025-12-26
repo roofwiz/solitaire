@@ -1,0 +1,491 @@
+{
+    "images": {
+        "spritesheet": "marioallsprite.png",
+        "items": "darkworlditems.png",
+        "blocks": "blocks.png",
+        "cloud": "cloud_sprite.png",
+        "cloud_fallback": "cloud_sprite.png",
+        "waterworld": "waterworld.png",
+        "bonus_bg": "level_bonus_bg.png",
+        "bonus_ref": "level_reference.png",
+        "tetris": "tetris_sprite.png",
+        "rack": "rack_spritesheet.png"
+    },
+    "sounds": {
+        "move": "move.wav",
+        "rotate": "rotate.wav",
+        "clear": "clear.wav",
+        "tetris": "tetris.wav",
+        "drop": "drop.wav",
+        "stomp": "lock.wav",
+        "damage": "damage.wav",
+        "gameover": "gameover.wav",
+        "level_up": "level.wav",
+        "life": "clear.wav",
+        "world_clear": "world_clear.wav",
+        "music": "music.mp3",
+        "lock": "lock.wav"
+    },
+    "sprite_coords": {
+        "rack_components": {
+            "switch_off": {
+                "file": "rack",
+                "x": 0,
+                "y": 0,
+                "w": 64,
+                "h": 64
+            },
+            "switch_on": {
+                "file": "rack",
+                "x": 64,
+                "y": 0,
+                "w": 64,
+                "h": 64
+            },
+            "light_off": {
+                "file": "rack",
+                "x": 128,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "light_on": {
+                "file": "rack",
+                "x": 160,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "knob_0": {
+                "file": "rack",
+                "x": 0,
+                "y": 64,
+                "w": 64,
+                "h": 64
+            },
+            "knob_1": {
+                "file": "rack",
+                "x": 64,
+                "y": 64,
+                "w": 64,
+                "h": 64
+            },
+            "knob_2": {
+                "file": "rack",
+                "x": 128,
+                "y": 64,
+                "w": 64,
+                "h": 64
+            },
+            "knob_3": {
+                "file": "rack",
+                "x": 192,
+                "y": 64,
+                "w": 64,
+                "h": 64
+            },
+            "slider_cap": {
+                "file": "rack",
+                "x": 0,
+                "y": 128,
+                "w": 32,
+                "h": 64
+            },
+            "btn_play": {
+                "file": "rack",
+                "x": 0,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_play_lit": {
+                "file": "rack",
+                "x": 48,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_stop": {
+                "file": "rack",
+                "x": 96,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_stop_lit": {
+                "file": "rack",
+                "x": 144,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_back": {
+                "file": "rack",
+                "x": 918,
+                "y": 656,
+                "w": 48,
+                "h": 32
+            },
+            "btn_back_lit": {
+                "file": "rack",
+                "x": 240,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_fwd": {
+                "file": "rack",
+                "x": 288,
+                "y": 192,
+                "w": 48,
+                "h": 32
+            },
+            "btn_fwd_lit": {
+                "file": "rack",
+                "x": 1086,
+                "y": 515,
+                "w": 48,
+                "h": 32
+            },
+            "vfd_screen": {
+                "file": "rack",
+                "x": 0,
+                "y": 256,
+                "w": 256,
+                "h": 64
+            }
+        },
+        "tetris_blocks": {
+            "cyan": {
+                "file": "tetris",
+                "x": 25,
+                "y": 42,
+                "w": 32,
+                "h": 32
+            },
+            "blue": {
+                "file": "tetris",
+                "x": 1406,
+                "y": 1785,
+                "w": 32,
+                "h": 32
+            },
+            "orange": {
+                "file": "tetris",
+                "x": 64,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "yellow": {
+                "file": "tetris",
+                "x": 96,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "green": {
+                "file": "tetris",
+                "x": 128,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "purple": {
+                "file": "tetris",
+                "x": 160,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "red": {
+                "file": "tetris",
+                "x": 192,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            },
+            "grey": {
+                "file": "tetris",
+                "x": 224,
+                "y": 0,
+                "w": 32,
+                "h": 32
+            }
+        },
+        "items": {
+            "mushroom_super": {
+                "file": "items",
+                "x": 0,
+                "y": 0,
+                "w": 16,
+                "h": 16
+            },
+            "mushroom_1up": {
+                "file": "items",
+                "x": 16,
+                "y": 0,
+                "w": 16,
+                "h": 16
+            },
+            "mushroom_poison": {
+                "file": "items",
+                "x": 32,
+                "y": 0,
+                "w": 16,
+                "h": 16
+            },
+            "flower_fire": {
+                "file": "items",
+                "x": 48,
+                "y": 0,
+                "w": 16,
+                "h": 16
+            },
+            "star_1": {
+                "file": "items",
+                "x": 0,
+                "y": 48,
+                "w": 16,
+                "h": 16
+            },
+            "star_2": {
+                "file": "items",
+                "x": 16,
+                "y": 48,
+                "w": 16,
+                "h": 16
+            },
+            "star_3": {
+                "file": "items",
+                "x": 32,
+                "y": 48,
+                "w": 16,
+                "h": 16
+            },
+            "star_4": {
+                "file": "items",
+                "x": 48,
+                "y": 48,
+                "w": 16,
+                "h": 16
+            },
+            "coin_1": {
+                "file": "items",
+                "x": 673,
+                "y": 227,
+                "w": 16,
+                "h": 16
+            },
+            "coin_2": {
+                "file": "items",
+                "x": 16,
+                "y": 80,
+                "w": 16,
+                "h": 16
+            },
+            "coin_3": {
+                "file": "items",
+                "x": 32,
+                "y": 80,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "blocks": {
+            "question_1": {
+                "file": "blocks",
+                "x": 80,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "question_2": {
+                "file": "blocks",
+                "x": 96,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "question_3": {
+                "file": "blocks",
+                "x": 112,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "empty": {
+                "file": "blocks",
+                "x": 240,
+                "y": 144,
+                "w": 16,
+                "h": 16
+            },
+            "brick": {
+                "file": "blocks",
+                "x": 369,
+                "y": 111,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "koopa_green": {
+            "walk_1": {
+                "x": 206,
+                "y": 242,
+                "w": 20,
+                "h": 27
+            },
+            "walk_2": {
+                "x": 247,
+                "y": 242,
+                "w": 20,
+                "h": 27
+            },
+            "fly_1": {
+                "x": 127,
+                "y": 242,
+                "w": 18,
+                "h": 25
+            },
+            "fly_2": {
+                "x": 167,
+                "y": 242,
+                "w": 18,
+                "h": 25
+            },
+            "shell_1": {
+                "x": 288,
+                "y": 248,
+                "w": 16,
+                "h": 14
+            },
+            "shell_2": {
+                "x": 328,
+                "y": 248,
+                "w": 16,
+                "h": 14
+            }
+        },
+        "koopa_red": {
+            "walk_1": {
+                "x": 206,
+                "y": 282,
+                "w": 20,
+                "h": 27
+            },
+            "walk_2": {
+                "x": 245,
+                "y": 283,
+                "w": 20,
+                "h": 27
+            },
+            "fly_1": {
+                "x": 128,
+                "y": 283,
+                "w": 16,
+                "h": 24
+            },
+            "fly_2": {
+                "x": 168,
+                "y": 283,
+                "w": 16,
+                "h": 24
+            },
+            "shell_1": {
+                "x": 288,
+                "y": 287,
+                "w": 16,
+                "h": 16
+            },
+            "shell_2": {
+                "x": 328,
+                "y": 288,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "spiny": {
+            "walk_1": {
+                "x": 87,
+                "y": 366,
+                "w": 19,
+                "h": 17
+            },
+            "walk_2": {
+                "x": 127,
+                "y": 366,
+                "w": 19,
+                "h": 17
+            }
+        },
+        "mario": {
+            "stand": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            },
+            "walk_1": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk_2": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            },
+            "walk_3": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            }
+        },
+        "luigi": {
+            "stand": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            }
+        },
+        "lakitu": {
+            "default": {
+                "x": 8,
+                "y": 246,
+                "w": 24,
+                "h": 32
+            }
+        },
+        "cloud": {
+            "walk_1": {
+                "x": 6,
+                "y": 364,
+                "w": 32,
+                "h": 24
+            },
+            "default": {
+                "x": 47,
+                "y": 364,
+                "w": 32,
+                "h": 24
+            }
+        }
+    }
+}

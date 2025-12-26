@@ -142,17 +142,13 @@ class AssetLoader:
         
         return frames
     
-    def get_animation_frames(self, category, scale=1.0, prefix=None):
+    def get_animation_frames(self, category, scale=1.0, prefix=None, **kwargs):
         """Compatibility alias for get_animation"""
+        if 'scale_factor' in kwargs:
+            scale = kwargs['scale_factor']
+            
         if prefix is None:
              # In old SpriteManager, if prefix was None, it meant 'get all'.
-             # AssetLoader needs a prefix usually, or we iterate all?
-             # For now, assume prefix is passed as 1st or 3rd arg logic mismatch
-             # Old signature: (char_name, scale_factor=1.5, prefix=None)
-             # New signature: (category, prefix, scale=1.0)
-             # Wait, the signature is different!
-             # Old: get_animation_frames('squid', scale_factor=1.0) -> implied all frames for 'squid'
-             # New: get_animation('squid', '', scale=1.0) ?
              prefix = ""
         return self.get_animation(category, prefix, scale)
     
