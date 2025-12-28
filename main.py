@@ -2953,6 +2953,7 @@ class Tetris:
             self.screen.blit(title, title.get_rect(center=(cx, cy - 150)))
             esc = self.font_small.render("PRESS ESC TO QUIT", True, C_WHITE)
             self.screen.blit(esc, esc.get_rect(center=(cx, cy + 140)))
+            
             # Larger Hitbox for Mobile
             tetris_btn_rect = pygame.Rect(0, 0, 400, 100); tetris_btn_rect.center = (cx, cy + 20)
             self.btn_tetris_rect = tetris_btn_rect
@@ -2960,6 +2961,24 @@ class Tetris:
             pygame.draw.rect(self.screen, C_WHITE, tetris_btn_rect, 2, border_radius=15)
             t_surf = self.font_small.render("PLAY MARIO TETRIS", True, C_WHITE)
             self.screen.blit(t_surf, t_surf.get_rect(center=tetris_btn_rect.center))
+            
+            # BIG "TAP ANYWHERE" text for mobile
+            tap_text = self.font_med.render("TAP ANYWHERE TO START", True, (255, 255, 0))
+            self.screen.blit(tap_text, tap_text.get_rect(center=(cx, cy + 80)))
+            
+            # DIRECT MOUSE POLLING (bypass events for mobile)
+            mouse_buttons = pygame.mouse.get_pressed()
+            mouse_pos = pygame.mouse.get_pos()
+            if mouse_buttons[0]:  # Left click/touch
+                if not hasattr(self, '_intro_click_handled'):
+                    self._intro_click_handled = True
+                    if mouse_pos[1] > 60:  # Below UI
+                        print(f"DIRECT MOUSE POLL START at {mouse_pos}")
+                        self.reset_game()
+                        self.game_state = 'PLAYING'
+            else:
+                self._intro_click_handled = False
+                
         except Exception as e:
             self.log_event(f"INTRO DRAW ERROR: {e}")
 

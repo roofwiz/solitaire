@@ -9,7 +9,7 @@ Loading mario-tetris-main from mario-tetris-main.apk
     Python  : 3.12
     CDN URL : https://pygame-web.github.io/archives/0.9/
     Screen  : 1280x720
-    Title   : Mario Tetris v18 (Touch Debug)
+    Title   : Mario Tetris v19 (Direct Poll)
     Folder  : mario-tetris-main
     Authors : pgw
     SPDX-License-Identifier: cookiecutter.spdx
@@ -86,7 +86,7 @@ async def custom_site():
 
 
 
-    apk = "mario-tetris-v18.apk"
+    apk = "mario-tetris-v19.apk"
 
     bundle = "mario-tetris-main"
 
@@ -233,6 +233,16 @@ asyncio.run( custom_site() )
     <script type="application/javascript">
         // END BLOCK
 
+        // Hide loading message when game starts
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                var loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) {
+                    loadingMsg.style.display = 'none';
+                }
+            }, 3000);
+        });
+
 
 
         // this dict is available under PyConfig.config from __main__
@@ -253,7 +263,7 @@ asyncio.run( custom_site() )
 
     </script>
 
-    <title>Mario Tetris v18 (Touch Debug)</title>
+    <title>Mario Tetris v19 (Direct Poll)</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -354,6 +364,19 @@ asyncio.run( custom_site() )
             right: 10px;
             border: 1px solid black;
         }
+
+        #loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial, sans-serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: #FF1493;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
     </style>
 
     <script src="https://pygame-web.github.io/archives/0.9//browserfs.min.js"></script>
@@ -373,6 +396,8 @@ asyncio.run( custom_site() )
 
     <canvas class="emscripten" id="canvas" width="1px" height="1px" oncontextmenu="event.preventDefault()" tabindex=1>
     </canvas>
+
+    <div id="loading-message">🎮 MARIO TETRIS IS LOADING... 🎮</div>
 
     <div id=html></div>
 
