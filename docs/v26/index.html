@@ -241,25 +241,28 @@ asyncio.run( custom_site() )
     <script type="application/javascript">
         // END BLOCK
 
-        // Hide loading message wt        ener('load', fun        ction () {
-        setTimeout(function () {
-            var loadin = docuent.gtE            ntByI('loading-me            e');
-            if (loadingMsg) {
-                oadin.style.diplay             one';
-            }
-        }, 3000)
-                });
+        // Hide loading message
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                var loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) {
+                    loadingMsg.style.display = 'none';
+                }
+            }, 5000) // Keep it up a bit longer to hide init flicker
+        });
 
 
-        // this dict is available under PyCon            config rom _            n__
+        // this dict is available under PyConfig.config from __main__
 
-       conf        ig = {
+        var config = {
             xtermjs: "1",
             _sdl2: "canvas",
             user_canvas: 0,
             user_canvas_managed: 0,
             ume_block: 1,
-            can_closein                   gui_debug: 3,
+            can_close: 0,
+            archive: 0,
+            gui_debug: 3,
             cdn: "https://pygame-web.github.io/archives/0.9/",
             autorun: 0,
             PYBUILD: "3.12"
