@@ -1,0 +1,33 @@
+# Music Display Helper Function
+# Add this as a method in SoundManager class
+
+def get_track_display_name(self):
+    """Returns a clean, short version of the current track name"""
+    track = self._current_track
+    if not track:
+        return "No Music"
+    
+    # Strip .mp3 extension
+    name = track.replace('.mp3', '')
+    
+    # Clean up specific tracks
+    name_map = {
+        '01. The James Bond Theme': 'James Bond',
+        '02. undergroundtheme': 'Underground',
+        '2. Bring The Noise': 'Bring The Noise',
+        'energic-funk-upbeat-vintage-and-confident-mood-loop-1-371308': 'Funky Loop',
+        'music_dark_jazz': 'Dark Jazz',
+        'lifelost': 'Life Lost'
+    }
+    
+    return name_map.get(name, name[:20])  # Fallback to first 20 chars
+
+def get_track_position(self):
+    """Returns current track number and total tracks"""
+    if self.current_mode == 'intro':
+        return (self.intro_track_index + 1, len(self.intro_playlist))
+    elif self.current_mode == 'gameplay':
+        return (self.neon_track_index + 1, len(self.neon_playlist))
+    elif self.current_mode == 'slots':
+        return (self.slot_track_index + 1, len(self.slot_playlist))
+    return (0, 0)

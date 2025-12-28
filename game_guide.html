@@ -1,0 +1,144 @@
+
+    <html>
+    <head>
+        <title>Mario Tetris - Official Game Guide</title>
+        <style>
+            body { font-family: 'Segoe UI', sans-serif; background-color: #1a1a1a; color: #fff; padding: 20px; }
+            h1 { color: #fe1553; text-align: center; font-size: 48px; text-shadow: 2px 2px #000; }
+            h2 { border-bottom: 2px solid #555; padding-bottom: 10px; color: #ffeb3b; }
+            h3 { color: #4caf50; }
+            .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+            .card { background: #333; border-radius: 10px; padding: 15px; text-align: center; border: 1px solid #444; transition: transform 0.2s; }
+            .card:hover { transform: translateY(-5px); border-color: #fe1553; }
+            .card img { height: 64px; image-rendering: pixelated; margin-bottom: 10px; }
+            .card h4 { margin: 5px 0; color: #fff; font-size: 20px; }
+            .card .type { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; background: #222; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+            .card p { font-size: 14px; color: #ccc; line-height: 1.4; }
+            .card .appear { color: #fe1553; font-weight: bold; font-size: 12px; margin-top: 10px; display: block; }
+            .map-section { background: #222; padding: 20px; border-radius: 10px; border-left: 5px solid #fe1553; }
+            ul { line-height: 1.6; }
+            li { margin-bottom: 5px; }
+            strong { color: #fff; }
+        </style>
+    </head>
+    <body>
+        <h1>MARIO TETRIS GUIDE</h1>
+        
+        <h2>CHARACTERS & ITEMS</h2>
+        <div class="card-grid">
+    
+            <div class="card">
+                <span class="type">Character</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Mario">
+                <h4>1. Mario</h4>
+                <p>The hero! Moves blocks and stomps turtles.</p>
+                <span class="appear">First Appearance: Start</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Character</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Luigi">
+                <h4>2. Luigi</h4>
+                <p>Mario's brother. Appears in the intro.</p>
+                <span class="appear">First Appearance: Intro</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Enemy</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Green Koopa">
+                <h4>3. Green Koopa</h4>
+                <p>Basic enemy. Walks back and forth. Stomp to remove.</p>
+                <span class="appear">First Appearance: World 1-1</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Item</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Magic Mushroom">
+                <h4>4. Magic Mushroom</h4>
+                <p>Power-up! Grants 1-Up or bonus points.</p>
+                <span class="appear">First Appearance: World 1-1 (Every 3 lines)</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Enemy</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Red Koopa">
+                <h4>5. Red Koopa</h4>
+                <p>Flying enemy. Hovers in the air.</p>
+                <span class="appear">First Appearance: World 1-2</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Enemy</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Spiny">
+                <h4>6. Spiny</h4>
+                <p>Spiky shell. Cannot be stomped! Use blocks to squash.</p>
+                <span class="appear">First Appearance: World 1-3 / Lakitu</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Enemy</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Lakitu">
+                <h4>7. Lakitu</h4>
+                <p>Cloud rider. Throws Spinys at you.</p>
+                <span class="appear">First Appearance: World 1-3</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Item</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Coin">
+                <h4>8. Coin</h4>
+                <p>Collect for points.</p>
+                <span class="appear">First Appearance: Bonus Levels</span>
+            </div>
+        
+            <div class="card">
+                <span class="type">Item</span><br>
+                <img src="https://via.placeholder.com/64?text=?" alt="Starman">
+                <h4>9. Starman</h4>
+                <p>Invincibility! Clear screen.</p>
+                <span class="appear">First Appearance: Rare Event</span>
+            </div>
+        
+        </div>
+        
+        <h2>GAME MAP & LOGIC</h2>
+        <div class="map-section">
+    
+<h3>Game Structure</h3>
+<ul>
+    <li><strong>World System:</strong> The game progresses through Worlds (1, 2, 3...). Each World has 4 Levels.</li>
+    <li><strong>Levels:</strong>
+        <ul>
+            <li><strong>Level 1:</strong> Basic speed. Green Koopas spawn.</li>
+            <li><strong>Level 2:</strong> Speed increases. Red Flying Koopas appear.</li>
+            <li><strong>Level 3:</strong> Lakitu appears! Spawns Spinys.</li>
+            <li><strong>Level 4 (BOSS):</strong> Boss Battle. Survive and deal damage by clearing lines!</li>
+        </ul>
+    </li>
+    <li><strong>Bonus Rounds:</strong>
+        <ul>
+            <li><strong>Slot Machine:</strong> Triggered by stomping 3+ enemies at once or beating a level. Grind extra lives!</li>
+            <li><strong>Coin Heaven:</strong> Accessible vertically (upcoming feature).</li>
+        </ul>
+    </li>
+</ul>
+
+<h3>Gameplay Mechanics</h3>
+<ul>
+    <li><strong>Stomping:</strong> Drop a block onto an enemy to smash them. Combos grant spins.</li>
+    <li><strong>Tetris Streaks:</strong>
+        <ul>
+            <li>Clear 4 lines at once for a <strong>TETRIS</strong>.</li>
+            <li>Chain them for <strong>DOUBLE TETRIS (x2)</strong>, <strong>MASTER (x3)</strong>, and <strong>GOAT (x4)</strong> titles.</li>
+        </ul>
+    </li>
+    <li><strong>Controls:</strong> Arrow Keys to move/rotate. Space for Hard Drop.</li>
+</ul>
+
+        </div>
+        
+        <br><br>
+        <center><small>Generated by Antigravity Tool</small></center>
+    </body>
+    </html>
+    

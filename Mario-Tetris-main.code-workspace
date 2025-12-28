@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Pac Man"
+		},
+		{
+			"path": "../Mario-Tetris/Mario-Tetris"
+		}
+	],
+	"settings": {}
+}
