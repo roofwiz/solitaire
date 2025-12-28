@@ -2211,9 +2211,10 @@ class Tetris:
         self.screen_shake_timer = 0
         self.shake_offset = (0, 0)
         
-        # Start Music Logic
-        if hasattr(self, 'sound_manager'):
-            self.sound_manager.play_music_gameplay()
+        # Start Music Logic REMOVED from reset_game
+        # Music is now handled explicitly by game state transitions
+        # if hasattr(self, 'sound_manager'):
+        #     self.sound_manager.play_music_gameplay()
             
         # Init Spawner & Pieces
         self.spawner = Spawner()
