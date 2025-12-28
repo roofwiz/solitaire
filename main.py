@@ -1808,7 +1808,7 @@ class SoundManager:
         """Stop ALL music - both mixer.music and channels"""
         try: 
             # TRIPLE STOP to prevent overlap (web audio bug workaround)
-            pygame.mixer.music.fadeout(100)  # Fade out over 100ms
+            # pygame.mixer.music.fadeout(100)  # REMOVED: Fadeout causes issues on web
             pygame.mixer.music.stop()
             pygame.mixer.music.stop()  # Call twice for web
             pygame.mixer.music.unload()
