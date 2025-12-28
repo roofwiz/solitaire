@@ -20,7 +20,7 @@ from src.ai_player import TetrisBot
 from src.luigi_generator import generate_luigi_sprites
 from src.bonus_level import BonusLevel
 from src.scene_dark_world import Scene_DarkWorld
-# from src.slot_machine import SlotMachine # Removed in v26
+from src.slot_machine import SlotMachine
 
 # --- Game Configuration ---
 
