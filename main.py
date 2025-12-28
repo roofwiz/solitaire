@@ -1620,7 +1620,7 @@ class SoundManager:
         self.master_volume = 0.3
         self.manual_stop = False
         # Separate playlists for intro/lobby        # Intro Playlist
-        self.intro_playlist = []
+        self.intro_playlist = ['02. undergroundtheme.mp3']
         self.intro_track_index = 0
         self.intro_track = None
         self._current_track = ''
