@@ -392,11 +392,11 @@ asyncio.run( custom_site() )
 
 <body>
 
-    <div id="transfer" align=center hidden>
+    <div id="transfer" align=center>
         <!--        <div class="spinner" id='spinner'></div> -->
-        <div class="emscripten" id="status" hidden>Downloading...</div>
-        <div class="emscripten" hidden>
-            <progress value="0" max="100" id="progress" hidden></progress>
+        <div class="emscripten" id="status">Downloading...</div>
+        <div class="emscripten">
+            <progress value="0" max="100" id="progress"></progress>
         </div>
     </div>
     ...
@@ -455,7 +455,7 @@ asyncio.run( custom_site() )
         <label for="dlg_multifile">Select files</label>
     </div>
 
-    <div id="pyconsole" hidden>
+    <div id="pyconsole">
         <div id="terminal" tabIndex=1 align="left"></div>
     </div>
 
