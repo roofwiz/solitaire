@@ -455,7 +455,7 @@ asyncio.run( custom_site() )
         <label for="dlg_multifile">Select files</label>
     </div>
 
-    <div id="pyconsole" style="opacity: 0; position: absolute; z-index: -10; pointer-events: none;">
+    <div id="pyconsole">
         <div id="terminal" tabIndex=1 align="left"></div>
     </div>
 
@@ -466,7 +466,7 @@ asyncio.run( custom_site() )
             // make your customization here
             console.log(__FILE__, "custom_onload")
 
-            pyconsole.hidden = debug_hidden
+            // pyconsole.hidden = debug_hidden  <-- DON'T HIDE YET
             system.hidden = debug_hidden
             transfer.hidden = debug_hidden
             info.hidden = debug_hidden
@@ -481,6 +481,8 @@ asyncio.run( custom_site() )
         function custom_postrun() {
             // python main and no VFS filesystem yet.
             console.log(__FILE__, "custom_postrun")
+            // SAFE HIDE: Hide console now that Python is ready
+            document.getElementById('pyconsole').hidden = true;
         }
 
         function debug() {
