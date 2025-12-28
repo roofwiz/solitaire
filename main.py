@@ -2154,8 +2154,17 @@ class Tetris:
         self.offset_x = 0
         self.offset_y = 0
         
+        # STOP ALL MUSIC ON INIT (Clean Slate)
+        if hasattr(self, 'sound_manager'):
+            self.sound_manager.stop_music()
+
         self.reset_game()
         self.game_state = 'INTRO'
+        
+        # Start Intro Music EXPLICITLY
+        if hasattr(self, 'sound_manager'):
+             self.sound_manager.play_music_intro()
+             
         self.ui_bg = None
 
         self.update_scaling()
