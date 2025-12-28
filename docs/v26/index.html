@@ -255,14 +255,14 @@ asyncio.run( custom_site() )
         // this dict is available under PyConfig.config from __main__
 
         var config = {
-            xtermjs: "0",
+            xtermjs: "1",
             _sdl2: "canvas",
             user_canvas: 0,
             user_canvas_managed: 0,
             ume_block: 1,
             can_close: 0,
             archive: 0,
-            gui_debug: 0,
+            gui_debug: 3,
             cdn: "https://pygame-web.github.io/archives/0.9/",
             autorun: 0,
             PYBUILD: "3.12"
@@ -455,7 +455,7 @@ asyncio.run( custom_site() )
         <label for="dlg_multifile">Select files</label>
     </div>
 
-    <div id="pyconsole">
+    <div id="pyconsole" style="position: absolute; top: -10000px; left: -10000px; width: 800px; height: 600px;">
         <div id="terminal" tabIndex=1 align="left"></div>
     </div>
 
