@@ -1792,15 +1792,19 @@ class SoundManager:
     def stop_music(self):
         """Stop ALL music - both mixer.music and channels"""
         try: 
-            pygame.mixer.stop() # NUCLEAR OPTION: Stops all active channels (Sounds)
+            # TRIPLE STOP to prevent overlap (web audio bug workaround)
+            pygame.mixer.music.fadeout(100)  # Fade out over 100ms
             pygame.mixer.music.stop()
+            pygame.mixer.music.stop()  # Call twice for web
             pygame.mixer.music.unload()
+            pygame.mixer.stop() # NUCLEAR OPTION: Stops all active channels (Sounds)
         except: pass
         
         # Redundant safety
         if self.chan_neon: self.chan_neon.stop()
         if self.chan_shadow: self.chan_shadow.stop()
         self._current_track = ''
+        print("[SoundManager] Music stopped (aggressive)")
 
     def start_dual_mode(self):
         """Start gameplay music (uses standard music system, not channels)"""
@@ -3680,67 +3684,79 @@ class Tetris:
             if self.game_state == 'SLOT_MACHINE':
                 self.slot_machine.handle_input(event)
                 
-            if event.type == pygame.MOUSEBUTTONDOWN and self.game_state != 'SLOT_MACHINE':
-                if event.button == 1:
-                    ui_handled = False
-                    
-                    # Shared UI Handlers (check these FIRST)
-                    if hasattr(self, 'mute_btn_rect') and self.mute_btn_rect.collidepoint(event.pos):
-                        self.sound_manager.toggle_mute()
-                        ui_handled = True
-                    elif hasattr(self, 'song_btn_rect') and self.song_btn_rect.collidepoint(event.pos):
-                        self.sound_manager.next_song()
-                        ui_handled = True
-                    elif hasattr(self, 'settings_btn_rect') and self.settings_btn_rect.collidepoint(event.pos):
+            # Handle FINGERDOWN (true mobile touch) in addition to MOUSEBUTTONDOWN
+            if event.type in (pygame.MOUSEBUTTONDOWN, pygame.FINGERDOWN) and self.game_state != 'SLOT_MACHINE':
+                # Get position (FINGERDOWN uses normalized coords 0-1, need to scale)
+                if event.type == pygame.FINGERDOWN:
+                    touch_pos = (int(event.x * WINDOW_WIDTH), int(event.y * WINDOW_HEIGHT))
+                else:
+                    if event.button != 1: continue
+                    touch_pos = event.pos
+                
+                ui_handled = False
+                
+                # Shared UI Handlers (check these FIRST)
+                if hasattr(self, 'mute_btn_rect') and self.mute_btn_rect.collidepoint(touch_pos):
+                    self.sound_manager.toggle_mute()
+                    ui_handled = True
+                elif hasattr(self, 'song_btn_rect') and self.song_btn_rect.collidepoint(touch_pos):
+                    self.sound_manager.next_song()
+                    ui_handled = True
+                elif hasattr(self, 'settings_btn_rect') and self.settings_btn_rect.collidepoint(touch_pos):
+                    if sys.platform != 'emscripten':
+                        import subprocess
+                        subprocess.Popen([sys.executable, 'asset_editor.py'], cwd=os.path.dirname(os.path.abspath(__file__)))
+                    else:
+                        print("Asset Editor not available in web version")
+                    ui_handled = True
+                elif hasattr(self, 'vol_rect') and self.vol_rect.collidepoint(touch_pos):
+                    vol = (touch_pos[0] - self.vol_rect.left) / self.vol_rect.width
+                    self.sound_manager.set_volume(vol)
+                    ui_handled = True
+                
+                # Settings Button (Intro)
+                if self.game_state == 'INTRO' and hasattr(self, 'intro_scene'):
+                    action = self.intro_scene.handle_click(touch_pos)
+                    if action == 'settings':
                         if sys.platform != 'emscripten':
                             import subprocess
                             subprocess.Popen([sys.executable, 'asset_editor.py'], cwd=os.path.dirname(os.path.abspath(__file__)))
                         else:
                             print("Asset Editor not available in web version")
                         ui_handled = True
-                    elif hasattr(self, 'vol_rect') and self.vol_rect.collidepoint(event.pos):
-                        vol = (event.pos[0] - self.vol_rect.left) / self.vol_rect.width
-                        self.sound_manager.set_volume(vol)
+                    if action == 'mute':
+                        self.sound_manager.toggle_mute()
                         ui_handled = True
-                    
-                    # Settings Button (Intro)
-                    if self.game_state == 'INTRO' and hasattr(self, 'intro_scene'):
-                        action = self.intro_scene.handle_click(event.pos)
-                        if action == 'settings':
-                            if sys.platform != 'emscripten':
-                                import subprocess
-                                subprocess.Popen([sys.executable, 'asset_editor.py'], cwd=os.path.dirname(os.path.abspath(__file__)))
-                            else:
-                                print("Asset Editor not available in web version")
-                            ui_handled = True
-                        if action == 'mute':
-                            self.sound_manager.toggle_mute()
-                            ui_handled = True
-                    
-                    # Check Tetris Button (Main Game) - ULTRA AGGRESSIVE FOR MOBILE
-                    if self.game_state == 'INTRO':
-                        # Any tap below the UI bar starts the game (mobile fix)
-                        if event.pos[1] > 60:
-                            print("Starting Tetris Mode (Mobile Touch)...")
-                            self.reset_game()
-                            self.game_state = 'PLAYING'
-                            # self.sound_manager.start_dual_mode() # Removed to prevent double audio
-                            ui_handled = True
-                    
-                    # Mobile Controls (Zones + Swipes)
-                    if self.game_state == 'PLAYING' and not ui_handled:
-                        # self.gesture_controls.handle_touch_down(event.pos)
-                        self.touch_start = event.pos
+                
+                # Check Tetris Button (Main Game) - ULTRA AGGRESSIVE FOR MOBILE
+                if self.game_state == 'INTRO':
+                    # Any tap below the UI bar starts the game (mobile fix)
+                    if touch_pos[1] > 60:
+                        print(f"Starting Tetris Mode (Touch at {touch_pos})...")
+                        self.reset_game()
+                        self.game_state = 'PLAYING'
+                        ui_handled = True
+                
+                # Mobile Controls (Zones + Swipes)
+                if self.game_state == 'PLAYING' and not ui_handled:
+                    self.touch_start = touch_pos
             
-            if event.type == pygame.MOUSEBUTTONUP:
+            if event.type in (pygame.MOUSEBUTTONUP, pygame.FINGERUP):
                 self.key_down_held = False
+                
+                # Get position
+                if event.type == pygame.FINGERUP:
+                    touch_pos = (int(event.x * WINDOW_WIDTH), int(event.y * WINDOW_HEIGHT))
+                else:
+                    touch_pos = event.pos
+                
                 if self.game_state == 'INTRO' and hasattr(self, 'intro_scene'):
-                        self.intro_scene.handle_mouse_up(event.pos)
+                    self.intro_scene.handle_mouse_up(touch_pos)
                 
                 # Mobile Logic (Zones) - Direct Implementation
                 if self.game_state == 'PLAYING' and hasattr(self, 'touch_start') and self.touch_start:
                     start_pos = self.touch_start
-                    end_pos = event.pos
+                    end_pos = touch_pos
                     dx = end_pos[0] - start_pos[0]
                     dy = end_pos[1] - start_pos[1]
                     dist = (dx**2 + dy**2)**0.5
