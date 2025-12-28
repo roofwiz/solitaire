@@ -454,40 +454,47 @@ asyncio.run( custom_site() )
 
     <script type="application/javascript">
 
-        async function custom_o nl            g_hidden) {
-            // this is called be            thing python is loaded
-            // ma        our        customization here
-            ole.log(__FILE__, "custom_onload")
+        async function custom_onload(debug_hidden) {
+            // this is called before anything python is loaded
+            // make your customization here
+            console.log(__FILE__, "custom_onload")
 
-            console.hidden = debug_hidden
-            hidden = debug_hidden
-            er.hidden = debug_hidden
-            info.h idden                 en
-            box.hid den = debug_ hidden
-
+            pyconsole.hidden = debug_hidden
+            system.hidden = debug_hidden
+            transfer.hidden = debug_hidden
+            info.hidden = debug_hidden
+            box.hidden = debug_hidden
         }
 
-        function custom_prerun(                    // no python main and no (                                  console.lo                "c            erun")
-
-            }
-
-            function custom() {
-            // python main and no VFS filesystem                      console.log(__FILE__, "custom_postrun")
-
-                   prevent ff horizontal scrol                  window.addEvent("keydown", function (e) {
-                i            ce", "ArrowUp",         owD        , "ArrowLeft", "ArrowRight "]            (e.code) > -1) {
-            if (!python.ig.g)
-                        e            Default();
-        }
-            , fals);
-
+        function custom_prerun() {
+            // no python main and no (py)game loop yet.
+            console.log(__FILE__, "custom_prerun")
         }
 
-        debug() {
-            // allow to gai                dev tools from js                         // but only on                  di                to reach when in ifr                        python.config.deb                e
-            ustom_onload(false)
-            e.PyRun_SimpleString("shell.uptime()")
-            windze()
+        function custom_postrun() {
+            // python main and no VFS filesystem yet.
+            console.log(__FILE__, "custom_postrun")
+        }
+
+        function debug() {
+            // allow to gain access to dev tools from js console
+            // but only on desktop. difficult to reach when in iframe
+            python.config.debug = true
+            custom_onload(false)
+            Module.requestFullscreen(false, true)
+        }
+
+        window.onload = function () {
+            // prevent ff horizontal scroll
+            window.addEventListener("keydown", function (e) {
+                if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+                    if (!python.config.debug)
+                        e.preventDefault();
+                }
+            }, false);
+        };
+        e.PyRun_SimpleString("shell.uptime()")
+        windze()
         }
 
         function info_inline(data) {
