@@ -455,8 +455,7 @@ asyncio.run( custom_site() )
         <label for="dlg_multifile">Select files</label>
     </div>
 
-    <div id="pyconsole"
-        style="visibility: hidden; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+    <div id="pyconsole">
         <div id="terminal" tabIndex=1 align="left"></div>
     </div>
 
@@ -482,8 +481,11 @@ asyncio.run( custom_site() )
         function custom_postrun() {
             // python main and no VFS filesystem yet.
             console.log(__FILE__, "custom_postrun")
-            // SAFE HIDE: Hide console now that Python is ready
-            document.getElementById('pyconsole').hidden = true;
+            // SAFE HIDE: Hide console AFTER init sequence is guaranteed done
+            setTimeout(function () {
+                var pc = document.getElementById('pyconsole');
+                if (pc) pc.hidden = true;
+            }, 2000);
         }
 
         function debug() {
