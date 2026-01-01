@@ -6,7 +6,7 @@ build/
 build_clean/
 staging/
 backups/
-docs/
+# docs/ (Removed to allow GitHub Pages deployment from /docs)
 .venv/
 asset_browser.html
 *.apk
