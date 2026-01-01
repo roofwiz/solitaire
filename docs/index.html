@@ -1,39 +1,134 @@
 ﻿<!doctype html>
 <html lang="en-us">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Mario Tetris - Premium Edition</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <style>
-        body { margin: 0; background-color: #000; color: #FF1493; font-family: sans-serif; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; touch-action: none; overflow: hidden; }
-        canvas.emscripten { width: 100vw; height: 100vh; object-fit: contain; }
-        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #FF1493;
+            font-family: sans-serif;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            overflow: hidden;
+        }
+
+        canvas.emscripten {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+        }
+
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        #tap-to-start {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #fff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
     </style>
 </head>
-<body>
+
+<body id="body" onclick="onOverlayClick()">
     <div id="loading-overlay">
         <div style="font-size: 24px;">LOADING MARIO TETRIS...</div>
-        <div style="margin-top:20px; color:#555;">VER 1.1.3-CACHE-BUST</div>
+        <div id="tap-to-start">TAP TO START</div>
+        <div style="margin-top:20px; color:#555; font-size: 10px;">VER 1.13-STABLE</div>
     </div>
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="1"></canvas>
     <script async src="https://pygame-web.github.io/archives/0.9/pygbag.js"></script>
+    <script type="text/javascript">
+        var Module = {
+            preRun: [],
+            postRun: [],
+            print: (function () { return function (text) { console.log(text); }; })(),
+            canvas: (function () { return document.getElementById('canvas'); })(),
+            setStatus: function (text) {
+                if (text === "") {
+                    document.getElementById('tap-to-start').style.display = 'block';
+                }
+            }
+        };
+        function onOverlayClick() {
+            var overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+                setTimeout(function () { overlay.style.display = 'none'; }, 500);
+            }
+        }
+    </script>
     <script type="pygbag">
-        #--
-        import asyncio
-        import platform
-        from pathlib import Path
-        async def main_loader():
-            appdir = Path("/data/data/mario-tetris")
-            if not appdir.exists(): appdir.mkdir()
-            apk = "mario-tetris-v113.apk"
-            platform.window.MM.add_mount({"io":"url", "type":"mount", "mount":{"point":appdir.as_posix(), "path":apk}})
-            while not platform.window.MM.is_mounted(appdir.as_posix()): await asyncio.sleep(.1)
-            import sys; sys.path.append(appdir.as_posix()); import main
-            game = main.Tetris()
-            await game.run()
-        asyncio.run(main_loader())
-        #--
+#--
+import asyncio
+import platform
+from pathlib import Path
+import sys
+
+async def main_loader():
+    # Setup App Directory
+    appdir = Path("/data/data/mario-tetris")
+    if not appdir.exists(): appdir.mkdir()
+    
+    # APK filename
+    apk = "mario-tetris-v113.apk"
+    
+    # Mount the APK
+    print(f"Mounting {apk}...")
+    platform.window.MM.add_mount({"io":"url", "type":"mount", "mount":{"point":appdir.as_posix(), "path":apk}})
+    
+    # Wait for mount
+    while not platform.window.MM.is_mounted(appdir.as_posix()):
+        await asyncio.sleep(.1)
+    
+    print("Mounted! Starting game...")
+    sys.path.append(appdir.as_posix())
+    
+    # Clear any old imports
+    if 'main' in sys.modules: del sys.modules['main']
+    
+    import main
+    game = main.Tetris()
+    await game.run()
+
+asyncio.run(main_loader())
+#--
     </script>
 </body>
+
 </html>
