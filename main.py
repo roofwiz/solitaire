@@ -2395,8 +2395,9 @@ class MobileControls:
         self.das_triggered = False
         self.last_das_move = 0
         
-    def handle_touch_down(self, pos, game_time):
-        """Called when touch starts. Returns immediate action or None."""
+    def handle_touch_down(self, pos, game_time, is_already_normalized=False):
+        """Called when touch starts. pos is either pixels or 0..1 normalized.
+        We now use input for zone detection, assuming it represents screen pct if is_already_normalized."""
         self.touch_start = pos
         self.touch_start_time = game_time
         self.touch_current = pos
@@ -2404,12 +2405,16 @@ class MobileControls:
         self.das_timer = 0
         self.das_triggered = False
         
-        # Add touch ripple effect
-        self.touch_ripples.append((pos[0], pos[1], game_time, 'start'))
+        # Add touch ripple effect - map back to virtual pixels for drawing if normalized
+        v_px = pos[0] * 1280 if is_already_normalized else pos[0]
+        v_py = pos[1] * 800 if is_already_normalized else pos[1]
+        self.touch_ripples.append((v_px, v_py, game_time, 'start'))
         
-        # Determine which zone was touched for DAS
-        x_pct = pos[0] / self.screen_w
-        y_pct = pos[1] / self.screen_h
+        # Determine which zone was touched based on SCREEN percentage
+        x_pct, y_pct = pos
+        if not is_already_normalized:
+            x_pct /= self.screen_w
+            y_pct /= self.screen_h
         
         if y_pct > self.ZONE_BOTTOM:
             self.hold_zone = 'DOWN'
@@ -2421,21 +2426,34 @@ class MobileControls:
             self.hold_zone = 'CENTER'
             
         self.zone_highlight = (self.hold_zone, game_time)
-        
-        return None  # No immediate action on touch down
+        return None
     
-    def handle_touch_move(self, pos):
+    def handle_touch_move(self, pos, is_already_normalized=False):
         """Called during touch drag"""
-        self.touch_current = pos
+        px = pos[0] * 1280 if is_already_normalized else pos[0]
+        py = pos[1] * 800 if is_already_normalized else pos[1]
+        self.touch_current = (px, py)
         
-    def handle_touch_up(self, pos, game_time):
-        """Called when touch ends. Returns action based on gesture."""
+    def handle_touch_up(self, pos, game_time, is_already_normalized=False):
+        """Called when touch ends. pos is either pixels or 0..1 normalized."""
         if not self.touch_start:
             return None
             
-        # Calculate gesture metrics
-        dx = pos[0] - self.touch_start[0]
-        dy = pos[1] - self.touch_start[1]
+        # Screen percentage for zone detection
+        x_pct, y_pct = pos
+        if not is_already_normalized:
+            x_pct /= self.screen_w
+            y_pct /= self.screen_h
+
+        # Gesture metrics in screen-fraction space for consistency
+        # If input is pixels, convert to fraction of 1280x800 for threshold check
+        px_x = pos[0] if not is_already_normalized else pos[0] * 1280
+        px_y = pos[1] if not is_already_normalized else pos[1] * 800
+        start_px_x = self.touch_start[0] if not is_already_normalized else self.touch_start[0] * 1280
+        start_px_y = self.touch_start[1] if not is_already_normalized else self.touch_start[1] * 800
+        
+        dx = px_x - start_px_x
+        dy = px_y - start_px_y
         distance = (dx**2 + dy**2) ** 0.5
         time_elapsed = game_time - self.touch_start_time
         
@@ -2446,42 +2464,22 @@ class MobileControls:
             self.reset()
             return None
         
-        # SWIPE detection (takes priority over taps if distance is significant)
+        # SWIPE detection
         if distance >= self.SWIPE_THRESHOLD:
             if abs(dx) > abs(dy):
-                # Horizontal swipe
-                if dx > 0:
-                    action = 'MOVE_RIGHT'
-                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_right'))
-                else:
-                    action = 'MOVE_LEFT'
-                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_left'))
+                action = 'MOVE_RIGHT' if dx > 0 else 'MOVE_LEFT'
             else:
-                # Vertical swipe
-                if dy > 0:
-                    action = 'HARD_DROP'  # Swipe down = hard drop
-                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_down'))
-                else:
-                    action = 'ROTATE'  # Swipe up = rotate
-                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_up'))
+                action = 'HARD_DROP' if dy > 0 else 'ROTATE'
         
-        # TAP detection (quick touch with minimal movement)
+        # TAP detection
         elif time_elapsed < self.TAP_TIME_MAX:
-            x_pct = pos[0] / self.screen_w
-            y_pct = pos[1] / self.screen_h
+            if y_pct > self.ZONE_BOTTOM: action = 'SOFT_DROP'
+            elif x_pct < self.ZONE_LEFT: action = 'MOVE_LEFT'
+            elif x_pct > self.ZONE_RIGHT: action = 'MOVE_RIGHT'
+            else: action = 'ROTATE'
             
-            if y_pct > self.ZONE_BOTTOM:
-                action = 'SOFT_DROP'
-                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
-            elif x_pct < self.ZONE_LEFT:
-                action = 'MOVE_LEFT'
-                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
-            elif x_pct > self.ZONE_RIGHT:
-                action = 'MOVE_RIGHT'
-                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
-            else:
-                action = 'ROTATE'
-                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
+            # Show ripple at virtual coords
+            self.touch_ripples.append((px_x, px_y, game_time, 'tap'))
         
         self.reset()
         return action
@@ -2770,9 +2768,8 @@ class Tetris:
     def update_scaling(self):
         sw, sh = self.screen.get_size()
         self.is_portrait = sh > sw
-        self.is_mobile = sw < 800 or self.is_portrait
-        
-        # Calculate Letterbox Scaling
+        # Aggressive Mobile Detection: Screen < 1100 or Portrait or emscripten UA
+        self.is_mobile = sw < 1100 or self.is_portrait or sys.platform == 'emscripten'
         scale_w = sw / WINDOW_WIDTH
         scale_h = sh / WINDOW_HEIGHT
         self.scale = min(scale_w, scale_h)
@@ -3038,7 +3035,7 @@ class Tetris:
         if self.is_boss_level: return 
         
         # Determine pattern based on World + Level (Total Level Index)
-        total_level = (self.world - 1) * 4 + self.level_in_world
+        total_level = (self.world - 1) * 4 + (self.level_in_world - 1)
         
         # Colors
         c_brick_overworld = (180, 50, 20) # Reddish Brick
@@ -3604,7 +3601,6 @@ class Tetris:
         elif mode == 'CLEAR':
             # Mode 3: Mario jumps to center and clears 2 random lines
             if self.mario_helper_timer < 0.5:
-                # Jump to center
                 self.mario_helper_x = WINDOW_WIDTH // 2 - 30
             elif self.mario_helper_timer < 1.0:
                 # Clear lines at 0.5 seconds
@@ -5055,6 +5051,10 @@ class Tetris:
             self.action_hard_drop()
         elif action == 'SOFT_DROP':
             self.action_soft_drop()
+        
+        # Explicitly reset DAS components as a belt-and-suspenders measure
+        self.das_direction = 0
+        self.das_timer = 0
     
     def action_soft_drop(self):
         """Move piece down one row (soft drop)"""
@@ -5075,8 +5075,14 @@ class Tetris:
                 self.lock_timer = 0
                 self.lock_move_count += 1
                 
-        self.das_direction = dx
-        self.das_timer = 0
+        # ONLY trigger internal keyboard-style DAS if NOT using a touch device
+        if not getattr(self, 'is_touch_device', False):
+            self.das_direction = dx
+            self.das_timer = 0
+        else:
+            # In touch mode, we explicitly clear any pending internal DAS
+            self.das_direction = 0
+            self.das_timer = 0
 
     def action_rotate(self, direction=1):
         # SRS-lite Wall Kick logic
@@ -5090,7 +5096,7 @@ class Tetris:
                  self.lock_move_count += 1
              return
              
-        # 2. Try Wall Kicks (Right 1, Left 1, Up 1, Right 2, Left 2)
+        # 2. Try Wall Kicks (Right 1, Left 1, Up 1, 2, 2)
         kicks = [(1, 0), (-1, 0), (0, -1), (2, 0), (-2, 0)]
         for dx, dy in kicks:
             self.current_piece.x += dx
@@ -5370,8 +5376,15 @@ class Tetris:
                 
                 # Mobile Controls - Pass to new MobileControls system
                 if self.game_state == 'PLAYING' and not ui_handled:
+                    self.is_touch_device = True
                     if hasattr(self, 'gesture_controls'):
-                        self.gesture_controls.handle_touch_down(touch_pos, game_time)
+                        # Pass NORMALIZED coordinates (0..1) for consistent zone detection
+                        if event.type == pygame.FINGERDOWN:
+                            self.gesture_controls.handle_touch_down((event.x, event.y), game_time, is_already_normalized=True)
+                        else:
+                            sw, sh = self.screen.get_size()
+                            pct_pos = (event.pos[0] / sw, event.pos[1] / sh)
+                            self.gesture_controls.handle_touch_down(pct_pos, game_time, is_already_normalized=True)
                         
                         # Dismiss tutorial after first touch during gameplay
                         if getattr(self, 'show_gesture_tutorial', False):
@@ -5380,10 +5393,9 @@ class Tetris:
             
             # Handle touch/finger move for drag tracking
             if event.type == pygame.FINGERMOTION:
-                sw, sh = self.screen.get_size()
-                touch_pos = self.get_game_coords((int(event.x * sw), int(event.y * sh)))
+                self.is_touch_device = True
                 if hasattr(self, 'gesture_controls'):
-                    self.gesture_controls.handle_touch_move(touch_pos)
+                    self.gesture_controls.handle_touch_move((event.x, event.y), is_already_normalized=True)
             
             if event.type in (pygame.MOUSEBUTTONUP, pygame.FINGERUP):
                 self.key_down_held = False
@@ -5400,7 +5412,14 @@ class Tetris:
                 
                 # Mobile Controls - Get action from gesture
                 if self.game_state == 'PLAYING' and hasattr(self, 'gesture_controls'):
-                    action = self.gesture_controls.handle_touch_up(touch_pos, game_time)
+                    self.is_touch_device = True
+                    if event.type == pygame.FINGERUP:
+                        action = self.gesture_controls.handle_touch_up((event.x, event.y), game_time, is_already_normalized=True)
+                    else:
+                        sw, sh = self.screen.get_size()
+                        pct_pos = (event.pos[0] / sw, event.pos[1] / sh)
+                        action = self.gesture_controls.handle_touch_up(pct_pos, game_time, is_already_normalized=True)
+                    
                     if action:
                         self._process_mobile_action(action)
                     
