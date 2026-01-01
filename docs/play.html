@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mario Tetris v1.13-FIX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #status {
+            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f0;
+        }
+
+        progress {
+            width: 300px;
+            height: 25px;
+            border-radius: 12px;
+        }
+
+        #start-btn {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #transfer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .ver {
+            margin-top: 40px;
+            color: #ff0;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body onclick="onScreenClick()">
+    <div id="transfer">
+        <div style="color:red; font-size: 10px; margin-bottom: 20px;">[ CACHE-FLUSHED / RELOADED ]</div>
+        <div id="status">DOWNLOADING...</div>
+        <progress value="0" max="100" id="progress"></progress>
+        <button id="start-btn" onclick="onScreenClick()">[ START MARIO ]</button>
+        <div class="ver">v1.1.3 - THEME & ZOOM FIX</div>
+    </div>
+
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=1
+        style="width:100%; height:100%; position:absolute; top:0; left:0; z-index:1; pointer-events:none;"></canvas>
+
+    <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=250
+        data-CONSOLE=25 data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
+import sys
+import asyncio
+import platform
+import json
+from pathlib import Path
+
+print("SUPER-LOADER BOOTING")
+
+async def main():
+    apk = "mario-tetris-v113-FIX.apk"
+    bundle = "mario-tetris"
+    appdir = Path(f"/data/data/{bundle}")
+    if not appdir.exists(): appdir.mkdir()
+
+    cfg = {
+        "io": "url",
+        "type":"mount",
+        "mount" : { "point" : appdir.as_posix(), "path" : "/", },
+        "path" : f"/ => {appdir.as_posix()}",
+    }
+
+    track = platform.window.MM.prepare(apk, json.dumps(cfg))
+    
+    while not track.ready:
+        await asyncio.sleep(.1)
+    
+    # 3. Ready to click
+    btn = platform.window.document.getElementById("start-btn")
+    status = platform.window.document.getElementById("status")
+    prog = platform.window.document.getElementById("progress")
+    
+    status.innerHTML = "READY TO START!"
+    prog.style.display = "none"
+    btn.style.display = "block"
+    
+    # 4. Wait for physical click
+    while not platform.window.MM.UME:
+        await asyncio.sleep(.1)
+
+    # 5. Hide Loader UI
+    platform.window.document.getElementById("transfer").style.display = "none"
+    platform.window.canvas.style.pointerEvents = "auto"
+    
+    # 6. Launch
+    sys.path.append(appdir.as_posix())
+    import main
+    game = main.Tetris()
+    await game.run()
+
+asyncio.run(main())
+# --></script>
+
+    <script type="application/javascript">
+        config = {
+            xtermjs: "1",
+            _sdl2: "canvas",
+            user_canvas: 0,
+            ume_block: 1,
+            autorun: 1,
+            PYBUILD: "3.12"
+        }
+        function onScreenClick() {
+            console.log("BOOST: Unlocking Audio/Game");
+            if (window.MM) window.MM.UME = true;
+        }
+    </script>
+</body>
+
+</html>
