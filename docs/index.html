@@ -19,6 +19,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: none;
         }
 
         canvas.emscripten {
@@ -28,6 +29,7 @@
             height: 100vh;
             object-fit: contain;
             cursor: pointer;
+            touch-action: none;
         }
 
         #loading-overlay {
@@ -148,6 +150,8 @@
 
         function onOverlayClick() {
             console.log("Interaction detected");
+            // Force UME state for Pygbag
+            if (window.MM) window.MM.UME = true;
         }
     </script>
 </body>

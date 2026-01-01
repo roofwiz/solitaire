@@ -2297,7 +2297,8 @@ class SoundManager:
 
     def next_track(self):
         self.neon_track_index = (self.neon_track_index + 1) % len(self.neon_playlist)
-        self.play_music_gameplay()
+        if hasattr(self, 'game') and self.game.game_state not in ('INTRO', 'GAMEOVER'):
+            self.play_music_gameplay()
 
     def update(self, dt):
         """Lightweight maintenance: only handle volume and basic state sync"""
@@ -2750,7 +2751,7 @@ class Tetris:
         self.offset_y = 0
         
         self.reset_game()
-        self.game_state = 'INTRO'
+        self.game_state = 'INTRO' # Initial State
         
         # DEFER MUSIC START - Let the main loop handle it after full init
         # This prevents double-audio race conditions
@@ -3366,6 +3367,11 @@ class Tetris:
         elif action == 'HOLD':
             # Future: implement hold piece functionality
             pass
+            
+        # MOBILE FIX: Reset built-in DAS direction to prevent continuous movement 
+        # after a single tap. MobileControls (GestureControls) handles its own DAS.
+        self.das_direction = 0
+        self.das_timer = 0
     
     def draw_mobile_controls(self, surface):
         """Draw on-screen touch control hints for mobile players."""
@@ -4267,6 +4273,8 @@ class Tetris:
                 self.draw_intro()
             elif self.game_state == 'BONUS':
                 if self.bonus_level: self.bonus_level.draw(target)
+            elif self.game_state == 'DARK_WORLD':
+                if self.dark_world: self.dark_world.draw(target)
             elif self.game_state == 'COUNTDOWN':
                 self._draw_actual_game(target)
                 # Dark overlay
