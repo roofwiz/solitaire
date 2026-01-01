@@ -15,9 +15,6 @@ import asyncio
 import math
 import sys
 
-VERSION = "1.1.3-ZOOM-FIX"
-print(f"--- MARIO TETRIS {VERSION} LOADED ---")
-
 # Early Mixer Hint for Pygbag/Web
 try:
     if not pygame.mixer.get_init():
@@ -454,7 +451,6 @@ class Turtle:
         if self.enemy_type == 'cheepcheep': return Tetris.CHEEP_FRAMES
         if self.enemy_type == 'magic_mushroom':
             return [self.tetris.sprite_manager.get_sprite('items', 'mushroom_super', scale_factor=1.5)]
-        if self.enemy_type == 'lakitu': return [] # Lakitu handles its own animation/draw
         return Tetris.TURTLE_FRAMES
 
     def update_animation(self):
@@ -585,6 +581,8 @@ class Turtle:
                 self.y = GRID_HEIGHT - 1
                 self.vy = 0
                 self.state = 'landed'
+                print(f"[TURTLE DEBUG] Turtle landed on floor at {self.x},{self.y}")
+                # Ensure y is not causing fall out next frame
                 self.move_timer = 0
                 self.landed_timer = 0
                 return False
@@ -601,9 +599,9 @@ class Turtle:
                 self.y = landed_y - 1 
                 self.vy = 0
                 self.state = 'landed'
+                print(f"[TURTLE DEBUG] Turtle landed on block at {self.x},{self.y}")
                 self.move_timer = 0
                 self.landed_timer = 0
-                self.vx = self.direction * self.speed
                 return False
             
             # If we fall past the screen entirely
@@ -614,42 +612,42 @@ class Turtle:
         elif self.state == 'landed':
             self.landed_timer += delta_time
             if self.landed_timer > self.max_lifetime:
+                print(f"[TURTLE DEBUG] Turtle at {self.x},{self.y} falling out due to lifetime: {self.landed_timer:.1f} > {self.max_lifetime}")
                 self.state = 'falling_out'
                 return False
 
-            # Smooth horizontal movement in landed state
-            self.x += self.vx * delta_time
-            
-            # Bounce at edges or blocks
-            next_x = self.x + (0.5 if self.direction == 1 else -0.5)
-            block_in_front = False
-            if 0 <= int(next_x) < GRID_WIDTH:
-                if game_grid.grid[int(self.y)][int(next_x)] is not None:
-                    block_in_front = True
-            else:
-                block_in_front = True # Screen edge
+            self.move_timer += delta_time
+            if self.move_timer >= self.move_interval:
+                self.move_timer -= self.move_interval
+                next_x = int(self.x + self.direction)
                 
-            if block_in_front:
-                self.direction *= -1
-                self.vx = self.direction * self.speed
-                self.x = max(0, min(GRID_WIDTH - 1, self.x))
-            
-            # Check for holes (Red turtles are smart)
-            if self.enemy_type == 'red':
-                block_below_next = int(self.y) + 1
-                next_grid_x = int(self.x + self.direction * 0.6)
-                if 0 <= next_grid_x < GRID_WIDTH:
-                    has_ground = (block_below_next < GRID_HEIGHT and game_grid.grid[block_below_next][next_grid_x] is not None) or (block_below_next == GRID_HEIGHT)
-                    if not has_ground:
-                        self.direction *= -1
-                        self.vx = self.direction * self.speed
-            
-            # Fall off edges (Green/Spiny)
-            if self.enemy_type != 'red':
-                block_below = int(self.y) + 1
-                if block_below < GRID_HEIGHT and game_grid.grid[block_below][int(self.x + 0.5)] is None:
-                    self.state = 'active'
-                    self.vy = self.speed
+                if 0 <= next_x < GRID_WIDTH:
+                    # Logic to check walls and holes
+                    block_below_next = int(self.y) + 1
+                    block_in_front = 0 <= next_x < GRID_WIDTH and game_grid.grid[int(self.y)][next_x] is not None
+                    has_ground = (block_below_next < GRID_HEIGHT and game_grid.grid[block_below_next][next_x] is not None) or (block_below_next == GRID_HEIGHT)
+                    
+                    if self.enemy_type == 'red':
+                         # SMART TURN LOGIC
+                         if block_in_front or not has_ground: 
+                             if self.turns_at_edge < 3: # Turn around 3 times max
+                                 self.direction *= -1
+                                 self.turns_at_edge += 1
+                             else:
+                                 # Allowed to fall
+                                 self.x = next_x
+                                 self.state = 'active'
+                         else: 
+                             self.x = next_x
+                             self.state = 'landed'
+                    else: 
+                        # Green / Spiny fall off edges blindly
+                        if not has_ground and not block_in_front:
+                            self.state = 'active'; self.x = next_x
+                        elif block_in_front: self.direction *= -1
+                        else: self.x = next_x
+                else:
+                    self.direction *= -1 
         return False
 
     def draw(self, surface):
@@ -1663,8 +1661,9 @@ class BonusGame:
 
 class Lakitu(Turtle):
     def __init__(self, tetris_ref):
-        super().__init__(enemy_type='lakitu', tetris=tetris_ref)
+        super().__init__(tetris=tetris_ref)
         self.tetris = tetris_ref
+        self.enemy_type = 'lakitu'  # Make Lakitu identifiable
         self.y = 1
         self.x = -5
         self.speed = 3.0
@@ -1674,8 +1673,8 @@ class Lakitu(Turtle):
         self.hover_offset = 0
         
         # Load sprites - Make Lakitu bigger (was 2.0)
-        self.sprite_default = tetris_ref.sprite_manager.get_sprite('lakitu', 'default', scale_factor=2.5)
-        self.sprite_throw = tetris_ref.sprite_manager.get_sprite('lakitu', 'throw', scale_factor=2.5)
+        self.sprite_default = tetris_ref.sprite_manager.get_sprite('lakitu', 'default', scale_factor=3.5)
+        self.sprite_throw = tetris_ref.sprite_manager.get_sprite('lakitu', 'throw', scale_factor=3.5)
         self.is_throwing = False
         self.pending_spinies = []  # Queue to avoid modifying turtles during iteration
         
@@ -2246,7 +2245,10 @@ class SoundManager:
         ]
         for p in paths:
             if sys.platform == 'emscripten': p = p.replace('\\', '/')
-            if os.path.exists(p): return p
+            if os.path.exists(p):
+                # print(f"[SoundManager] Found {f} at {p}")
+                return p
+        print(f"[SoundManager] WARNING: Could not find {f}. Checked: {paths}")
         return f
 
     def play(self, name):
@@ -2260,12 +2262,10 @@ class SoundManager:
 
     def play_track(self, track_name, force=False):
         """
-        The GOLD STANDARD music play method.
-        Only reloads if the track is actually different.
+        Reverted to pygame.mixer.music for better Web/MP3 compatibility.
         """
-        if not self.music_channel: return
         if self.current_track_name == track_name and not force:
-            if self.music_channel.get_busy(): return
+            if pygame.mixer.music.get_busy(): return
 
         p = self._get_path(track_name)
         if not os.path.exists(p):
@@ -2274,25 +2274,26 @@ class SoundManager:
 
         print(f"[SoundManager] Switching Music -> {track_name}")
         try:
-            # Stop existing music immediately
-            self.music_channel.stop()
+            # STOP EVERYTHING to return to single source of truth
+            if self.music_channel: self.music_channel.stop()
+            pygame.mixer.music.stop()
+            pygame.mixer.music.unload() # Ensure valid flush
             
-            # Load as Sound object forWASMB/Web stability
-            new_sound = pygame.mixer.Sound(p)
-            new_sound.set_volume(0 if self.muted else self.master_volume)
+            pygame.mixer.music.load(p)
+            pygame.mixer.music.set_volume(0 if self.muted else self.master_volume)
+            pygame.mixer.music.play(-1)
             
-            # Start fresh on reserved channel
-            self.music_channel.play(new_sound, loops=-1, fade_ms=500)
             self.current_track_name = track_name
             self.manual_stop = False
         except Exception as e:
             print(f"[SoundManager] PlayTrack Error: {e}")
+            import traceback
+            traceback.print_exc()
 
     def stop_music(self):
         self.manual_stop = True
         self.current_track_name = None
-        if self.music_channel:
-            self.music_channel.stop()
+        pygame.mixer.music.stop()
         print("[SoundManager] Music Stopped.")
 
     def play_music_gameplay(self):
@@ -2302,17 +2303,16 @@ class SoundManager:
 
     def next_track(self):
         self.neon_track_index = (self.neon_track_index + 1) % len(self.neon_playlist)
-        if hasattr(self, 'game') and self.game.game_state not in ('INTRO', 'GAMEOVER'):
-            self.play_music_gameplay()
+        self.play_music_gameplay()
 
     def update(self, dt):
         """Lightweight maintenance: only handle volume and basic state sync"""
         if self.muted:
-            if self.music_channel and self.music_channel.get_volume() > 0:
-                self.music_channel.set_volume(0)
+            if pygame.mixer.music.get_volume() > 0:
+                pygame.mixer.music.set_volume(0)
         else:
-            if self.music_channel and self.music_channel.get_volume() != self.master_volume:
-                self.music_channel.set_volume(self.master_volume)
+            if abs(pygame.mixer.music.get_volume() - self.master_volume) > 0.01:
+                pygame.mixer.music.set_volume(self.master_volume)
 
     def toggle_mute(self):
         self.muted = not self.muted
@@ -2366,21 +2366,18 @@ class MobileControls:
     """Enhanced mobile touch controls with DAS, zones, and visual feedback"""
     
     # Zone layout (percentages of screen width)
-    ZONE_LEFT = 0.35       # Left 35% = move left
-    ZONE_RIGHT = 0.65      # Right 35% = move right  
-    ZONE_CENTER = (0.35, 0.65)  # Middle 30% = rotate
-    ZONE_BOTTOM = 0.80     # Bottom 20% = soft drop area
+    ZONE_LEFT = 0.30       # Left 30% = move left
+    ZONE_RIGHT = 0.70      # Right 30% = move right  
+    ZONE_CENTER = (0.30, 0.70)  # Middle 40% = rotate
+    ZONE_BOTTOM = 0.85     # Bottom 15% = soft drop area
     
     # DAS (Delayed Auto Shift) settings
-    DAS_DELAY = 0.45       # Even longer delay for mobile touch stability
-    DAS_REPEAT = 0.20      # Slower repeat for touch stability
+    DAS_DELAY = 0.18       # Initial delay before auto-repeat (seconds)
+    DAS_REPEAT = 0.05      # Speed of auto-repeat (seconds)
     
     # Swipe settings
-    SWIPE_THRESHOLD = 30   # More sensitive swipes
-    TAP_TIME_MAX = 0.20    # Stricter tap timing to avoid accidental DAS
-    
-    # Internal safety
-    MAX_HOLD_TIME = 2.5    # Safety timeout to prevent drift (seconds)
+    SWIPE_THRESHOLD = 40   # Minimum pixels for swipe detection
+    TAP_TIME_MAX = 0.25    # Maximum time for tap (seconds)
     
     def __init__(self, screen_dimensions):
         self.screen_w, self.screen_h = screen_dimensions
@@ -2401,9 +2398,8 @@ class MobileControls:
         self.das_triggered = False
         self.last_das_move = 0
         
-    def handle_touch_down(self, pos, game_time, is_already_normalized=False):
-        """Called when touch starts. pos is either pixels or 0..1 normalized.
-        We now use input for zone detection, assuming it represents screen pct if is_already_normalized."""
+    def handle_touch_down(self, pos, game_time):
+        """Called when touch starts. Returns immediate action or None."""
         self.touch_start = pos
         self.touch_start_time = game_time
         self.touch_current = pos
@@ -2411,16 +2407,12 @@ class MobileControls:
         self.das_timer = 0
         self.das_triggered = False
         
-        # Add touch ripple effect - map back to virtual pixels for drawing if normalized
-        v_px = pos[0] * 1280 if is_already_normalized else pos[0]
-        v_py = pos[1] * 800 if is_already_normalized else pos[1]
-        self.touch_ripples.append((v_px, v_py, game_time, 'start'))
+        # Add touch ripple effect
+        self.touch_ripples.append((pos[0], pos[1], game_time, 'start'))
         
-        # Determine which zone was touched based on SCREEN percentage
-        x_pct, y_pct = pos
-        if not is_already_normalized:
-            x_pct /= self.screen_w
-            y_pct /= self.screen_h
+        # Determine which zone was touched for DAS
+        x_pct = pos[0] / self.screen_w
+        y_pct = pos[1] / self.screen_h
         
         if y_pct > self.ZONE_BOTTOM:
             self.hold_zone = 'DOWN'
@@ -2432,34 +2424,21 @@ class MobileControls:
             self.hold_zone = 'CENTER'
             
         self.zone_highlight = (self.hold_zone, game_time)
-        return None
-    
-    def handle_touch_move(self, pos, is_already_normalized=False):
-        """Called during touch drag"""
-        px = pos[0] * 1280 if is_already_normalized else pos[0]
-        py = pos[1] * 800 if is_already_normalized else pos[1]
-        self.touch_current = (px, py)
         
-    def handle_touch_up(self, pos, game_time, is_already_normalized=False):
-        """Called when touch ends. pos is either pixels or 0..1 normalized."""
+        return None  # No immediate action on touch down
+    
+    def handle_touch_move(self, pos):
+        """Called during touch drag"""
+        self.touch_current = pos
+        
+    def handle_touch_up(self, pos, game_time):
+        """Called when touch ends. Returns action based on gesture."""
         if not self.touch_start:
             return None
             
-        # Screen percentage for zone detection
-        x_pct, y_pct = pos
-        if not is_already_normalized:
-            x_pct /= self.screen_w
-            y_pct /= self.screen_h
-
-        # Gesture metrics in screen-fraction space for consistency
-        # If input is pixels, convert to fraction of 1280x800 for threshold check
-        px_x = pos[0] if not is_already_normalized else pos[0] * 1280
-        px_y = pos[1] if not is_already_normalized else pos[1] * 800
-        start_px_x = self.touch_start[0] if not is_already_normalized else self.touch_start[0] * 1280
-        start_px_y = self.touch_start[1] if not is_already_normalized else self.touch_start[1] * 800
-        
-        dx = px_x - start_px_x
-        dy = px_y - start_px_y
+        # Calculate gesture metrics
+        dx = pos[0] - self.touch_start[0]
+        dy = pos[1] - self.touch_start[1]
         distance = (dx**2 + dy**2) ** 0.5
         time_elapsed = game_time - self.touch_start_time
         
@@ -2470,22 +2449,42 @@ class MobileControls:
             self.reset()
             return None
         
-        # SWIPE detection
+        # SWIPE detection (takes priority over taps if distance is significant)
         if distance >= self.SWIPE_THRESHOLD:
             if abs(dx) > abs(dy):
-                action = 'MOVE_RIGHT' if dx > 0 else 'MOVE_LEFT'
+                # Horizontal swipe
+                if dx > 0:
+                    action = 'MOVE_RIGHT'
+                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_right'))
+                else:
+                    action = 'MOVE_LEFT'
+                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_left'))
             else:
-                action = 'HARD_DROP' if dy > 0 else 'ROTATE'
+                # Vertical swipe
+                if dy > 0:
+                    action = 'HARD_DROP'  # Swipe down = hard drop
+                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_down'))
+                else:
+                    action = 'ROTATE'  # Swipe up = rotate
+                    self.touch_ripples.append((pos[0], pos[1], game_time, 'swipe_up'))
         
-        # TAP detection
+        # TAP detection (quick touch with minimal movement)
         elif time_elapsed < self.TAP_TIME_MAX:
-            if y_pct > self.ZONE_BOTTOM: action = 'SOFT_DROP'
-            elif x_pct < self.ZONE_LEFT: action = 'MOVE_LEFT'
-            elif x_pct > self.ZONE_RIGHT: action = 'MOVE_RIGHT'
-            else: action = 'ROTATE'
+            x_pct = pos[0] / self.screen_w
+            y_pct = pos[1] / self.screen_h
             
-            # Show ripple at virtual coords
-            self.touch_ripples.append((px_x, px_y, game_time, 'tap'))
+            if y_pct > self.ZONE_BOTTOM:
+                action = 'SOFT_DROP'
+                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
+            elif x_pct < self.ZONE_LEFT:
+                action = 'MOVE_LEFT'
+                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
+            elif x_pct > self.ZONE_RIGHT:
+                action = 'MOVE_RIGHT'
+                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
+            else:
+                action = 'ROTATE'
+                self.touch_ripples.append((pos[0], pos[1], game_time, 'tap'))
         
         self.reset()
         return action
@@ -2497,25 +2496,26 @@ class MobileControls:
         if self.is_holding and self.hold_zone in ('LEFT', 'RIGHT', 'DOWN'):
             self.das_timer += dt
             
-            # Safety Timeout: If held for too long without motion, something is wrong
-            if self.das_timer > self.MAX_HOLD_TIME:
-                self.reset()
-                return None
-                
             # Initial DAS delay
             if not self.das_triggered and self.das_timer >= self.DAS_DELAY:
                 self.das_triggered = True
                 self.last_das_move = game_time
-                if self.hold_zone == 'LEFT': action = 'MOVE_LEFT'
-                elif self.hold_zone == 'RIGHT': action = 'MOVE_RIGHT'
-                elif self.hold_zone == 'DOWN': action = 'SOFT_DROP'
+                if self.hold_zone == 'LEFT':
+                    action = 'MOVE_LEFT'
+                elif self.hold_zone == 'RIGHT':
+                    action = 'MOVE_RIGHT'
+                elif self.hold_zone == 'DOWN':
+                    action = 'SOFT_DROP'
             
             # DAS repeat
             elif self.das_triggered and (game_time - self.last_das_move) >= self.DAS_REPEAT:
                 self.last_das_move = game_time
-                if self.hold_zone == 'LEFT': action = 'MOVE_LEFT'
-                elif self.hold_zone == 'RIGHT': action = 'MOVE_RIGHT'
-                elif self.hold_zone == 'DOWN': action = 'SOFT_DROP'
+                if self.hold_zone == 'LEFT':
+                    action = 'MOVE_LEFT'
+                elif self.hold_zone == 'RIGHT':
+                    action = 'MOVE_RIGHT'
+                elif self.hold_zone == 'DOWN':
+                    action = 'SOFT_DROP'
         
         # Clean up old ripples (older than 0.5 seconds)
         self.touch_ripples = [(x, y, t, typ) for x, y, t, typ in self.touch_ripples 
@@ -2730,8 +2730,7 @@ class Tetris:
         # self.bonus_game = BonusGame(self) # Removed old bonus game
         
         # Modern Gesture Controls
-        self.gesture_controls = MobileControls((WINDOW_WIDTH, WINDOW_HEIGHT))
-        self.mobile_view_active = False # Will be set by update_scaling
+        self.gesture_controls = GestureControls((WINDOW_WIDTH, WINDOW_HEIGHT))
         self.show_gesture_tutorial = False  # Starts OFF - only enabled on first touch input
         self.show_mobile_hints = False  # Starts OFF - only enabled on first touch input
         self.is_touch_device = False  # Will be set to True when first touch detected
@@ -2757,7 +2756,7 @@ class Tetris:
         self.offset_y = 0
         
         self.reset_game()
-        self.game_state = 'INTRO' # Initial State
+        self.game_state = 'INTRO'
         
         # DEFER MUSIC START - Let the main loop handle it after full init
         # This prevents double-audio race conditions
@@ -2774,10 +2773,9 @@ class Tetris:
     def update_scaling(self):
         sw, sh = self.screen.get_size()
         self.is_portrait = sh > sw
-        # Aggressive Mobile Detection: Screen < 1200 or Portrait or emscripten
-        self.is_mobile = sw < 1200 or self.is_portrait or sys.platform == 'emscripten'
+        self.is_mobile = sw < 800 or self.is_portrait
         
-        if self.is_portrait or self.is_mobile: self.mobile_view_active = True
+        # Calculate Letterbox Scaling
         scale_w = sw / WINDOW_WIDTH
         scale_h = sh / WINDOW_HEIGHT
         self.scale = min(scale_w, scale_h)
@@ -2785,42 +2783,12 @@ class Tetris:
         self.offset_y = (sh - (WINDOW_HEIGHT * self.scale)) // 2
         
     def get_game_coords(self, pos):
-        """Convert screen pixels to virtual game pixels, accounting for mobile zoom."""
-        sw, sh = self.screen.get_size()
-        
-        if getattr(self, 'mobile_view_active', False):
-            # Zoom area (source virtual coords): (475, 40, 330, 680)
-            zoom_x, zoom_y, zoom_w, zoom_h = 475, 40, 330, 680
-            
-            # scaling of the zoomed area on screen
-            sw, sh = self.screen.get_size()
-            if sh > sw:
-                scale_zoom = sw / zoom_w
-            else:
-                scale_zoom = sh / zoom_h
-                
-            fx = (sw - zoom_w * scale_zoom) // 2
-            fy = (sh - zoom_h * scale_zoom) // 2
-            
-            # Reverse map from screen to virtual crop
-            cx = (pos[0] - fx) / scale_zoom
-            cy = (pos[1] - fy) / scale_zoom
-            
-            # Map from crop to virtual surface
-            gx = zoom_x + cx
-            gy = zoom_y + cy
-            return (gx, gy)
-        
-        # Standard Letterbox View
+        """Convert screen pixels to virtual game pixels (1280x720)"""
         gx = (pos[0] - self.offset_x) / self.scale
         gy = (pos[1] - self.offset_y) / self.scale
         return (gx, gy)
 
     def reset_game(self):
-        # Critical: Initialize Grid first to prevent crashes
-        if not hasattr(self, 'grid') or self.grid is None:
-            self.grid = Grid(self.sprite_manager)
-            
         # Basic Stats (Init first to prevent draw crashes)
         self.auto_play = False 
         self.ai_bot = TetrisBot(self) # Initialize Bot
@@ -2903,7 +2871,9 @@ class Tetris:
         self.star_active = False
         self.star_timer = 0
         self.damage_flash_timer = 0
-        # Shared Grid - Handled at top of reset_game now
+        # Shared Grid
+        self.grid = Grid(self.sprite_manager)
+        
         self.fall_timer = 0
         self.is_losing_life = False
         self.world_clear_timer = 0
@@ -2928,7 +2898,7 @@ class Tetris:
         self.mario_helper_cooldown = 60.0  # Can trigger every 60 seconds
         self.lines_since_helper = 0  # Track lines cleared since last helper
 
-        self.reset_level() # Critical: Setup first level theme/bricks
+        self.reset_level()
 
     def reset_level(self):
         # Clear Grid for new level
@@ -3049,7 +3019,7 @@ class Tetris:
         if self.is_boss_level: return 
         
         # Determine pattern based on World + Level (Total Level Index)
-        total_level = (self.world - 1) * 4 + (self.level_in_world - 1)
+        total_level = (self.world - 1) * 4 + self.level_in_world
         
         # Colors
         c_brick_overworld = (180, 50, 20) # Reddish Brick
@@ -3068,14 +3038,10 @@ class Tetris:
         
         def place(x, y, c, t='brick'):
             if 0 <= x < GRID_WIDTH and 0 <= y < GRID_HEIGHT:
-                block = Block(c, t)
-                # POPULATE BOTH GRIDS to ensure they appear in all world themes
-                self.grid.grid_neon[y][x] = block
-                self.grid.grid_shadow[y][x] = block
-                self.grid.grid = self.grid.grid_neon # Keep pointer synced
+                self.grid.grid[y][x] = Block(c, t)
 
-        # 8 Distinct Patterns Rotated (Pattern 0 is now 8)
-        pattern_type = (total_level % 8) + 1 
+        # 8 Distinct Patterns Rotated
+        pattern_type = total_level % 8 
         
         if pattern_type == 1:
             # 1. MUSHROOM PLATFORMS (1-1 Style)
@@ -3167,7 +3133,7 @@ class Tetris:
                      
              random.setstate(state)
         
-        else: # 8 (was 0)
+        else: # 0
              # 8. THE CAGE (Open Top)
              # U-shape
              for x in range(2, GRID_WIDTH-2):
@@ -3384,11 +3350,6 @@ class Tetris:
         elif action == 'HOLD':
             # Future: implement hold piece functionality
             pass
-            
-        # MOBILE FIX: Reset built-in DAS direction to prevent continuous movement 
-        # after a single tap. MobileControls (GestureControls) handles its own DAS.
-        self.das_direction = 0
-        self.das_timer = 0
     
     def draw_mobile_controls(self, surface):
         """Draw on-screen touch control hints for mobile players."""
@@ -3615,6 +3576,7 @@ class Tetris:
         elif mode == 'CLEAR':
             # Mode 3: Mario jumps to center and clears 2 random lines
             if self.mario_helper_timer < 0.5:
+                # Jump to center
                 self.mario_helper_x = WINDOW_WIDTH // 2 - 30
             elif self.mario_helper_timer < 1.0:
                 # Clear lines at 0.5 seconds
@@ -4106,11 +4068,6 @@ class Tetris:
                                             if t in self.turtles: self.turtles.remove(t)
                                         else:
                                             self.turtles_stomped += 1
-                                            self.frame_stomps += 1
-                                        stomped = True
-                                        break
-                            if stomped:
-                                continue
                 
                 self.current_piece.y += g_dir
                 on_floor = self.grid.check_collision(self.current_piece)
@@ -4169,7 +4126,7 @@ class Tetris:
 
             for t in self.turtles[:]:
                 try:
-                    # Skip Lakitu - it has its own draw method called separately
+                    # Skip Lakitu - it's updated separately above
                     if hasattr(t, 'enemy_type') and t.enemy_type == 'lakitu':
                         continue
                     
@@ -4294,8 +4251,6 @@ class Tetris:
                 self.draw_intro()
             elif self.game_state == 'BONUS':
                 if self.bonus_level: self.bonus_level.draw(target)
-            elif self.game_state == 'DARK_WORLD':
-                if self.dark_world: self.dark_world.draw(target)
             elif self.game_state == 'COUNTDOWN':
                 self._draw_actual_game(target)
                 # Dark overlay
@@ -4335,38 +4290,10 @@ class Tetris:
             
             # FINAL SCALING BLIT TO PHYSICAL SCREEN
             self.screen.fill((0, 0, 0)) # Clean margins
-            
-            # MOBILE ZOOM: If on a narrow/mobile screen, zoom in on the Tetris area
-            if getattr(self, 'mobile_view_active', False):
-                # FULL VIEW ZOOM: Focus strictly on the playfield
-                # The board is 320x640, centered at 480, 80.
-                zoom_x, zoom_y, zoom_w, zoom_h = 475, 40, 330, 680
-                
-                # Crop the surface
-                cropped_surf = self.game_surface.subsurface((zoom_x, zoom_y, zoom_w, zoom_h))
-                
-                sw, sh = self.screen.get_size()
-                # SCALE TO FILL SCREEN WIDTH AGGRESSIVELY on mobile portrait
-                if sh > sw:
-                    scale_zoom = sw / zoom_w
-                else:
-                    scale_zoom = sh / zoom_h # Landscape, fill height
-                
-                final_w = int(zoom_w * scale_zoom)
-                final_h = int(zoom_h * scale_zoom)
-                
-                final_surf = pygame.transform.scale(cropped_surf, (final_w, final_h))
-                
-                # Blit to center of physical screen
-                fx = (sw - final_w) // 2
-                fy = (sh - final_h) // 2
-                self.screen.blit(final_surf, (fx, fy))
-            else:
-                # Standard Letterbox View
-                scaled_surf = pygame.transform.scale(self.game_surface, 
-                                                   (int(WINDOW_WIDTH * self.scale), 
-                                                    int(WINDOW_HEIGHT * self.scale)))
-                self.screen.blit(scaled_surf, (self.offset_x, self.offset_y))
+            scaled_surf = pygame.transform.scale(self.game_surface, 
+                                               (int(WINDOW_WIDTH * self.scale), 
+                                                int(WINDOW_HEIGHT * self.scale)))
+            self.screen.blit(scaled_surf, (self.offset_x, self.offset_y))
             
             pygame.display.flip()
         except Exception as e:
@@ -4475,26 +4402,8 @@ class Tetris:
              lbl = self.font_small.render("TIME", True, C_WHITE)
              target.blit(lbl, lbl.get_rect(center=(timer_rect.centerx, timer_rect.top - 8)))
 
-        # ZOOM Toggle (Magnifying Glass)
-        self.zoom_btn_rect = pygame.Rect(ui_x + 420, ui_y + 5, 40, 40)
-        pygame.draw.rect(target, (0, 180, 0) if self.mobile_view_active else (60, 60, 80), self.zoom_btn_rect, border_radius=8)
-        zx, zy = self.zoom_btn_rect.center
-        pygame.draw.circle(target, C_WHITE, (zx-3, zy-3), 8, 2)
-        pygame.draw.line(target, C_WHITE, (zx+2, zy+2), (zx+10, zy+10), 3)
-
-        # Fullscreen (Expand)
-        self.fs_btn_rect = pygame.Rect(ui_x + 470, ui_y + 5, 40, 40)
-        pygame.draw.rect(target, (60, 60, 80), self.fs_btn_rect, border_radius=8)
-        fx_c, fy_c = self.fs_btn_rect.center
-        pygame.draw.rect(target, C_WHITE, (fx_c-10, fy_c-10, 20, 20), 2)
-        
-        # GEAR (Settings) moved further right or replaced by ZOOM if needed, but let's just shift it.
-        self.settings_btn_rect = pygame.Rect(ui_x + 520, ui_y + 5, 40, 40)
-        # Increase UI background size to fit new buttons
-        if self.ui_bg.get_width() < 580:
-            self.ui_bg = pygame.Surface((580, 50), pygame.SRCALPHA)
-            pygame.draw.rect(self.ui_bg, (0, 0, 0, 160), (0, 0, 580, 50), border_radius=12)
-
+        # Settings (Gear)
+        self.settings_btn_rect = pygame.Rect(ui_x + 420, ui_y + 5, 40, 40)
         pygame.draw.rect(target, (60, 60, 80), self.settings_btn_rect, border_radius=8)
         gx, gy = self.settings_btn_rect.center
         for angle in range(0, 360, 45):
@@ -5091,10 +5000,6 @@ class Tetris:
             self.action_hard_drop()
         elif action == 'SOFT_DROP':
             self.action_soft_drop()
-        
-        # Explicitly reset DAS components as a belt-and-suspenders measure
-        self.das_direction = 0
-        self.das_timer = 0
     
     def action_soft_drop(self):
         """Move piece down one row (soft drop)"""
@@ -5115,14 +5020,8 @@ class Tetris:
                 self.lock_timer = 0
                 self.lock_move_count += 1
                 
-        # ONLY trigger internal keyboard-style DAS if NOT using a touch device
-        if not getattr(self, 'is_touch_device', False):
-            self.das_direction = dx
-            self.das_timer = 0
-        else:
-            # In touch mode, we explicitly clear any pending internal DAS
-            self.das_direction = 0
-            self.das_timer = 0
+        self.das_direction = dx
+        self.das_timer = 0
 
     def action_rotate(self, direction=1):
         # SRS-lite Wall Kick logic
@@ -5136,7 +5035,7 @@ class Tetris:
                  self.lock_move_count += 1
              return
              
-        # 2. Try Wall Kicks (Right 1, Left 1, Up 1, 2, 2)
+        # 2. Try Wall Kicks (Right 1, Left 1, Up 1, Right 2, Left 2)
         kicks = [(1, 0), (-1, 0), (0, -1), (2, 0), (-2, 0)]
         for dx, dy in kicks:
             self.current_piece.x += dx
@@ -5345,10 +5244,11 @@ class Tetris:
                 # SATISFY BROWSER INTERACTION REQUIREMENT
                 if not getattr(self, '_interaction_triggered', False):
                     self._interaction_triggered = True
-                    if self.game_state == 'INTRO':
-                        self.sound_manager.play_music_intro()
-                        print("[Audio] First interaction: Starting Intro Music")
-                    else:
+                    # DISABLE AUTO-MUSIC ON FIRST CLICK to prevent race condition with "Start Game"
+                    # if self.game_state == 'INTRO':
+                    #    self.sound_manager.play_music_intro()
+                    #    print("[Audio] First interaction: Starting Intro Music")
+                    if self.game_state != 'INTRO':
                         self.sound_manager.play_music_gameplay()
                         print("[Audio] First interaction: Starting Gameplay Music")
 
@@ -5390,14 +5290,6 @@ class Tetris:
                     vol = (touch_pos[0] - self.vol_rect.left) / self.vol_rect.width
                     self.sound_manager.set_volume(vol)
                     ui_handled = True
-                elif hasattr(self, 'zoom_btn_rect') and self.zoom_btn_rect.collidepoint(touch_pos):
-                    self.mobile_view_active = not self.mobile_view_active
-                    print(f"[UI] Mobile View Toggled: {self.mobile_view_active}")
-                    ui_handled = True
-                elif hasattr(self, 'fs_btn_rect') and self.fs_btn_rect.collidepoint(touch_pos):
-                    self.fullscreen = not self.fullscreen
-                    pygame.display.toggle_fullscreen()
-                    ui_handled = True
                 
                 # Settings Button (Intro)
                 if self.game_state == 'INTRO' and hasattr(self, 'intro_scene'):
@@ -5420,19 +5312,14 @@ class Tetris:
                         print(f"Starting Tetris Mode (Touch at {touch_pos})...")
                         self.reset_game()
                         self.game_state = 'PLAYING'
+                        if hasattr(self, 'sound_manager'):
+                            self.sound_manager.play_music_gameplay()
                         ui_handled = True
                 
                 # Mobile Controls - Pass to new MobileControls system
                 if self.game_state == 'PLAYING' and not ui_handled:
-                    self.is_touch_device = True
                     if hasattr(self, 'gesture_controls'):
-                        # Pass NORMALIZED coordinates (0..1) for consistent zone detection
-                        if event.type == pygame.FINGERDOWN:
-                            self.gesture_controls.handle_touch_down((event.x, event.y), game_time, is_already_normalized=True)
-                        else:
-                            sw, sh = self.screen.get_size()
-                            pct_pos = (event.pos[0] / sw, event.pos[1] / sh)
-                            self.gesture_controls.handle_touch_down(pct_pos, game_time, is_already_normalized=True)
+                        self.gesture_controls.handle_touch_down(touch_pos, game_time)
                         
                         # Dismiss tutorial after first touch during gameplay
                         if getattr(self, 'show_gesture_tutorial', False):
@@ -5441,9 +5328,10 @@ class Tetris:
             
             # Handle touch/finger move for drag tracking
             if event.type == pygame.FINGERMOTION:
-                self.is_touch_device = True
+                sw, sh = self.screen.get_size()
+                touch_pos = self.get_game_coords((int(event.x * sw), int(event.y * sh)))
                 if hasattr(self, 'gesture_controls'):
-                    self.gesture_controls.handle_touch_move((event.x, event.y), is_already_normalized=True)
+                    self.gesture_controls.handle_touch_move(touch_pos)
             
             if event.type in (pygame.MOUSEBUTTONUP, pygame.FINGERUP):
                 self.key_down_held = False
@@ -5460,14 +5348,7 @@ class Tetris:
                 
                 # Mobile Controls - Get action from gesture
                 if self.game_state == 'PLAYING' and hasattr(self, 'gesture_controls'):
-                    self.is_touch_device = True
-                    if event.type == pygame.FINGERUP:
-                        action = self.gesture_controls.handle_touch_up((event.x, event.y), game_time, is_already_normalized=True)
-                    else:
-                        sw, sh = self.screen.get_size()
-                        pct_pos = (event.pos[0] / sw, event.pos[1] / sh)
-                        action = self.gesture_controls.handle_touch_up(pct_pos, game_time, is_already_normalized=True)
-                    
+                    action = self.gesture_controls.handle_touch_up(touch_pos, game_time)
                     if action:
                         self._process_mobile_action(action)
                     

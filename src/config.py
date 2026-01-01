@@ -45,11 +45,11 @@ WORLD_THEMES = {
 
 # --- Tetromino Definitions with Sprite Mapping ---
 TETROMINO_DATA = {
-    'I': {'shape': [[0,0,0,0], [1,1,1,1], [0,0,0,0], [0,0,0,0]], 'color': (0, 240, 240)},
-    'J': {'shape': [[1,0,0], [1,1,1], [0,0,0]], 'color': (0, 0, 240)},
-    'L': {'shape': [[0,0,1], [1,1,1], [0,0,0]], 'color': (240, 160, 0)},
-    'O': {'shape': [[1,1], [1,1]], 'color': (240, 240, 0)},
-    'S': {'shape': [[0,1,1], [1,1,0], [0,0,0]], 'color': (0, 240, 0)},
-    'T': {'shape': [[0,1,0], [1,1,1], [0,0,0]], 'color': (160, 0, 240)},
-    'Z': {'shape': [[1,1,0], [0,1,1], [0,0,0]], 'color': (240, 0, 0)}
+    'I': {'shape': [[0,0,0,0], [1,1,1,1], [0,0,0,0], [0,0,0,0]], 'color': (0, 240, 240), 'sprite': 'brick', 'category': 'blocks'},
+    'J': {'shape': [[1,0,0], [1,1,1], [0,0,0]], 'color': (0, 0, 240), 'sprite': 'star_1', 'category': 'items'},
+    'L': {'shape': [[0,0,1], [1,1,1], [0,0,0]], 'color': (240, 160, 0), 'sprite': 'mushroom_super', 'category': 'items'},
+    'O': {'shape': [[1,1], [1,1]], 'color': (240, 240, 0), 'sprite': 'question_1', 'category': 'blocks'},
+    'S': {'shape': [[0,1,1], [1,1,0], [0,0,0]], 'color': (0, 240, 0), 'sprite': 'walk_1', 'category': 'koopa_green'},
+    'T': {'shape': [[0,1,0], [1,1,1], [0,0,0]], 'color': (160, 0, 240), 'sprite': 'mushroom_poison', 'category': 'items'},
+    'Z': {'shape': [[1,1,0], [0,1,1], [0,0,0]], 'color': (240, 0, 0), 'sprite': 'walk_1', 'category': 'koopa_red'}
 }
