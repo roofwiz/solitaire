@@ -2369,12 +2369,15 @@ class MobileControls:
     ZONE_BOTTOM = 0.80     # Bottom 20% = soft drop area
     
     # DAS (Delayed Auto Shift) settings
-    DAS_DELAY = 0.30       # Longer delay before auto-repeat (seconds)
-    DAS_REPEAT = 0.15      # Slower repeat (seconds)
+    DAS_DELAY = 0.45       # Even longer delay for mobile touch stability
+    DAS_REPEAT = 0.20      # Slower repeat for touch stability
     
     # Swipe settings
     SWIPE_THRESHOLD = 30   # More sensitive swipes
     TAP_TIME_MAX = 0.20    # Stricter tap timing to avoid accidental DAS
+    
+    # Internal safety
+    MAX_HOLD_TIME = 2.5    # Safety timeout to prevent drift (seconds)
     
     def __init__(self, screen_dimensions):
         self.screen_w, self.screen_h = screen_dimensions
@@ -2491,26 +2494,25 @@ class MobileControls:
         if self.is_holding and self.hold_zone in ('LEFT', 'RIGHT', 'DOWN'):
             self.das_timer += dt
             
+            # Safety Timeout: If held for too long without motion, something is wrong
+            if self.das_timer > self.MAX_HOLD_TIME:
+                self.reset()
+                return None
+                
             # Initial DAS delay
             if not self.das_triggered and self.das_timer >= self.DAS_DELAY:
                 self.das_triggered = True
                 self.last_das_move = game_time
-                if self.hold_zone == 'LEFT':
-                    action = 'MOVE_LEFT'
-                elif self.hold_zone == 'RIGHT':
-                    action = 'MOVE_RIGHT'
-                elif self.hold_zone == 'DOWN':
-                    action = 'SOFT_DROP'
+                if self.hold_zone == 'LEFT': action = 'MOVE_LEFT'
+                elif self.hold_zone == 'RIGHT': action = 'MOVE_RIGHT'
+                elif self.hold_zone == 'DOWN': action = 'SOFT_DROP'
             
             # DAS repeat
             elif self.das_triggered and (game_time - self.last_das_move) >= self.DAS_REPEAT:
                 self.last_das_move = game_time
-                if self.hold_zone == 'LEFT':
-                    action = 'MOVE_LEFT'
-                elif self.hold_zone == 'RIGHT':
-                    action = 'MOVE_RIGHT'
-                elif self.hold_zone == 'DOWN':
-                    action = 'SOFT_DROP'
+                if self.hold_zone == 'LEFT': action = 'MOVE_LEFT'
+                elif self.hold_zone == 'RIGHT': action = 'MOVE_RIGHT'
+                elif self.hold_zone == 'DOWN': action = 'SOFT_DROP'
         
         # Clean up old ripples (older than 0.5 seconds)
         self.touch_ripples = [(x, y, t, typ) for x, y, t, typ in self.touch_ripples 
@@ -2725,7 +2727,8 @@ class Tetris:
         # self.bonus_game = BonusGame(self) # Removed old bonus game
         
         # Modern Gesture Controls
-        self.gesture_controls = GestureControls((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.gesture_controls = MobileControls((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.mobile_view_active = False # Will be set by update_scaling
         self.show_gesture_tutorial = False  # Starts OFF - only enabled on first touch input
         self.show_mobile_hints = False  # Starts OFF - only enabled on first touch input
         self.is_touch_device = False  # Will be set to True when first touch detected
@@ -2768,8 +2771,10 @@ class Tetris:
     def update_scaling(self):
         sw, sh = self.screen.get_size()
         self.is_portrait = sh > sw
-        # Aggressive Mobile Detection: Screen < 1100 or Portrait or emscripten UA
-        self.is_mobile = sw < 1100 or self.is_portrait or sys.platform == 'emscripten'
+        # Aggressive Mobile Detection: Screen < 1200 or Portrait or emscripten
+        self.is_mobile = sw < 1200 or self.is_portrait or sys.platform == 'emscripten'
+        
+        if self.is_portrait or self.is_mobile: self.mobile_view_active = True
         scale_w = sw / WINDOW_WIDTH
         scale_h = sh / WINDOW_HEIGHT
         self.scale = min(scale_w, scale_h)
@@ -2780,9 +2785,8 @@ class Tetris:
         """Convert screen pixels to virtual game pixels, accounting for mobile zoom."""
         sw, sh = self.screen.get_size()
         
-        if getattr(self, 'is_mobile', False):
-            # Coordinates are relative to the ZOOMED crop
-            # Zoom area: (475, 55, 330, 650)
+        if getattr(self, 'mobile_view_active', False):
+            # Zoom area (source virtual coords): (475, 55, 330, 650)
             zoom_x, zoom_y, zoom_w, zoom_h = 475, 55, 330, 650
             
             # scaling of the zoomed area on screen
@@ -2790,7 +2794,7 @@ class Tetris:
             fx = (sw - zoom_w * scale_zoom) // 2
             fy = (sh - zoom_h * scale_zoom) // 2
             
-            # Reverse map from screen to crop
+            # Reverse map from screen to virtual crop
             cx = (pos[0] - fx) / scale_zoom
             cy = (pos[1] - fy) / scale_zoom
             
@@ -2914,7 +2918,7 @@ class Tetris:
         self.mario_helper_cooldown = 60.0  # Can trigger every 60 seconds
         self.lines_since_helper = 0  # Track lines cleared since last helper
 
-        self.reset_level()
+        self.reset_level() # Critical: Setup first level theme/bricks
 
     def reset_level(self):
         # Clear Grid for new level
@@ -3060,8 +3064,8 @@ class Tetris:
                 self.grid.grid_shadow[y][x] = block
                 self.grid.grid = self.grid.grid_neon # Keep pointer synced
 
-        # 8 Distinct Patterns Rotated
-        pattern_type = total_level % 8 
+        # 8 Distinct Patterns Rotated (Pattern 0 is now 8)
+        pattern_type = (total_level % 8) + 1 
         
         if pattern_type == 1:
             # 1. MUSHROOM PLATFORMS (1-1 Style)
@@ -3153,7 +3157,7 @@ class Tetris:
                      
              random.setstate(state)
         
-        else: # 0
+        else: # 8 (was 0)
              # 8. THE CAGE (Open Top)
              # U-shape
              for x in range(2, GRID_WIDTH-2):
@@ -4092,6 +4096,11 @@ class Tetris:
                                             if t in self.turtles: self.turtles.remove(t)
                                         else:
                                             self.turtles_stomped += 1
+                                            self.frame_stomps += 1
+                                        stomped = True
+                                        break
+                            if stomped:
+                                continue
                 
                 self.current_piece.y += g_dir
                 on_floor = self.grid.check_collision(self.current_piece)
@@ -4150,7 +4159,7 @@ class Tetris:
 
             for t in self.turtles[:]:
                 try:
-                    # Skip Lakitu - it's updated separately above
+                    # Skip Lakitu - it has its own draw method called separately
                     if hasattr(t, 'enemy_type') and t.enemy_type == 'lakitu':
                         continue
                     
@@ -4318,26 +4327,29 @@ class Tetris:
             self.screen.fill((0, 0, 0)) # Clean margins
             
             # MOBILE ZOOM: If on a narrow/mobile screen, zoom in on the Tetris area
-            if getattr(self, 'is_mobile', False):
+            if getattr(self, 'mobile_view_active', False):
                 # FULL VIEW ZOOM: Focus strictly on the playfield
-                # Source coordinates (virtual 1280x800)
-                zoom_x = 475 # Playfield starts at 480
-                zoom_y = 55  # Playfield starts at 60
-                zoom_w = 330 # Playfield width is 320
-                zoom_h = 650 # Playfield height is 640
+                zoom_x, zoom_y, zoom_w, zoom_h = 475, 55, 330, 650
                 
                 # Crop the surface
                 cropped_surf = self.game_surface.subsurface((zoom_x, zoom_y, zoom_w, zoom_h))
                 
-                # Recalculate scaling for this cropped view to fill the physical screen
                 sw, sh = self.screen.get_size()
+                # AGGRESSIVE FILL: Use the smaller scale but ensure we use as much space as possible
                 scale_zoom = min(sw / zoom_w, sh / zoom_h)
                 
-                final_surf = pygame.transform.scale(cropped_surf, 
-                                                  (int(zoom_w * scale_zoom), 
-                                                   int(zoom_h * scale_zoom)))
-                fx = (sw - final_surf.get_width()) // 2
-                fy = (sh - final_surf.get_height()) // 2
+                # If we are in portrait, prioritize filling the width
+                if sh > sw:
+                    scale_zoom = sw / zoom_w
+                
+                final_w = int(zoom_w * scale_zoom)
+                final_h = int(zoom_h * scale_zoom)
+                
+                final_surf = pygame.transform.scale(cropped_surf, (final_w, final_h))
+                
+                # Center on screen
+                fx = (sw - final_w) // 2
+                fy = (sh - final_h) // 2
                 self.screen.blit(final_surf, (fx, fy))
             else:
                 # Standard Letterbox View
@@ -4453,8 +4465,26 @@ class Tetris:
              lbl = self.font_small.render("TIME", True, C_WHITE)
              target.blit(lbl, lbl.get_rect(center=(timer_rect.centerx, timer_rect.top - 8)))
 
-        # Settings (Gear)
-        self.settings_btn_rect = pygame.Rect(ui_x + 420, ui_y + 5, 40, 40)
+        # ZOOM Toggle (Magnifying Glass)
+        self.zoom_btn_rect = pygame.Rect(ui_x + 420, ui_y + 5, 40, 40)
+        pygame.draw.rect(target, (0, 180, 0) if self.mobile_view_active else (60, 60, 80), self.zoom_btn_rect, border_radius=8)
+        zx, zy = self.zoom_btn_rect.center
+        pygame.draw.circle(target, C_WHITE, (zx-3, zy-3), 8, 2)
+        pygame.draw.line(target, C_WHITE, (zx+2, zy+2), (zx+10, zy+10), 3)
+
+        # Fullscreen (Expand)
+        self.fs_btn_rect = pygame.Rect(ui_x + 470, ui_y + 5, 40, 40)
+        pygame.draw.rect(target, (60, 60, 80), self.fs_btn_rect, border_radius=8)
+        fx_c, fy_c = self.fs_btn_rect.center
+        pygame.draw.rect(target, C_WHITE, (fx_c-10, fy_c-10, 20, 20), 2)
+        
+        # GEAR (Settings) moved further right or replaced by ZOOM if needed, but let's just shift it.
+        self.settings_btn_rect = pygame.Rect(ui_x + 520, ui_y + 5, 40, 40)
+        # Increase UI background size to fit new buttons
+        if self.ui_bg.get_width() < 580:
+            self.ui_bg = pygame.Surface((580, 50), pygame.SRCALPHA)
+            pygame.draw.rect(self.ui_bg, (0, 0, 0, 160), (0, 0, 580, 50), border_radius=12)
+
         pygame.draw.rect(target, (60, 60, 80), self.settings_btn_rect, border_radius=8)
         gx, gy = self.settings_btn_rect.center
         for angle in range(0, 360, 45):
@@ -5349,6 +5379,14 @@ class Tetris:
                 elif hasattr(self, 'vol_rect') and self.vol_rect.collidepoint(touch_pos):
                     vol = (touch_pos[0] - self.vol_rect.left) / self.vol_rect.width
                     self.sound_manager.set_volume(vol)
+                    ui_handled = True
+                elif hasattr(self, 'zoom_btn_rect') and self.zoom_btn_rect.collidepoint(touch_pos):
+                    self.mobile_view_active = not self.mobile_view_active
+                    print(f"[UI] Mobile View Toggled: {self.mobile_view_active}")
+                    ui_handled = True
+                elif hasattr(self, 'fs_btn_rect') and self.fs_btn_rect.collidepoint(touch_pos):
+                    self.fullscreen = not self.fullscreen
+                    pygame.display.toggle_fullscreen()
                     ui_handled = True
                 
                 # Settings Button (Intro)
