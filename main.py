@@ -600,7 +600,7 @@ class Turtle:
                 self.state = 'landed'
                 self.move_timer = 0
                 self.landed_timer = 0
-                self.vx = self.direction * (self.speed * 0.8) # Reset horizontal speed
+                self.vx = self.direction * self.speed
                 return False
             
             # If we fall past the screen entirely
@@ -628,7 +628,7 @@ class Turtle:
                 
             if block_in_front:
                 self.direction *= -1
-                self.vx = self.direction * (self.speed * 0.8)
+                self.vx = self.direction * self.speed
                 self.x = max(0, min(GRID_WIDTH - 1, self.x))
             
             # Check for holes (Red turtles are smart)
@@ -639,7 +639,7 @@ class Turtle:
                     has_ground = (block_below_next < GRID_HEIGHT and game_grid.grid[block_below_next][next_grid_x] is not None) or (block_below_next == GRID_HEIGHT)
                     if not has_ground:
                         self.direction *= -1
-                        self.vx = self.direction * (self.speed * 0.8)
+                        self.vx = self.direction * self.speed
             
             # Fall off edges (Green/Spiny)
             if self.enemy_type != 'red':
