@@ -1,16 +1,17 @@
-<html lang="en-us"><script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25 data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
+<html lang="en-us">
+<script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
+    data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
 
-print("""
-Loading dist_pack from dist_pack.apk
+printo-tetris-v113.apk
     Pygbag Version : 0.9.2
     Template Version : 0.9.0
     Python  : 3.12
-    CDN URL : https://pygame-web.github.io/archives/0.9/
+    CDN  URL : https://pygame -web.github.io/archives/0.9/
     Screen  : 1280x720
-    Title   : dist_pack
+    Title   :  Mario Tetris v1.13
     Folder  : dist_pack
     Authors : pgw
-    SPDX-License-Identifier: cookiecutter.spdx
+    SPDX-License-Identi fier: cookiecutter.spdx
 
 """)
 
@@ -32,14 +33,13 @@ def u(real, ref, v):
     return int( (real/ref) * v )
 
 def ux(*argv):
-    global WIDTH, REFX
+     global WIDTH, REFX
     acc = 0
     for v in argv:
-        acc += u(WIDTH, REFX, v)
+        acc += u(WI REFX, v)
     return acc
 
-def uy(*argv):
-    global HEIGHT, REFY
+def uy(*argv)lobal HEIGHT, REFY
     acc = 0
     for v in argv:
         acc += u(HEIGHT, REFY, v)
@@ -84,7 +84,7 @@ async def custom_site():
 
 
 
-    apk = "dist_pack.apk"
+    apk = "mario-tetris-v113.apk"
 
     bundle = "dist_pack"
 
@@ -211,7 +211,9 @@ asyncio.run( custom_site() )
 #
 # do not alter that comment block it is separating python code from html code
 # =============================================================================
-# --></script><head><!--
+# --></script>
+
+<head><!--
 //=============================================================================
 //
 //
@@ -225,7 +227,8 @@ asyncio.run( custom_site() )
 {{cookiecutter.comment}}
     {% endif %}
 
---><script type="application/javascript">
+-->
+    <script type="application/javascript">
 // END BLOCK
 
 
@@ -242,19 +245,19 @@ config = {
     archive : "dist_pack",
     gui_debug : 3,
     cdn : "https://pygame-web.github.io/archives/0.9/",
-    autorun : 0,
+    autorun : 1,
     PYBUILD : "3.12"
 }
 
-</script>
+    </script>
 
-    <title>dist_pack</title>
+    <title>Mario Tetris - Premium Edition</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="height=device-height, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <link rel="prefetch" href="https://pygame-web.github.io/archives/0.9/pythonrc.py">
     <link rel="prefetch" href="https://pygame-web.github.io/archives/0.9/vt/xterm.js">
@@ -279,9 +282,17 @@ config = {
             width: 300px;
         }
 
-        div.emscripten { text-align: center; }
-        div.emscripten_border { border: 1px solid black; }
-        div.thick_border { border: 4px solid black; }
+        div.emscripten {
+            text-align: center;
+        }
+
+        div.emscripten_border {
+            border: 1px solid black;
+        }
+
+        div.thick_border {
+            border: 4px solid black;
+        }
 
         /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
         /* average size of droid screen 470dp x 320dp  */
@@ -306,17 +317,17 @@ config = {
             font-family: arial;
             margin: 0;
             padding: none;
-            background-color:powderblue;
+            background-color: powderblue;
         }
 
-        .topright{
-           position:absolute;
-           top:0px;
-           right:0px;
+        .topright {
+            position: absolute;
+            top: 0px;
+            right: 0px;
         }
 
         .bottomright {
-            position:absolute;
+            position: absolute;
             top: 40%;
             right: 0px;
         }
@@ -327,17 +338,17 @@ config = {
             justify-content: center;
         }
 
-        .trinfo{
-           position:relative;
-           right:0px;
-           border: 1px solid black;
+        .trinfo {
+            position: relative;
+            right: 0px;
+            border: 1px solid black;
         }
 
-        .framed{
-           position:relative;
-           top:150px;
-           right:10px;
-           border: 1px solid black;
+        .framed {
+            position: relative;
+            top: 150px;
+            right: 10px;
+            border: 1px solid black;
         }
     </style>
 
@@ -348,7 +359,7 @@ config = {
 <body>
 
     <div id="transfer" align=center>
-<!--        <div class="spinner" id='spinner'></div> -->
+        <!--        <div class="spinner" id='spinner'></div> -->
         <div class="emscripten" id="status">Downloading...</div>
         <div class="emscripten">
             <progress value="0" max="100" id="progress"></progress>
@@ -356,15 +367,12 @@ config = {
     </div>
 
 
-    <canvas class="emscripten" id="canvas"
-width="1px"
-height="1px"
-    oncontextmenu="event.preventDefault()" tabindex=1>
+    <canvas class="emscripten" id="canvas" width="1px" height="1px" oncontextmenu="event.preventDefault()" tabindex=1>
     </canvas>
 
     <div id=html></div>
 
-    <div id=crt  class=bottomright >
+    <div id=crt class=bottomright>
 
         <div id="system" hidden>
             <div class="button-container">
@@ -378,7 +386,7 @@ height="1px"
                 <div id=load_min>min</div>
                 <div id=load_avg>avg</div>
                 <div id=load_max>max</div>
-              <button id="load_rst" disabled>RESET</button>
+                <button id="load_rst" disabled>RESET</button>
             </div>
 
             <div id="level">(battery level unknown)</div>
@@ -390,20 +398,12 @@ height="1px"
 
             <div id="info" class="trinfo"></div>
 
-            <iframe id="iframe" class="framed" name="iframe"
-width="470px" height="90%"
-allowtransparency="true"
-style="z-index: 10;"
-style="background: #FFFFFF;"
-frameborder="1"
-                allowfullscreen="true"
-                webkitallowfullscreen="true"
-                msallowfullscreen="true"
-                mozallowfullscreen="true"
+            <iframe id="iframe" class="framed" name="iframe" width="470px" height="90%" allowtransparency="true"
+                style="z-index: 10;" style="background: #FFFFFF;" frameborder="1" allowfullscreen="true"
+                webkitallowfullscreen="true" msallowfullscreen="true" mozallowfullscreen="true"
                 sandbox="allow-same-origin allow-top-navigation allow-scripts allow-pointer-lock"
                 allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
-                src="https://pygame-web.github.io/archives/0.9/empty.html"
-                scrolling="yes">
+                src="https://pygame-web.github.io/archives/0.9/empty.html" scrolling="yes">
             </iframe>
         </div>
 
@@ -486,4 +486,5 @@ frameborder="1"
     </script>
 
 </body>
+
 </html>
