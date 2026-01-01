@@ -361,6 +361,11 @@ class IntroScene:
         for actor in self.actors:
             actor.draw(surface)
             
+        # -- Draw VERSION (Bottom Left) --
+        font = pygame.font.SysFont('Arial', 14)
+        v_txt = font.render("v1.1.3-ZOOM-FIX", True, (255, 255, 255, 120))
+        surface.blit(v_txt, (10, WINDOW_HEIGHT - 20))
+            
         # No UI here, handled by Tetris.draw_persistent_ui
 
     def handle_mouse_down(self, pos):
