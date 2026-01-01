@@ -15,6 +15,9 @@ import asyncio
 import math
 import sys
 
+VERSION = "1.1.3-ZOOM-FIX"
+print(f"--- MARIO TETRIS {VERSION} LOADED ---")
+
 # Early Mixer Hint for Pygbag/Web
 try:
     if not pygame.mixer.get_init():
@@ -2786,11 +2789,16 @@ class Tetris:
         sw, sh = self.screen.get_size()
         
         if getattr(self, 'mobile_view_active', False):
-            # Zoom area (source virtual coords): (475, 55, 330, 650)
-            zoom_x, zoom_y, zoom_w, zoom_h = 475, 55, 330, 650
+            # Zoom area (source virtual coords): (475, 40, 330, 680)
+            zoom_x, zoom_y, zoom_w, zoom_h = 475, 40, 330, 680
             
             # scaling of the zoomed area on screen
-            scale_zoom = min(sw / zoom_w, sh / zoom_h)
+            sw, sh = self.screen.get_size()
+            if sh > sw:
+                scale_zoom = sw / zoom_w
+            else:
+                scale_zoom = sh / zoom_h
+                
             fx = (sw - zoom_w * scale_zoom) // 2
             fy = (sh - zoom_h * scale_zoom) // 2
             
@@ -2809,6 +2817,10 @@ class Tetris:
         return (gx, gy)
 
     def reset_game(self):
+        # Critical: Initialize Grid first to prevent crashes
+        if not hasattr(self, 'grid') or self.grid is None:
+            self.grid = Grid(self.sprite_manager)
+            
         # Basic Stats (Init first to prevent draw crashes)
         self.auto_play = False 
         self.ai_bot = TetrisBot(self) # Initialize Bot
@@ -2891,9 +2903,7 @@ class Tetris:
         self.star_active = False
         self.star_timer = 0
         self.damage_flash_timer = 0
-        # Shared Grid
-        self.grid = Grid(self.sprite_manager)
-        
+        # Shared Grid - Handled at top of reset_game now
         self.fall_timer = 0
         self.is_losing_life = False
         self.world_clear_timer = 0
@@ -4329,25 +4339,25 @@ class Tetris:
             # MOBILE ZOOM: If on a narrow/mobile screen, zoom in on the Tetris area
             if getattr(self, 'mobile_view_active', False):
                 # FULL VIEW ZOOM: Focus strictly on the playfield
-                zoom_x, zoom_y, zoom_w, zoom_h = 475, 55, 330, 650
+                # The board is 320x640, centered at 480, 80.
+                zoom_x, zoom_y, zoom_w, zoom_h = 475, 40, 330, 680
                 
                 # Crop the surface
                 cropped_surf = self.game_surface.subsurface((zoom_x, zoom_y, zoom_w, zoom_h))
                 
                 sw, sh = self.screen.get_size()
-                # AGGRESSIVE FILL: Use the smaller scale but ensure we use as much space as possible
-                scale_zoom = min(sw / zoom_w, sh / zoom_h)
-                
-                # If we are in portrait, prioritize filling the width
+                # SCALE TO FILL SCREEN WIDTH AGGRESSIVELY on mobile portrait
                 if sh > sw:
                     scale_zoom = sw / zoom_w
+                else:
+                    scale_zoom = sh / zoom_h # Landscape, fill height
                 
                 final_w = int(zoom_w * scale_zoom)
                 final_h = int(zoom_h * scale_zoom)
                 
                 final_surf = pygame.transform.scale(cropped_surf, (final_w, final_h))
                 
-                # Center on screen
+                # Blit to center of physical screen
                 fx = (sw - final_w) // 2
                 fy = (sh - final_h) // 2
                 self.screen.blit(final_surf, (fx, fy))
