@@ -3800,7 +3800,7 @@ class Tetris:
                                 # Skip Lakitu and already dying enemies
                                 if hasattr(t, 'enemy_type') and t.enemy_type == 'lakitu':
                                     continue
-                                if t.state in ['dying', 'dead', 'falling_out']:
+                                if t.state in ['dying', 'dead', 'falling_out', 'thrown']:
                                     continue
                                     
                                 # GENEROUS collision - within 1 cell
