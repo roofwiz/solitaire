@@ -1,0 +1,490 @@
+{
+    "images": {
+        "spritesheet": "marioallsprite.png",
+        "items": "darkworlditems.png",
+        "blocks": "blocks.png",
+        "waterworld": "waterworld.png",
+        "items_coins": "items-coins.png"
+    },
+    "sounds": {
+        "move": "rotate.wav",
+        "rotate": "rotate.wav",
+        "clear": "clear.wav",
+        "tetris": "clear.wav",
+        "drop": "lock.wav",
+        "stomp": "stomp.wav",
+        "damage": "stomp.wav",
+        "gameover": "gameover.wav",
+        "level_up": "life.wav",
+        "life": "life.wav",
+        "world_clear": "clear.wav",
+        "music": "02. undergroundtheme.mp3",
+        "lock": "lock.wav",
+        "coin": "life.wav"
+    },
+    "sprite_coords": {
+        "items": {
+            "mushroom_super": {
+                "file": "items_coins",
+                "x": 3,
+                "y": 11,
+                "w": 16,
+                "h": 16
+            },
+            "mushroom_1up": {
+                "file": "items_coins",
+                "x": 20,
+                "y": 12,
+                "w": 16,
+                "h": 15
+            },
+            "mushroom_poison": {
+                "file": "items_coins",
+                "x": 37,
+                "y": 12,
+                "w": 16,
+                "h": 16
+            },
+            "star_1": {
+                "file": "items_coins",
+                "x": 54,
+                "y": 29,
+                "w": 16,
+                "h": 16
+            },
+            "star_2": {
+                "file": "items_coins",
+                "x": 71,
+                "y": 29,
+                "w": 16,
+                "h": 16
+            },
+            "star_3": {
+                "file": "items_coins",
+                "x": 37,
+                "y": 11,
+                "w": 16,
+                "h": 16
+            },
+            "star_4": {
+                "file": "items_coins",
+                "x": 105,
+                "y": 30,
+                "w": 16,
+                "h": 15
+            },
+            "coin_1": {
+                "file": "items_coins",
+                "x": 122,
+                "y": 31,
+                "w": 10,
+                "h": 14
+            },
+            "coin_2": {
+                "file": "items_coins",
+                "x": 133,
+                "y": 31,
+                "w": 9,
+                "h": 14
+            },
+            "coin_3": {
+                "file": "items_coins",
+                "x": 144,
+                "y": 31,
+                "w": 10,
+                "h": 14
+            },
+            "flower_fire": {
+                "file": "items_coins",
+                "x": 89,
+                "y": 29,
+                "w": 15,
+                "h": 16
+            },
+            "coin_hit_1": {
+                "file": "items_coins",
+                "x": 6,
+                "y": 73,
+                "w": 16,
+                "h": 16
+            },
+            "coin_hit_2": {
+                "file": "items_coins",
+                "x": 26,
+                "y": 73,
+                "w": 16,
+                "h": 16
+            },
+            "coin_hit_3": {
+                "file": "items_coins",
+                "x": 49,
+                "y": 74,
+                "w": 12,
+                "h": 14
+            },
+            "coin_hit_4": {
+                "file": "items_coins",
+                "x": 70,
+                "y": 74,
+                "w": 12,
+                "h": 15
+            },
+            "coin_hit_5": {
+                "file": "items_coins",
+                "x": 89,
+                "y": 74,
+                "w": 16,
+                "h": 14
+            },
+            "coin_hit_6": {
+                "file": "items_coins",
+                "x": 109,
+                "y": 73,
+                "w": 16,
+                "h": 17
+            },
+            "coin_hit_7": {
+                "file": "items_coins",
+                "x": 129,
+                "y": 73,
+                "w": 19,
+                "h": 17
+            },
+            "coin_hit_8": {
+                "file": "items_coins",
+                "x": 149,
+                "y": 73,
+                "w": 22,
+                "h": 16
+            },
+            "coin_hit_9": {
+                "file": "items_coins",
+                "x": 171,
+                "y": 73,
+                "w": 21,
+                "h": 16
+            }
+        },
+        "blocks": {
+            "question_1": {
+                "file": "blocks",
+                "x": 80,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "question_2": {
+                "file": "blocks",
+                "x": 96,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "question_3": {
+                "file": "blocks",
+                "x": 112,
+                "y": 112,
+                "w": 16,
+                "h": 16
+            },
+            "empty": {
+                "file": "blocks",
+                "x": 240,
+                "y": 144,
+                "w": 16,
+                "h": 16
+            },
+            "brick": {
+                "file": "blocks",
+                "x": 369,
+                "y": 111,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "koopa_green": {
+            "walk_1": {
+                "x": 206,
+                "y": 242,
+                "w": 20,
+                "h": 27
+            },
+            "walk_2": {
+                "x": 247,
+                "y": 242,
+                "w": 20,
+                "h": 27
+            },
+            "fly_1": {
+                "x": 127,
+                "y": 242,
+                "w": 18,
+                "h": 25
+            },
+            "fly_2": {
+                "x": 167,
+                "y": 242,
+                "w": 18,
+                "h": 25
+            },
+            "shell_1": {
+                "x": 288,
+                "y": 248,
+                "w": 16,
+                "h": 14
+            },
+            "shell_2": {
+                "x": 328,
+                "y": 248,
+                "w": 16,
+                "h": 14
+            }
+        },
+        "koopa_red": {
+            "walk_1": {
+                "x": 206,
+                "y": 282,
+                "w": 20,
+                "h": 27
+            },
+            "walk_2": {
+                "x": 245,
+                "y": 283,
+                "w": 20,
+                "h": 27
+            },
+            "fly_1": {
+                "x": 128,
+                "y": 283,
+                "w": 16,
+                "h": 24
+            },
+            "fly_2": {
+                "x": 168,
+                "y": 283,
+                "w": 16,
+                "h": 24
+            },
+            "shell_1": {
+                "x": 288,
+                "y": 287,
+                "w": 16,
+                "h": 16
+            },
+            "shell_2": {
+                "x": 328,
+                "y": 288,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "spiny": {
+            "walk_1": {
+                "x": 87,
+                "y": 366,
+                "w": 19,
+                "h": 17
+            },
+            "walk_2": {
+                "x": 127,
+                "y": 366,
+                "w": 19,
+                "h": 17
+            }
+        },
+        "mario": {
+            "stand": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            },
+            "walk_1": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk_2": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            },
+            "walk_3": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            }
+        },
+        "luigi": {
+            "stand": {
+                "x": 10,
+                "y": 6,
+                "w": 12,
+                "h": 16
+            },
+            "walk": {
+                "x": 50,
+                "y": 7,
+                "w": 12,
+                "h": 15
+            }
+        },
+        "lakitu": {
+            "default": {
+                "x": 6,
+                "y": 366,
+                "w": 32,
+                "h": 24
+            },
+            "throw": {
+                "x": 47,
+                "y": 366,
+                "w": 32,
+                "h": 24
+            }
+        },
+        "cloud": {
+            "walk_1": {
+                "x": 6,
+                "y": 364,
+                "w": 32,
+                "h": 24
+            },
+            "default": {
+                "x": 47,
+                "y": 364,
+                "w": 32,
+                "h": 24
+            }
+        },
+        "blooper": {
+            "walk_1": {
+                "x": 8,
+                "y": 281,
+                "w": 16,
+                "h": 24
+            },
+            "walk_2": {
+                "x": 48,
+                "y": 284,
+                "w": 16,
+                "h": 20
+            }
+        },
+        "piranha": {
+            "walk_1": {
+                "x": 207,
+                "y": 284,
+                "w": 16,
+                "h": 24
+            },
+            "walk_2": {
+                "x": 247,
+                "y": 284,
+                "w": 16,
+                "h": 24
+            }
+        },
+        "cheepcheep": {
+            "walk_1": {
+                "x": 87,
+                "y": 287,
+                "w": 16,
+                "h": 16
+            },
+            "walk_2": {
+                "x": 127,
+                "y": 287,
+                "w": 16,
+                "h": 16
+            },
+            "red_1": {
+                "x": 167,
+                "y": 287,
+                "w": 16,
+                "h": 16
+            }
+        },
+        "bowser": {
+            "walk_1": {
+                "x": 0,
+                "y": 397,
+                "w": 32,
+                "h": 35
+            },
+            "walk_2": {
+                "x": 40,
+                "y": 398,
+                "w": 32,
+                "h": 34
+            },
+            "walk_3": {
+                "x": 80,
+                "y": 397,
+                "w": 32,
+                "h": 35
+            },
+            "walk_4": {
+                "x": 120,
+                "y": 397,
+                "w": 31,
+                "h": 36
+            },
+            "fire_1": {
+                "x": 243,
+                "y": 407,
+                "w": 26,
+                "h": 14
+            },
+            "fire_2": {
+                "x": 200,
+                "y": 405,
+                "w": 31,
+                "h": 18
+            }
+        },
+        "hammerbro": {
+            "walk_1": {
+                "x": 287,
+                "y": 364,
+                "w": 17,
+                "h": 24
+            },
+            "walk_2": {
+                "x": 247,
+                "y": 363,
+                "w": 16,
+                "h": 24
+            },
+            "throw_1": {
+                "x": 367,
+                "y": 357,
+                "w": 17,
+                "h": 36
+            },
+            "throw_2": {
+                "x": 327,
+                "y": 363,
+                "w": 18,
+                "h": 24
+            }
+        },
+        "hammer": {
+            "default": {
+                "x": 350,
+                "y": 361,
+                "w": 8,
+                "h": 8
+            }
+        }
+    }
+}

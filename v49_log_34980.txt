@@ -1,0 +1,18 @@
+[19:02:36] STOMPED R!
+[19:02:57] Received 1 rows!
+[19:03:06] Received 1 rows!
+[19:03:15] Received 1 rows!
+[19:03:38] STOMPED S!
+[19:04:23] Received 1 rows!
+[19:04:39] Received 1 rows!
+[19:05:01] STOMPED S!
+[19:05:48] Received 1 rows!
+[19:06:03] Received 1 rows!
+[19:06:26] STOMPED R!
+[19:07:21] Received 1 rows!
+[19:07:36] Received 1 rows!
+[19:07:56] STOMPED R!
+[19:08:11] STOMPED R!
+[19:08:47] Received 1 rows!
+[19:09:01] Received 1 rows!
+[19:09:14] Received 1 rows!

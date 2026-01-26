@@ -1,0 +1,27 @@
+[19:16:25] Application Early Init...
+[19:16:26] Loading Sprites...
+[19:16:26] Sprites Loaded Successful.
+[19:16:26] Init Complete.
+[19:16:26] Game Loop Starting.
+[19:16:27] Picking role: p2...
+[19:16:28] Connected as p2
+[19:16:57] Traceback (most recent call last):
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v52_battle_pro.py", line 396, in <module>
+    try: asyncio.run(TetrisV52().run())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v52_battle_pro.py", line 297, in run
+    en.update(dt, self.grid)
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v52_battle_pro.py", line 160, in update
+    if 0 <= nx < GW and grid[int(self.y)][nx] is None: self.x = nx
+                        ~~~~^^^^^^^^^^^^^
+IndexError: list index out of range
+

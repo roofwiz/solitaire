@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v54_battle_sound.py", line 365, in <module>
+    try: asyncio.run(TetrisV54().run())
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v54_battle_sound.py", line 242, in run
+    self.is_ready = not self.is_ready ; await self.fb.set_ready(self.is_ready)
+                                              ^^^^^^^^^^^^^^^^^
+AttributeError: 'FirebaseManagerV54' object has no attribute 'set_ready'. Did you mean: 'p1_ready'?

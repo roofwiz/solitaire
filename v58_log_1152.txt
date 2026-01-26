@@ -1,0 +1,2 @@
+[19:31:55] Sound Mixer Init OK.
+[19:31:55] BGM Started: intro_theme.mp3

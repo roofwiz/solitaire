@@ -1,0 +1,9 @@
+--- Mario Tetris V31 START ---
+[07:59:43] Initializing Graphics...
+[07:59:44] Initialization Complete.
+[07:59:44] Main Loop Active.
+[07:59:47] Connection Pressed.
+[07:59:47] Contacting Firebase...
+[07:59:47] Claiming P2 Role.
+[07:59:47] Connection Result: P2
+[08:01:14] GAME OVER.

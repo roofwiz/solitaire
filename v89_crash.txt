@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v89_mario_battle_pro.py", line 682, in <module>
+    asyncio.run(MarioBattleBO3().run())
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v89_mario_battle_pro.py", line 521, in run
+    asyncio.create_task(self.net.sync_state(s_str, 0, self.stomps, atk_val))
+                                                      ^^^^^^^^^^^
+AttributeError: 'MarioBattleBO3' object has no attribute 'stomps'

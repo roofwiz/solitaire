@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v73_mario_battle_official.py", line 639, in <module>
+    asyncio.run(TetrisV73().run())
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\eric\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\eric\React Projects\Mario-Tetris-main\v73_mario_battle_official.py", line 433, in run
+    await asyncio.to_thread(self.fb._req, f"{self.fb.db_url}/battles/{self.room_id}.json", "PATCH", {"state":"countdown", "countdown_start":time.time()})
+                                                                      ^^^^^^^^^^^^
+AttributeError: 'TetrisV73' object has no attribute 'room_id'

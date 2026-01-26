@@ -1,0 +1,4 @@
+[19:22:47] Sound Mixer Initialized.
+[19:22:47] Game Started.
+[19:23:04] Attempting to join as p2...
+[19:23:05] Joined as p2 successfully.

@@ -1,0 +1,842 @@
+--- V30 START ---
+[07:55:42] V30 Start.
+[07:55:42] Initializng Pygame components...
+[07:55:43] Init complete.
+[07:55:43] Starting main loop.
+[07:55:53] Connection trigger detected (Enter)
+[07:55:53] Async connect task starting...
+[07:55:53] Joining room: battle_v30
+[07:55:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:53] Room looks empty or stale. Initializing as P1.
+[07:55:53] Requesting PUT on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:53] Success: PUT https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:53] Successfully joined as p1
+[07:55:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:55:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:32] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:52] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:56:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:17] GRID OVERFLOW - Resetting.
+[07:57:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:52] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:57:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:32] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:47] GRID OVERFLOW - Resetting.
+[07:58:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:52] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:52] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:58:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:32] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:52] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:52] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[07:59:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:32] GRID OVERFLOW - Resetting.
+[08:00:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:32] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:52] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:52] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:00:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:26] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:32] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:35] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:42] GRID OVERFLOW - Resetting.
+[08:01:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:49] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:49] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:50] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:50] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:51] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:51] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:52] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:52] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:53] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:53] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:54] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:54] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:55] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:55] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:56] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:56] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:57] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:57] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:58] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:58] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:59] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:01:59] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:00] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:00] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:01] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:01] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:02] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:02] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:03] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:03] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:04] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:04] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:05] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:05] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:06] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:06] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:07] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:07] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:08] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:08] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:09] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:09] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:10] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:10] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:11] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:11] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:12] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:12] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:13] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:13] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:14] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:14] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:15] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:15] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:16] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:16] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:17] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:17] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:18] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:18] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:19] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:19] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:20] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:20] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:21] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:21] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:22] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:22] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:23] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:23] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:24] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:24] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:25] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:25] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:26] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:27] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:27] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:28] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:28] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:29] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:29] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:30] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:30] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:31] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:31] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:32] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:33] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:33] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:34] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:34] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:35] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:36] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:36] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:37] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:37] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:38] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:38] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:39] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:39] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:40] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:40] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:41] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:41] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:42] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:42] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:43] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:43] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:44] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:44] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:45] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:45] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:46] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:46] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:47] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:47] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:48] Requesting GET on https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json
+[08:02:48] Success: GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v30.json

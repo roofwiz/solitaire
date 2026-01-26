@@ -1,0 +1,35 @@
+--- Mario Tetris V28 Launch ---
+[07:46:13] Init Pygame...
+[07:46:15] Loop Start.
+[07:47:44] Connect requested.
+[07:47:45] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:46] Fetch PUT https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:47] Joined as p1
+[07:47:47] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:48] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:49] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:50] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:51] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:52] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:53] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:54] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:55] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:56] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:57] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:58] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:47:59] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:00] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:01] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:02] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:03] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:04] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:05] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:06] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:07] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:08] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:09] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:10] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:11] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:12] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:13] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json
+[07:48:14] Fetch GET https://mario-tetris-game-default-rtdb.firebaseio.com/battles/battle_v28.json

@@ -1,3 +1,4 @@
+
 build/
 docs/
 staging/
@@ -11,11 +12,17 @@ deploy/
 .idx/
 .venv/
 __pycache__/
+temp_multiplayer_build/
+recovered_source/
+dist_pack/
 *.apk
 *.zip
 *.bat
 large_files.txt
 git_history.txt
+*.mp3
+*.wav
+*.ogg
 asset_browser.html
 asset_editor.py
 asset_preview.py
