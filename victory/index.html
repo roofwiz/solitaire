@@ -1,13 +1,13 @@
 <html lang="en-us">
 
 <head>
-    <title>MARIO BATTLE V102 VICTORY</title>
+    <title>MARIO BATTLE V103 FINAL</title>
     <meta charset="UTF-8">
     <style>
         body {
             margin: 0;
-            background-color: #141428;
-            font-family: arial;
+            background-color: #050510;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             overflow: hidden;
         }
@@ -18,28 +18,36 @@
             width: 100%;
             text-align: center;
             z-index: 100;
-            padding-top: 50px;
+            padding-top: 20vh;
+            background: rgba(0, 0, 0, 0.7);
+            height: 100vh;
         }
 
         .btn {
-            padding: 25px 50px;
-            font-size: 28px;
+            padding: 30px 60px;
+            font-size: 32px;
             cursor: pointer;
-            border: 3px solid white;
-            border-radius: 12px;
-            margin: 15px;
+            border: 5px solid white;
+            border-radius: 20px;
+            margin: 20px;
             font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
         #m {
-            background: #d23232;
-            box-shadow: 0 0 15px #d23232;
+            background: #ff3232;
+            box-shadow: 0 0 30px rgba(255, 50, 50, 0.5);
         }
 
         #l {
-            background: #32d232;
-            box-shadow: 0 0 15px #32d232;
-            color: #141428;
+            background: #32ff32;
+            box-shadow: 0 0 30px rgba(50, 255, 50, 0.5);
+            color: black;
         }
 
         canvas.emscripten {
@@ -51,28 +59,38 @@
 
         #log {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            z-index: 100;
-            color: #00ff00;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            color: #00ff88;
             font-family: monospace;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
         }
     </style>
     <script>
         window.multiplayer_choice = "none";
-        function sel(c) { window.multiplayer_choice = c; document.getElementById('ui').style.display = 'none'; }
+        function sel(c) {
+            window.multiplayer_choice = c;
+            document.getElementById('ui').style.display = 'none';
+        }
     </script>
 </head>
 
 <body>
     <div id="ui">
-        <h1>V102 VICTORY ARENA</h1>
-        <p>BEST OF 3 SERIES</p>
-        <button id="m" class="btn" onclick="sel('p1')">MARIO (1)</button>
-        <button id="l" class="btn" onclick="sel('p2')">LUIGI (2)</button>
+        <h1 style="font-size: 48px; margin-bottom: 10px;">MARIO BATTLE PRO</h1>
+        <p style="font-size: 24px; color: #aaa;">V103 CHAMPIONSHIP FINALE</p>
+        <div style="margin-top: 50px;">
+            <button id="m" class="btn" onclick="sel('p1')">MARIO (1)</button>
+            <button id="l" class="btn" onclick="sel('p2')">LUIGI (2)</button>
+        </div>
+        <p style="margin-top: 40px; color: #888;">Select a player to start the engine</p>
     </div>
-    <div id="log">Engine Startup...</div>
+    <div id="log">System Booting...</div>
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=1></canvas>
+
     <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
         data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
 import sys, asyncio, platform, json, os
@@ -80,29 +98,70 @@ from pathlib import Path
 import embed, pygame
 
 async def custom_site():
-    pygame.init()
-    # 1. MOUNT ENGINE
-    apk = "victory_engine.data"
-    cfg = {"io": "url", "type":"mount", "mount" : {"point" : "/data/data/mario_v102", "path" : "/"}, "path" : "/"}
-    track = platform.window.MM.prepare(apk, json.dumps(cfg))
-    while not track.ready: await asyncio.sleep(.1)
-    
-    # 2. RUN
-    platform.run_main(PyConfig, loaderhome="/data/data/mario_v102", loadermain=None)
-    while embed.counter() < 0: await asyncio.sleep(.1)
-    
-    # AGGRESSIVE SEARCH
-    found = "/data/data/mario_v102/main.py"
-    if not os.path.exists(found):
-        for r, d, f in os.walk("/data/data"):
-            if "main.py" in f: found = os.path.join(r, "main.py"); break
-    
-    appdir = os.path.dirname(found)
-    os.chdir(appdir); sys.path.insert(0, appdir)
-    platform.window.document.getElementById("log").innerHTML = "Engine Ready. Playing Best-of-3 Series!"
-    await TopLevel_async_handler.start_toplevel(platform.shell)
-    __import__(__name__).__file__ = found
-    await shell.runpy(Path(found))
+    try:
+        def log(msg):
+            platform.window.document.getElementById("log").innerHTML = str(msg)
+            print(f"LOADER: {msg}")
+
+        log("Initializing Pygame...")
+        pygame.init()
+        
+        # 1. MOUNT ENGINE
+        # We mount to /data/data/victory to match the build bundle
+        apk = "victory_engine.data"
+        bundle = "victory"
+        mount_point = f"/data/data/{bundle}"
+        
+        log(f"Downloading engine: {apk}...")
+        cfg = {"io": "url", "type":"mount", "mount" : {"point" : mount_point, "path" : "/"}, "path" : "/"}
+        track = platform.window.MM.prepare(apk, json.dumps(cfg))
+        while not track.ready: await asyncio.sleep(.1)
+        
+        log("Engine downloaded. Starting Python...")
+        platform.run_main(PyConfig, loaderhome=mount_point, loadermain=None)
+        while embed.counter() < 0: await asyncio.sleep(.1)
+        
+        # 2. FIND MAIN (Pygbag always puts it in assets/)
+        # We try both paths just in case
+        possible_paths = [
+            f"{mount_point}/assets/main.py",
+            f"{mount_point}/main.py"
+        ]
+        
+        main_path = None
+        for p in possible_paths:
+            if os.path.exists(p):
+                main_path = p
+                break
+        
+        if not main_path:
+            log("Searching filesystem for main.py...")
+            for root, dirs, files in os.walk("/data/data"):
+                if "main.py" in files:
+                    main_path = os.path.join(root, "main.py")
+                    break
+        
+        if not main_path:
+            raise FileNotFoundError("Could not find main.py in virtual filesystem")
+
+        app_dir = os.path.dirname(main_path)
+        log(f"Game found at {app_dir}. Launching...")
+        
+        # 3. SET PATHS
+        os.chdir(app_dir)
+        sys.path.insert(0, app_dir)
+        
+        await TopLevel_async_handler.start_toplevel(platform.shell)
+        __import__(__name__).__file__ = main_path
+        
+        # 4. EXECUTE
+        await shell.runpy(Path(main_path))
+        
+    except Exception as e:
+        import traceback
+        err = f"CRITICAL ERROR: {str(e)}\n{traceback.format_exc()}"
+        log(err)
+        platform.window.alert(err)
 
 import asyncio
 asyncio.run( custom_site() )
