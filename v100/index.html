@@ -90,50 +90,44 @@ import sys, asyncio, platform, json
 from pathlib import Path
 import embed
 import pygame
+import os
 
 async def custom_site():
     import platform
     platform.document.body.style.background = "#0a1e3c"
-    
-    # 1. INIT PYGAME
     pygame.init()
     
-    # 2. MOUNT STORAGE
+    # MATCH INTERNAL PYGBAG NAME
     apk = "engine.data"
-    bundle = "mario_v100_stable"
+    bundle = "mario_battle_pro_v100"
     appdir = Path(f"/data/data/{bundle}")
     appdir.mkdir(parents=True, exist_ok=True)
     
     cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
     track = platform.window.MM.prepare(apk, json.dumps(cfg))
     
-    # Wait for file download
-    while not track.ready: 
-        await asyncio.sleep(.1)
+    while not track.ready: await asyncio.sleep(.1)
     
-    # 3. RUN MAIN
-    # loaderhome should be the root of the extracted files
+    # Try different potential mount points if the first one fails
     platform.run_main(PyConfig, loaderhome=appdir, loadermain=None)
+    while embed.counter() < 0: await asyncio.sleep(.1)
     
-    # Wait for extraction
-    while embed.counter() < 0: 
-        await asyncio.sleep(.1)
-    
-    # In pygbag, main.py is at the root of the project
+    # FIND THE MAIN FILE AGGRESSIVELY
     main = appdir / "main.py"
+    if not main.exists():
+        # Search for it
+        for root, dirs, files in os.walk("/data/data/"):
+            if "main.py" in files:
+                main = Path(root) / "main.py"
+                appdir = Path(root)
+                break
     
-    # DEBUG LOGS TO HTML
-    platform.window.document.getElementById("status-msg").innerHTML = "Engine Mounted. Launching Game..."
-    
-    await TopLevel_async_handler.start_toplevel(platform.shell)
-    __import__(__name__).__file__ = str(main)
-    
-    # CHANGE DIR TO APPDIR SO RELATIVE ASSETS WORK
-    import os
     os.chdir(str(appdir))
     sys.path.insert(0, str(appdir))
     
-    # EXECUTE
+    platform.window.document.getElementById("status-msg").innerHTML = f"Engine Mounted at {appdir}. Launching..."
+    await TopLevel_async_handler.start_toplevel(platform.shell)
+    __import__(__name__).__file__ = str(main)
     await shell.runpy(main)
 
 import asyncio
