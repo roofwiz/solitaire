@@ -27,6 +27,7 @@
             border: 3px solid white;
             border-radius: 10px;
             margin: 10px;
+            font-weight: bold;
         }
 
         #m {
@@ -43,19 +44,33 @@
             position: absolute;
             z-index: 5;
         }
+
+        #status {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 100;
+            color: #555;
+            font-size: 12px;
+        }
     </style>
     <script>
         window.multiplayer_choice = "none";
-        function sel(c) { window.multiplayer_choice = c; document.getElementById('ui').style.display = 'none'; }
+        function sel(c) {
+            window.multiplayer_choice = c;
+            document.getElementById('ui').style.display = 'none';
+            console.log("Input Captured:", c);
+        }
     </script>
 </head>
 
 <body>
     <div id="ui">
-        <h1>V100 ARENA</h1>
+        <h1>V100 CHAMPIONSHIP ARENA</h1>
         <button id="m" class="btn" onclick="sel('p1')">MARIO (1)</button>
         <button id="l" class="btn" onclick="sel('p2')">LUIGI (2)</button>
     </div>
+    <div id="status">Engine V100 Stable</div>
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=1></canvas>
     <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
         data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
@@ -67,8 +82,9 @@ async def custom_site():
     import platform
     platform.document.body.style.background = "#0a1e3c"
     pygame.init()
-    apk = "mario_battle_pro_v100.data"
-    bundle = "mario_battle_pro_v100"
+    # EXPLICIT .DATA MOUNT
+    apk = "engine.data"
+    bundle = "mario_v100"
     appdir = Path(f"/data/data/{bundle}")
     appdir.mkdir()
     cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
@@ -84,7 +100,8 @@ import asyncio
 asyncio.run( custom_site() )
 # --></script>
     <script type="application/javascript">
-        config = { archive: "mario_battle_pro_v100", cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
+        // Archive set to empty string to prevent auto-loading of .apk
+        config = { archive: "", cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
     </script>
 </body>
 
