@@ -2,7 +2,7 @@
 <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
     data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
 
-print("V112 SUPREME: Booting sequence initiated...")
+print("V113 SUPREME: Booting sequence initiated...")
 
 async def custom_site():
     import sys, asyncio, platform, json, os
@@ -24,8 +24,8 @@ async def custom_site():
         
         platform.window.canvas.style.visibility = "visible"
 
-        apk = "eng_v112.data"
-        bundle = "mario_supreme_v112"
+        apk = "engine_v113_final.data"
+        bundle = "mario_supreme_v113"
         appdir = Path(f"/data/data/{bundle}")
         appdir.mkdir(parents=True, exist_ok=True)
 
@@ -69,13 +69,13 @@ asyncio.run(custom_site())
 <head>
     <script type="application/javascript">
         // This is necessary to bridge the gap between HTML and Pygame
-        config = { xtermjs: "1", _sdl2: "canvas", user_canvas: 0, user_canvas_managed: 0, ume_block: 1, archive: "mario_v112", gui_debug: 3, cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
+        config = { xtermjs: "1", _sdl2: "canvas", user_canvas: 0, user_canvas_managed: 0, ume_block: 1, archive: "mario_v113", gui_debug: 3, cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
         function unlock() {
             window.MM.UME = true;
             document.getElementById('super-lock').style.display = 'none';
         }
     </script>
-    <title>MARIO MATCH V112</title>
+    <title>MARIO MATCH V113</title>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
