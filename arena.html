@@ -4,81 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARENA V2.0 - ZERO-LAG MULTIPLAYER</title>
-    <!-- Firebase SDK -->
+    <title>MARIO TETRIS SUPREME V116</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <style>
-        :root {
-            --mario-red: #ff0000;
-            --luigi-green: #00ff00;
-            --bg-dark: #0a0a1a;
-            --panel-bg: rgba(20, 20, 40, 0.8);
-            --accent: #00ffcc;
-        }
-
         body {
             margin: 0;
-            background: var(--bg-dark);
+            background: #000;
             color: white;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Arial Black', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             overflow: hidden;
+            background-image: linear-gradient(to bottom, #001f3f, #000);
         }
 
         #header {
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-bottom: 3px solid var(--accent);
-            text-align: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            position: absolute;
+            top: 20px;
+            font-size: 32px;
+            color: #ff0000;
+            text-shadow: 2px 2px #fff, 4px 4px #000;
+            letter-spacing: 2px;
         }
 
-        #game-layout {
+        #arena {
             display: flex;
-            align-items: flex-start;
-            gap: 50px;
-            margin-top: 40px;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 4px solid #ff0000;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
         }
 
         .board-container {
-            padding: 15px;
-            background: var(--panel-bg);
-            border: 2px solid #333;
-            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .label {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #aaa;
-            text-transform: uppercase;
         }
 
         canvas {
             background: #000;
-            border: 2px solid #222;
+            border: 2px solid #555;
+            image-rendering: pixelated;
         }
 
         #my-canvas {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
         #opp-canvas {
-            width: 220px;
-            height: 440px;
-            border-color: #ff3333;
+            border-color: #00ff00;
+            width: 180px;
+            height: 360px;
+        }
+
+        .tag {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 1px 1px #000;
+        }
+
+        #status {
+            position: absolute;
+            bottom: 20px;
+            font-family: monospace;
+            color: #ff0000;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 20px;
+            border-radius: 10px;
+            font-weight: bold;
         }
 
         #overlay {
@@ -87,80 +89,73 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-dark);
-            z-index: 9999;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transition: 0.5s;
         }
 
-        #start-btn {
-            padding: 30px 60px;
-            font-size: 32px;
-            background: var(--accent);
-            color: black;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
+        #gate-btn {
+            padding: 25px 50px;
+            font-size: 40px;
+            background: #ff0000;
+            color: white;
+            border: 4px solid white;
+            border-radius: 20px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 40px #ff0000;
+            font-family: inherit;
         }
 
-        #info-text {
-            margin-top: 30px;
-            color: var(--accent);
-            font-family: monospace;
-            font-size: 18px;
+        #gate-btn:hover {
+            transform: scale(1.1);
+            background: #00ff00;
+            box-shadow: 0 0 40px #00ff00;
         }
 
-        #net-status {
-            position: fixed;
-            bottom: 20px;
-            font-size: 14px;
-            color: #00ff00;
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 15px;
-            border-radius: 5px;
+        #wait-msg {
+            color: #fff;
+            margin-top: 20px;
+            font-size: 20px;
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="header">ARENA V2.0 - SUPREME AUTO-MATCH</div>
+    <div id="header">MARIO SUPREME V116</div>
 
-    <div id="game-layout">
+    <div id="arena">
         <div class="board-container">
-            <div class="label" id="p-label">YOU</div>
+            <div class="tag" id="my-tag">PLAYER 1</div>
             <canvas id="my-canvas" width="300" height="600"></canvas>
         </div>
         <div class="board-container">
-            <div class="label" id="o-label">OPPONENT</div>
-            <canvas id="opp-canvas" width="220" height="440"></canvas>
+            <div class="tag" id="opp-tag">OPPONENT</div>
+            <canvas id="opp-canvas" width="180" height="360"></canvas>
         </div>
     </div>
 
-    <div id="net-status">OFFLINE</div>
+    <div id="status">SEARCHING FOR ARENA...</div>
 
     <div id="overlay">
-        <button id="start-btn">START MATCH</button>
-        <div id="info-text">BOOTING SYSTEM...</div>
+        <button id="gate-btn">JOIN MATCH</button>
+        <div id="wait-msg">CONNECTING TO FIREBASE...</div>
     </div>
 
     <script>
-        // --- FIREBASE ---
-        const firebaseConfig = { databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com/" };
-        firebase.initializeApp(firebaseConfig);
+        // --- CONFIG ---
+        firebase.initializeApp({ databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
-        const ROOM = "arena_supreme_final_v2";
+        const ROOM = "arena_supreme_v116";
 
-        // --- GAME CONFIG ---
-        const C = 10, R = 20;
-        const S = 30, OS = 22;
+        const C = 10, R = 20, S = 30, OS = 18;
         const COLORS = [null, '#00f0f0', '#f0f000', '#a000f0', '#00f000', '#f00000', '#0000f0', '#f0a000', '#888'];
-        const SHAPES = [null,
+        const PIECES = [null,
             [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
             [[2, 2], [2, 2]],
             [[0, 3, 0], [3, 3, 3], [0, 0, 0]],
@@ -171,85 +166,100 @@
         ];
 
         // --- STATE ---
-        let role = null, grid = Array.from({ length: R }, () => Array(C).fill(0)), pos = { x: 3, y: 0 }, piece = null;
-        let oppGrid = Array(R * C).fill(0), active = false, lastT = 0, dropC = 0;
+        let role = null, active = false, grid = Array.from({ length: R }, () => Array(C).fill(0)), oppGrid = Array(R * C).fill(0);
+        let piece = null, lastT = 0, dropC = 0;
 
         const ctx = document.getElementById('my-canvas').getContext('2d');
         const oCtx = document.getElementById('opp-canvas').getContext('2d');
 
-        function createP() { return { matrix: SHAPES[Math.floor(Math.random() * 7) + 1], pos: { x: 3, y: 0 } }; }
-        function drawB(cx, m, s) {
+        function createP() { return { matrix: PIECES[Math.floor(Math.random() * 7) + 1], x: 3, y: 0 }; }
+        function drawB(cx, m, scale) {
             cx.fillStyle = '#000'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
-            m.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect(x * s, y * s, s - 1, s - 1); } }));
+            m.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect(x * scale, y * scale, scale - 1, scale - 1); } }));
         }
-        function drawP(cx, p, s) {
-            p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect((p.pos.x + x) * s, (p.pos.y + y) * s, s - 1, s - 1); } }));
+        function drawP(cx, p, scale) {
+            p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect((p.x + x) * scale, (p.y + y) * scale, scale - 1, scale - 1); } }));
         }
         function coll(b, p) {
             for (let y = 0; y < p.matrix.length; y++) for (let x = 0; x < p.matrix[y].length; x++)
-                if (p.matrix[y][x] && (b[y + p.pos.y] && b[y + p.pos.y][x + p.pos.x]) !== 0) return true;
+                if (p.matrix[y][x] && (b[y + p.y] && b[y + p.y][x + p.x]) !== 0) return true;
             return false;
         }
-        function merge(b, p) { p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) b[y + p.pos.y][x + p.pos.x] = v; })); }
-        function clear() {
-            for (let y = R - 1; y >= 0; y--) if (grid[y].every(v => v !== 0)) { grid.splice(y, 1); grid.unshift(Array(C).fill(0)); y++; }
-        }
+        function merge(b, p) { p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) b[y + p.y][x + p.x] = v; })); }
         function drop() {
-            pos.y++;
-            if (coll(grid, piece)) { pos.y--; merge(grid, piece); clear(); piece = createP(); if (coll(grid, piece)) grid.forEach(r => r.fill(0)); sync(); }
+            piece.y++;
+            if (coll(grid, piece)) {
+                piece.y--; merge(grid, piece);
+                grid = grid.filter(r => !r.every(v => v !== 0));
+                while (grid.length < R) grid.unshift(Array(C).fill(0));
+                piece = createP(); sync();
+                if (coll(grid, piece)) grid.forEach(r => r.fill(0));
+            }
             dropC = 0;
-        }
-        function rot(m) {
-            for (let y = 0; y < m.length; y++) for (let x = 0; x < y; x++) [m[x][y], m[y][x]] = [m[y][x], m[x][y]];
-            m.forEach(r => r.reverse());
         }
 
         function loop(t = 0) {
             if (!active) return;
             const dt = t - lastT; lastT = t; dropC += dt;
-            if (dropC > 1000) drop();
+            if (dropC > 800) drop();
             drawB(ctx, grid, S); drawP(ctx, piece, S);
-
-            oCtx.fillStyle = '#000'; oCtx.fillRect(0, 0, 220, 440);
-            oppGrid.forEach((v, i) => { if (v) { oCtx.fillStyle = COLORS[v]; oCtx.fillRect((i % C) * OS, (Math.floor(i / C)) * OS, OS - 1, OS - 1); } });
+            drawOpp();
             requestAnimationFrame(loop);
+        }
+
+        function drawOpp() {
+            oCtx.fillStyle = '#000'; oCtx.fillRect(0, 0, 180, 360);
+            oppGrid.forEach((v, i) => { if (v) { oCtx.fillStyle = COLORS[v]; oCtx.fillRect((i % 10) * OS, (Math.floor(i / 10)) * OS, OS - 1, OS - 1); } });
         }
 
         function sync() { if (role) db.ref(`battles/${ROOM}/${role}`).update({ grid: grid.flat().join(''), ts: Date.now() }); }
 
         async function join() {
-            document.getElementById('info-text').innerText = "CONNECTING...";
+            document.getElementById('wait-msg').style.display = 'block';
+            document.getElementById('gate-btn').style.display = 'none';
             const snap = await db.ref(`battles/${ROOM}`).get();
             const data = snap.val(); const now = Date.now();
-            if (!data || !data.p1 || (now - data.p1.ts > 8000)) {
-                role = 'p1'; await db.ref(`battles/${ROOM}`).set({ state: 'wait', p1: { ts: now, grid: '0'.repeat(200) }, p2: { ts: 0, grid: '0'.repeat(200) } });
-            } else if (!data.p2 || (now - data.p2.ts > 8000)) {
-                role = 'p2'; await db.ref(`battles/${ROOM}/p2`).update({ ts: now, grid: '0'.repeat(200) });
-            } else { alert("ARENA FULL!"); location.reload(); return; }
 
-            document.getElementById('p-label').innerText = `YOU (${role.toUpperCase()})`;
-            db.ref(`battles/${ROOM}`).on('value', (s) => {
+            if (!data || !data.p1 || (now - data.p1.ts > 6000)) {
+                role = 'p1'; await db.ref(`battles/${ROOM}`).set({ state: 'wait', p1: { ts: now, grid: '0'.repeat(200) }, p2: { ts: 0, grid: '0'.repeat(200) } });
+            } else if (!data.p2 || (now - data.p2.ts > 6000)) {
+                role = 'p2'; await db.ref(`battles/${ROOM}/p2`).update({ ts: now, grid: '0'.repeat(200) });
+            } else { alert("ARENA BUSY. TRY AGAIN."); location.reload(); return; }
+
+            document.getElementById('my-tag').innerText = (role === 'p1' ? "MARIO (YOU)" : "LUIGI (YOU)");
+            document.getElementById('opp-tag').innerText = (role === 'p1' ? "LUIGI" : "MARIO");
+
+            db.ref(`battles/${ROOM}`).on('value', s => {
                 const v = s.val(); if (!v) return;
                 const o = (role === 'p1' ? v.p2 : v.p1);
                 if (o && (Date.now() - o.ts < 5000)) {
                     oppGrid = o.grid.split('').map(Number);
-                    document.getElementById('net-status').innerText = "SYNC ACTIVE | OPPONENT ONLINE";
+                    document.getElementById('status').innerText = "OPPONENT CONNECTED!";
                     if (v.state === 'wait' && role === 'p1') db.ref(`battles/${ROOM}`).update({ state: 'play' });
-                } else document.getElementById('net-status').innerText = "WAITING FOR OPPONENT...";
-                if (v.state === 'play' && !active) { document.getElementById('overlay').style.display = 'none'; active = true; piece = createP(); loop(); }
+                } else document.getElementById('status').innerText = "WAITING FOR OPPONENT...";
+
+                if (v.state === 'play' && !active) {
+                    document.getElementById('overlay').style.display = 'none';
+                    active = true; piece = createP(); loop();
+                }
             });
-            setInterval(() => db.ref(`battles/${ROOM}/${role}`).update({ ts: Date.now() }), 2000);
+            setInterval(sync, 1500);
         }
 
-        document.getElementById('start-btn').onclick = () => { document.getElementById('start-btn').style.display = 'none'; join(); };
+        document.getElementById('gate-btn').onclick = join;
 
-        document.onkeydown = (e) => {
+        document.onkeydown = e => {
             if (!active) return;
-            if (e.keyCode === 37) { pos.x--; if (coll(grid, piece)) pos.x++; }
-            if (e.keyCode === 39) { pos.x++; if (coll(grid, piece)) pos.x--; }
-            if (e.keyCode === 40) drop();
-            if (e.keyCode === 38) { const old = [...piece.matrix.map(r => [...r])]; rot(piece.matrix); if (coll(grid, piece)) piece.matrix = old; }
-            if (e.keyCode === 32) { while (!coll(grid, piece)) pos.y++; pos.y--; drop(); }
+            if (e.code === 'ArrowLeft') { piece.x--; if (coll(grid, piece)) piece.x++; }
+            if (e.code === 'ArrowRight') { piece.x++; if (coll(grid, piece)) piece.x--; }
+            if (e.code === 'ArrowDown') drop();
+            if (e.code === 'ArrowUp') {
+                const m = piece.matrix;
+                const t = m[0].map((_, i) => m.map(r => r[i]).reverse());
+                const old = piece.matrix; piece.matrix = t;
+                if (coll(grid, piece)) piece.matrix = old;
+            }
+            if (e.code === 'Space') { while (!coll(grid, piece)) piece.y++; piece.y--; drop(); }
             sync();
         };
 
