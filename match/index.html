@@ -1,39 +1,15 @@
 <html lang="en-us">
-<script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
-    data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
-
-import asyncio, platform, json, os, pygame
-from pathlib import Path
-
-async def custom_site():
-    log = lambda msg: print(f"BOOT: {msg}")
-    try:
-        apk = "v114_supreme.data"; bundle = "mario_v114"; appdir = Path(f"/data/data/{bundle}"); appdir.mkdir(parents=True, exist_ok=True)
-        cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
-        track = platform.window.MM.prepare(apk, json.dumps(cfg))
-        while not track.ready: await asyncio.sleep(.1)
-        platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
-        import embed
-        while embed.counter()<0: await asyncio.sleep(.1)
-        main = appdir / "assets" / "main.py"
-        await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
-        __import__(__name__).__file__ = str(main)
-        while not platform.window.MM.UME: await asyncio.sleep(.1)
-        await shell.runpy(main)
-    except Exception as e: print(f"ERROR: {e}")
-
-asyncio.run(custom_site())
-
-# BEGIN BLOCK
-# =============================================================================
-# --></script>
 
 <head>
     <script type="application/javascript">
-        config = { xtermjs: "1", _sdl2: "canvas", user_canvas: 0, user_canvas_managed: 0, ume_block: 1, archive: "mario_v114", gui_debug: 3, cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
-        function unlock() { window.MM.UME = true; document.getElementById('lock').style.display = 'none'; }
+        // This BRIDGE ensures the browser wakes up when you click!
+        function unlock() {
+            window.MM.UME = true;
+            document.getElementById('lock').style.display = 'none';
+            console.log("ARENA UNLOCKED");
+        }
     </script>
-    <title>MARIO V114 SUPREME</title>
+    <title>MARIO SUPREME V115</title>
     <style>
         body {
             margin: 0;
@@ -41,14 +17,7 @@ asyncio.run(custom_site())
             color: #fff;
             font-family: sans-serif;
             overflow: hidden;
-        }
-
-        canvas.emscripten {
-            border: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            position: absolute;
+            text-align: center;
         }
 
         #lock {
@@ -56,31 +25,62 @@ asyncio.run(custom_site())
             width: 100%;
             height: 100%;
             background: #050510;
-            z-index: 999;
+            z-index: 1000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
         }
 
         #btn {
-            padding: 30px 60px;
-            font-size: 24px;
+            padding: 40px 80px;
+            font-size: 32px;
             background: #00ffcc;
             color: #000;
             border: 0;
-            border-radius: 10px;
+            border-radius: 20px;
             font-weight: bold;
+            box-shadow: 0 0 50px #00ffcc;
+            cursor: pointer;
         }
 
-        #pyconsole {
-            display: none !important;
+        #v-tag {
+            position: absolute;
+            top: 20px;
+            color: #00ffcc;
+            font-weight: bold;
+            font-size: 24px;
         }
     </style>
 </head>
 
 <body>
-    <div id="lock" onclick="unlock()"><button id="btn">CLICK TO MATCH</button></div>
+    <div id="v-tag">MARIO SUPREME V115</div>
+    <div id="lock" onclick="unlock()">
+        <button id="btn">CLICK TO ENTER ARENA</button>
+    </div>
+    <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
+        data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
+import asyncio, platform, json, os, pygame
+from pathlib import Path
+async def custom_site():
+    try:
+        apk = "v115_supreme_final.data"; bundle = "mario_v115"; appdir = Path(f"/data/data/{bundle}"); appdir.mkdir(parents=True, exist_ok=True)
+        cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
+        track = platform.window.MM.prepare(apk, json.dumps(cfg))
+        while not track.ready: await asyncio.sleep(.1)
+        platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
+        import embed
+        while embed.counter()<0: await asyncio.sleep(.1)
+        main = appdir / "assets" / "main.py"
+        await TopLevel_async_handler.start_toplevel(platform.shell, console=False)
+        __import__(__name__).__file__ = str(main)
+        while not platform.window.MM.UME: await asyncio.sleep(.1)
+        await shell.runpy(main)
+    except Exception as e: print(f"BOOT ERROR: {e}")
+asyncio.run(custom_site())
+# --></script>
     <div id="transfer" hidden></div>
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=1></canvas>
 </body>
