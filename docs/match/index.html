@@ -2,25 +2,7 @@
 <script src="https://pygame-web.github.io/archives/0.9/pythons.js" type=module id=site data-LINES=57 data-CONSOLE=25
     data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
 
-print("""
-Loading SUPREME V112 from eng_v112.data
-    AUTO-START SYSTEM ENABLED
-""")
-
-# screen pixels (real, hardware)
-WIDTH=1024
-HEIGHT=600
-REFX = 1980
-REFY = 1080
-
-def u(real, ref, v):
-    if abs(v)<0.9999999:
-        result = int((real/100.0) * (v*1000))
-        return (real-result) if v<0 else result
-    return int((real/ref) * v)
-
-def ux(*v): return sum(u(WIDTH, REFX, i) for i in v)
-def uy(*v): return sum(u(HEIGHT, REFY, i) for i in v)
+print("V112 SUPREME: Booting sequence initiated...")
 
 async def custom_site():
     import sys, asyncio, platform, json, os
@@ -28,53 +10,54 @@ async def custom_site():
     import embed, pygame
 
     def log(msg):
+        print(f"BOOTLOG: {msg}")
         try: platform.window.document.getElementById("status-text").innerHTML = msg
         except: pass
 
-    platform.document.body.style.background = "#050510"
-    pygame.init()
-    
-    screen = pygame.display.set_mode([ux(.100),uy(.100)], pygame.SRCALPHA, 32)
-    screen.set_colorkey((0,0,0,0), pygame.RLEACCEL)
-    screen.fill((0,0,0,0))
-    pygame.display.update()
-
-    # --- FIX: Use Python 'True'/'False' instead of JS 'true'/'false' ---
-    platform.window.transfer.hidden = True
-    platform.window.canvas.style.visibility = "visible"
-
-    apk = "eng_v112.data"
-    bundle = "mario_supreme_v112"
-    appdir = Path(f"/data/data/{bundle}")
-    appdir.mkdir(parents=True, exist_ok=True)
-
-    log("Downloading match engine...")
-    cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
-    track = platform.window.MM.prepare(apk, json.dumps(cfg))
-    while not track.ready: await asyncio.sleep(.1)
-
-    log("Booting simulation...")
-    # --- Check path consistency ---
-    platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
-    while embed.counter()<0: await asyncio.sleep(.1)
-
-    main = appdir / "assets" / "main.py"
-    if not main.exists(): main = appdir / "main.py" 
-    
-    await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
-    __import__(__name__).__file__ = str(main)
-
-    log("READY. Click the lock to enter.")
-    # --- Wait for HTML button click ---
-    while True:
-        try:
-            if platform.window.MM.UME: break
+    try:
+        platform.document.body.style.background = "#050510"
+        pygame.init()
+        
+        # Hide standard Pygbag progress bar if possible
+        try: platform.window.transfer.hidden = True
         except: pass
-        await asyncio.sleep(.1)
+        
+        platform.window.canvas.style.visibility = "visible"
 
-    screen.fill((0,0,0,0))
-    pygame.display.flip()
-    await shell.runpy(main)
+        apk = "eng_v112.data"
+        bundle = "mario_supreme_v112"
+        appdir = Path(f"/data/data/{bundle}")
+        appdir.mkdir(parents=True, exist_ok=True)
+
+        log("Step 1: Fetching match engine...")
+        cfg = {"io": "url", "type":"mount", "mount" : {"point" : appdir.as_posix(), "path" : "/"}, "path" : f"/ => {appdir.as_posix()}"}
+        track = platform.window.MM.prepare(apk, json.dumps(cfg))
+        while not track.ready: await asyncio.sleep(.1)
+
+        log("Step 2: Preparing simulation...")
+        platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
+        while embed.counter()<0: await asyncio.sleep(.1)
+
+        main = appdir / "assets" / "main.py"
+        if not main.exists(): main = appdir / "main.py" 
+        
+        await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
+        __import__(__name__).__file__ = str(main)
+
+        log("ARENA READY. Press ENTER below.")
+        
+        # Wait for user engagement (Standard browser requirement)
+        while True:
+            try:
+                if platform.window.MM.UME: break
+            except: pass
+            await asyncio.sleep(.1)
+
+        log("Entering game...")
+        await shell.runpy(main)
+    except Exception as e:
+        print(f"FATAL BOOT ERROR: {e}")
+        log(f"BOOT FAILED: {e}")
 
 import asyncio
 asyncio.run(custom_site())
@@ -85,6 +68,7 @@ asyncio.run(custom_site())
 
 <head>
     <script type="application/javascript">
+        // This is necessary to bridge the gap between HTML and Pygame
         config = { xtermjs: "1", _sdl2: "canvas", user_canvas: 0, user_canvas_managed: 0, ume_block: 1, archive: "mario_v112", gui_debug: 3, cdn: "https://pygame-web.github.io/archives/0.9/", autorun: 0, PYBUILD: "3.12" }
         function unlock() {
             window.MM.UME = true;
@@ -98,8 +82,9 @@ asyncio.run(custom_site())
         body {
             margin: 0;
             background-color: #050510;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             overflow: hidden;
+            color: white;
         }
 
         canvas.emscripten {
@@ -126,6 +111,7 @@ asyncio.run(custom_site())
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            text-align: center;
         }
 
         #lock-btn {
@@ -136,15 +122,22 @@ asyncio.run(custom_site())
             border: none;
             border-radius: 20px;
             font-weight: bold;
-            box-shadow: 0 0 50px #00ffcc;
+            box-shadow: 0 0 50px rgba(0, 255, 204, 0.4);
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            transition: 0.2s;
+        }
+
+        #lock-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 70px rgba(0, 255, 204, 0.6);
         }
 
         #status-text {
             color: #00ffcc;
             font-family: monospace;
-            font-size: 18px;
+            font-size: 20px;
+            letter-spacing: 2px;
         }
 
         #pyconsole {
@@ -155,8 +148,8 @@ asyncio.run(custom_site())
 
 <body>
     <div id="super-lock" onclick="unlock()">
-        <button id="lock-btn">ENTER ARENA</button>
-        <div id="status-text">INITIALIZING...</div>
+        <button id="lock-btn">ENTER MATCH ARENA</button>
+        <div id="status-text">WAITING FOR ENGINE...</div>
     </div>
     <div id="transfer" align=center>
         <div class="emscripten" id="status"></div>
