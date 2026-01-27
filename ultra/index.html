@@ -9,7 +9,7 @@ Loading SUPREME V109 from beat_v109_supreme.data
     Python  : 3.12
     CDN URL : https://pygame-web.github.io/archives/0.9/
     Screen  : 1280x720
-    Title   : mario_ultra_v109
+    Title   : MARIO SUPREME V109
     Folder  : mario_ultra_v109
     Authors : pgw
     SPDX-License-Identifier: cookiecutter.spdx
@@ -196,14 +196,6 @@ asyncio.run( custom_site() )
 
 
 
-
-
-
-
-
-
-
-
 # BEGIN BLOCK
 #
 # now this is the html part you can (and should) customize
@@ -224,6 +216,7 @@ asyncio.run( custom_site() )
 //
 //
 //
+//
 
     {%- if cookiecutter.comment != "" -%}
 {{cookiecutter.comment}}
@@ -231,23 +224,24 @@ asyncio.run( custom_site() )
 
 -->
     <script type="application/javascript">
-// END BL        OCK
+        // END BLOCK
 
 
 
-// this dict is available under PyConfig.config from __m        ain__
+        // this dict is available under PyConfig.config from __main__
 
-conf             {
-            termj:             ,
-                _sdl2 : "ca            ",
-                    usercanva            0,
-                        user_canvas_anage            0,
-                            um_bloc            1,
-                                ca_clos            0,
-                                    rchive : "mario_ultra            9",
-                                        gi_deb             3, cdn : "https://pygame-web.github.io/archives            /",
-                                            autor             0,
-                                                PYBUILD : "3.12"
+        config = {
+            xtermjs: "1",
+            _sdl2: "canvas",
+            user_canvas: 0,
+            user_canvas_managed: 0,
+            ume_block: 1,
+            can_close: 0,
+            archive: "mario_ultra_v109",
+            gui_debug: 3,
+            cdn: "https://pygame-web.github.io/archives/0.9/",
+            autorun: 0,
+            PYBUILD: "3.12"
         }
 
     </script>
@@ -422,22 +416,67 @@ conf             {
 
     <script type="application/javascript">
 
-        async function custom_onload(debug_hi                    // this is called before anything python is                    // make your js customizati                    console.log(__FILE__, "custom_on                    pyconsole.hidden = debug                    system.hidden = debug                    transfer.hidden = debug                    info.hidden = debug                    box. dden =  debug_        en
-         }
+        async function custom_onload(debug_hidden) {
+            // this is called before anything python is loaded
+            // make your js customization here
+            console.log(__FILE__, "custom_onload")
 
-    function custom_ pr                    // no python main and no (MEMFS + VF                    console.log(__FILE__, "custom_pr        ")
-         }
+            pyconsole.hidden = debug_hidden
+            system.hidden = debug_hidden
+            transfer.hidden = debug_hidden
+            info.hidden = debug_hidden
+            box.hidden = debug_hidden
 
-        function custom_p os                    // python main and no VFS filesyst                    console.log(__FILE__, "custom_pos                    // prevent ff horizontal                    window.addEventListener("keydown",  functi                         if([ "Space","A rrowUp","Arr owDown","Arr owLeft","ArrowRight"].indexOf(e.code)                             if (!python.config                                e.preventDef                                      }, f        );
-         }
+        }
 
-        function de                    // allow to gain access to dev tools from js                     // but only on desktop. difficult to reach when in                    python.config.debug                    custom_onload                    Module.PyRun_SimpleString("shell.upt                    window_r        e()         }
+        function custom_prerun() {
+            // no python main and no (MEMFS + VFS) yet.
+            console.log(__FILE__, "custom_prerun")
 
-    function info_inli ne                    document.getElementById("info").innerHTML        ata         }
+        }
 
-        function info_online                    // display info about curr                   fetch( url /*, opti                        .then((response) => response.                        .then((htm                            info_inline                                           .catch((erro                            console.warn(                            });         }
+        function custom_postrun() {
+            // python main and no VFS filesystem yet.
+            console.log(__FILE__, "custom_postrun")
 
-    function frame_online                    window.frames["iframe"].location        rl; }
+            // prevent ff horizontal scroll
+            window.addEventListener("keydown", function (e) {
+                if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+                    if (!python.config.debug)
+                        e.preventDefault();
+                }
+            }, false);
+
+        }
+
+        function debug() {
+            // allow to gain access to dev tools from js console
+            // but only on desktop. difficult to reach when in iframe
+            python.config.debug = true
+            custom_onload(false)
+            Module.PyRun_SimpleString("shell.uptime()")
+            window_resize()
+        }
+
+        function info_inline(data) {
+            document.getElementById("info").innerHTML = data
+        }
+
+        function info_online(url) {
+            // display info about current APK
+            fetch(url /*, options */)
+                .then((response) => response.text())
+                .then((html) => {
+                    info_inline(html);
+                })
+                .catch((error) => {
+                    console.warn(error);
+                });
+        }
+
+        function frame_online(url) {
+            window.frames["iframe"].location = url;
+        }
 
     </script>
 
