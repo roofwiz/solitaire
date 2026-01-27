@@ -4,66 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SUPREME ARENA V3 - NO LAG</title>
+    <title>MARIO TETRIS SUPREME V116</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <style>
         body {
             margin: 0;
-            background: #050510;
+            background: #000;
             color: white;
-            font-family: sans-serif;
+            font-family: 'Arial Black', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            background-image: linear-gradient(to bottom, #001f3f, #000);
         }
 
-        #game-box {
+        #header {
+            position: absolute;
+            top: 20px;
+            font-size: 32px;
+            color: #ff0000;
+            text-shadow: 2px 2px #fff, 4px 4px #000;
+            letter-spacing: 2px;
+        }
+
+        #arena {
             display: flex;
-            gap: 40px;
-            background: #111;
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid #00ffcc;
-            box-shadow: 0 0 40px rgba(0, 255, 204, 0.2);
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 4px solid #ff0000;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
         }
 
-        .canvas-container {
+        .board-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
         }
 
         canvas {
             background: #000;
-            border: 2px solid #333;
+            border: 2px solid #555;
+            image-rendering: pixelated;
         }
 
         #my-canvas {
-            border-color: #00ffcc;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        #opp-canvas {
+            border-color: #00ff00;
+            width: 180px;
+            height: 360px;
         }
 
         .tag {
-            font-family: monospace;
-            color: #00ffcc;
-            font-weight: bold;
-            font-size: 18px;
-            text-transform: uppercase;
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 1px 1px #000;
         }
 
         #status {
             position: absolute;
-            top: 20px;
+            bottom: 20px;
             font-family: monospace;
-            color: #00ff00;
-            font-size: 14px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px 15px;
-            border-radius: 5px;
+            color: #ff0000;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 20px;
+            border-radius: 10px;
+            font-weight: bold;
         }
 
         #overlay {
@@ -72,30 +89,37 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #050510;
-            z-index: 999;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transition: 0.5s;
         }
 
-        #start-btn {
-            padding: 30px 60px;
-            font-size: 30px;
-            background: #00ffcc;
-            color: #000;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
+        #gate-btn {
+            padding: 25px 50px;
+            font-size: 40px;
+            background: #ff0000;
+            color: white;
+            border: 4px solid white;
+            border-radius: 20px;
             cursor: pointer;
-            box-shadow: 0 0 30px #00ffcc;
+            box-shadow: 0 0 40px #ff0000;
+            font-family: inherit;
         }
 
-        #waiting-msg {
+        #gate-btn:hover {
+            transform: scale(1.1);
+            background: #00ff00;
+            box-shadow: 0 0 40px #00ff00;
+        }
+
+        #wait-msg {
+            color: #fff;
             margin-top: 20px;
-            color: #ff0000;
-            font-weight: bold;
+            font-size: 20px;
             display: none;
         }
     </style>
@@ -103,32 +127,33 @@
 
 <body>
 
-    <div id="status">INITIALIZING SYSTEM...</div>
+    <div id="header">MARIO SUPREME V116</div>
 
-    <div id="game-box">
-        <div class="canvas-container">
+    <div id="arena">
+        <div class="board-container">
             <div class="tag" id="my-tag">PLAYER 1</div>
             <canvas id="my-canvas" width="300" height="600"></canvas>
         </div>
-        <div class="canvas-container">
+        <div class="board-container">
             <div class="tag" id="opp-tag">OPPONENT</div>
-            <canvas id="opp-canvas" width="220" height="440"></canvas>
+            <canvas id="opp-canvas" width="180" height="360"></canvas>
         </div>
     </div>
 
+    <div id="status">SEARCHING FOR ARENA...</div>
+
     <div id="overlay">
-        <button id="start-btn">ENTER ARENA</button>
-        <div id="waiting-msg">ARENA FULL! RETRYING...</div>
+        <button id="gate-btn">JOIN MATCH</button>
+        <div id="wait-msg">CONNECTING TO FIREBASE...</div>
     </div>
 
     <script>
-        // --- FIREBASE CONFIG ---
+        // --- CONFIG ---
         firebase.initializeApp({ databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com/" });
         const db = firebase.database();
-        const ROOM = "arena_supreme_v3";
+        const ROOM = "arena_supreme_v116";
 
-        // --- GAME ENGINE ---
-        const C = 10, R = 20, S = 30, OS = 22;
+        const C = 10, R = 20, S = 30, OS = 18;
         const COLORS = [null, '#00f0f0', '#f0f000', '#a000f0', '#00f000', '#f00000', '#0000f0', '#f0a000', '#888'];
         const PIECES = [null,
             [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -140,90 +165,88 @@
             [[0, 0, 7], [7, 7, 7], [0, 0, 0]]
         ];
 
+        // --- STATE ---
         let role = null, active = false, grid = Array.from({ length: R }, () => Array(C).fill(0)), oppGrid = Array(R * C).fill(0);
-        let piece = null, lastTime = 0, dropCounter = 0;
+        let piece = null, lastT = 0, dropC = 0;
 
         const ctx = document.getElementById('my-canvas').getContext('2d');
         const oCtx = document.getElementById('opp-canvas').getContext('2d');
 
-        function createPiece() {
-            const id = Math.floor(Math.random() * 7) + 1;
-            return { matrix: PIECES[id], x: 3, y: 0 };
+        function createP() { return { matrix: PIECES[Math.floor(Math.random() * 7) + 1], x: 3, y: 0 }; }
+        function drawB(cx, m, scale) {
+            cx.fillStyle = '#000'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
+            m.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect(x * scale, y * scale, scale - 1, scale - 1); } }));
         }
-
-        function drawBoard(c, m, scale) {
-            c.fillStyle = '#000'; c.fillRect(0, 0, c.canvas.width, c.canvas.height);
-            m.forEach((row, y) => row.forEach((v, x) => { if (v) { c.fillStyle = COLORS[v]; c.fillRect(x * scale, y * scale, scale - 1, scale - 1); } }));
+        function drawP(cx, p, scale) {
+            p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect((p.x + x) * scale, (p.y + y) * scale, scale - 1, scale - 1); } }));
         }
-
-        function drawPiece(c, p, scale) {
-            p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) { c.fillStyle = COLORS[v]; c.fillRect((p.x + x) * scale, (p.y + y) * scale, scale - 1, scale - 1); } }));
-        }
-
-        function collide(b, p) {
+        function coll(b, p) {
             for (let y = 0; y < p.matrix.length; y++) for (let x = 0; x < p.matrix[y].length; x++)
                 if (p.matrix[y][x] && (b[y + p.y] && b[y + p.y][x + p.x]) !== 0) return true;
             return false;
         }
-
         function merge(b, p) { p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) b[y + p.y][x + p.x] = v; })); }
-
         function drop() {
             piece.y++;
-            if (collide(grid, piece)) {
+            if (coll(grid, piece)) {
                 piece.y--; merge(grid, piece);
-                grid = grid.filter(row => !row.every(v => v !== 0));
+                grid = grid.filter(r => !r.every(v => v !== 0));
                 while (grid.length < R) grid.unshift(Array(C).fill(0));
-                piece = createPiece();
-                if (collide(grid, piece)) grid.forEach(r => r.fill(0));
-                syncNet();
+                piece = createP(); sync();
+                if (coll(grid, piece)) grid.forEach(r => r.fill(0));
             }
-            dropCounter = 0;
-        }
-
-        function rotate(m) {
-            for (let y = 0; y < m.length; y++) for (let x = 0; x < y; x++) [m[x][y], m[y][x]] = [m[y][x], m[x][y]];
-            m.forEach(r => r.reverse());
+            dropC = 0;
         }
 
         function loop(t = 0) {
             if (!active) return;
-            const dt = t - lastTime; lastTime = t; dropCounter += dt;
-            if (dropCounter > 800) drop();
-            drawBoard(ctx, grid, S); drawPiece(ctx, piece, S);
-
-            oCtx.fillStyle = '#000'; oCtx.fillRect(0, 0, 220, 440);
-            oppGrid.forEach((v, i) => { if (v) { oCtx.fillStyle = COLORS[v]; oCtx.fillRect((i % C) * OS, (Math.floor(i / C)) * OS, OS - 1, OS - 1); } });
+            const dt = t - lastT; lastT = t; dropC += dt;
+            if (dropC > 800) drop();
+            drawB(ctx, grid, S); drawP(ctx, piece, S);
+            drawOpp();
             requestAnimationFrame(loop);
         }
 
-        // --- NETWORK ---
-        function syncNet() { if (role) db.ref(`battles/${ROOM}/${role}`).update({ grid: grid.flat().join(''), ts: Date.now() }); }
+        function drawOpp() {
+            oCtx.fillStyle = '#000'; oCtx.fillRect(0, 0, 180, 360);
+            oppGrid.forEach((v, i) => { if (v) { oCtx.fillStyle = COLORS[v]; oCtx.fillRect((i % 10) * OS, (Math.floor(i / 10)) * OS, OS - 1, OS - 1); } });
+        }
 
-        async function joinArena() {
+        function sync() { if (role) db.ref(`battles/${ROOM}/${role}`).update({ grid: grid.flat().join(''), ts: Date.now() }); }
+
+        async function join() {
+            document.getElementById('wait-msg').style.display = 'block';
+            document.getElementById('gate-btn').style.display = 'none';
             const snap = await db.ref(`battles/${ROOM}`).get();
             const data = snap.val(); const now = Date.now();
+
             if (!data || !data.p1 || (now - data.p1.ts > 6000)) {
                 role = 'p1'; await db.ref(`battles/${ROOM}`).set({ state: 'wait', p1: { ts: now, grid: '0'.repeat(200) }, p2: { ts: 0, grid: '0'.repeat(200) } });
             } else if (!data.p2 || (now - data.p2.ts > 6000)) {
                 role = 'p2'; await db.ref(`battles/${ROOM}/p2`).update({ ts: now, grid: '0'.repeat(200) });
-            } else { document.getElementById('waiting-msg').style.display = 'block'; return; }
+            } else { alert("ARENA BUSY. TRY AGAIN."); location.reload(); return; }
 
-            document.getElementById('my-tag').innerText = `YOU (${role.toUpperCase()})`;
+            document.getElementById('my-tag').innerText = (role === 'p1' ? "MARIO (YOU)" : "LUIGI (YOU)");
+            document.getElementById('opp-tag').innerText = (role === 'p1' ? "LUIGI" : "MARIO");
+
             db.ref(`battles/${ROOM}`).on('value', s => {
                 const v = s.val(); if (!v) return;
-                const opp = (role === 'p1' ? v.p2 : v.p1);
-                if (opp && (Date.now() - opp.ts < 4000)) {
-                    oppGrid = opp.grid.split('').map(Number);
-                    document.getElementById('status').innerText = "MULTIPLAYER ACTIVE | SYNC OK";
+                const o = (role === 'p1' ? v.p2 : v.p1);
+                if (o && (Date.now() - o.ts < 5000)) {
+                    oppGrid = o.grid.split('').map(Number);
+                    document.getElementById('status').innerText = "OPPONENT CONNECTED!";
                     if (v.state === 'wait' && role === 'p1') db.ref(`battles/${ROOM}`).update({ state: 'play' });
                 } else document.getElementById('status').innerText = "WAITING FOR OPPONENT...";
-                if (v.state === 'play' && !active) { document.getElementById('overlay').style.display = 'none'; active = true; piece = createPiece(); loop(); }
+
+                if (v.state === 'play' && !active) {
+                    document.getElementById('overlay').style.display = 'none';
+                    active = true; piece = createP(); loop();
+                }
             });
-            setInterval(() => db.ref(`battles/${ROOM}/${role}`).update({ ts: Date.now() }), 2000);
+            setInterval(sync, 1500);
         }
 
-        document.getElementById('start-btn').onclick = joinArena;
+        document.getElementById('gate-btn').onclick = join;
 
         document.onkeydown = e => {
             if (!active) return;
@@ -231,11 +254,13 @@
             if (e.code === 'ArrowRight') { piece.x++; if (coll(grid, piece)) piece.x--; }
             if (e.code === 'ArrowDown') drop();
             if (e.code === 'ArrowUp') {
-                const old = piece.matrix.map(r => [...r]);
-                rotate(piece.matrix); if (coll(grid, piece)) piece.matrix = old;
+                const m = piece.matrix;
+                const t = m[0].map((_, i) => m.map(r => r[i]).reverse());
+                const old = piece.matrix; piece.matrix = t;
+                if (coll(grid, piece)) piece.matrix = old;
             }
             if (e.code === 'Space') { while (!coll(grid, piece)) piece.y++; piece.y--; drop(); }
-            syncNet();
+            sync();
         };
 
     </script>
