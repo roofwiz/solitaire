@@ -3,14 +3,14 @@
     data-python=python3.12 data-os=vtx,fs,snd,gui async defer>#<!--
 
 print("""
-Loading mario_v107_dist from mario_v107_dist.apk
+Loading mario_ultra_v109 from mario_ultra_v109.apk
     Pygbag Version : 0.9.2
     Template Version : 0.9.0
     Python  : 3.12
     CDN URL : https://pygame-web.github.io/archives/0.9/
     Screen  : 1280x720
-    Title   : mario_v107_dist
-    Folder  : mario_v107_dist
+    Title   : mario_ultra_v109
+    Folder  : mario_ultra_v109
     Authors : pgw
     SPDX-License-Identifier: cookiecutter.spdx
 
@@ -86,12 +86,12 @@ async def custom_site():
 
 
 
-    apk = "mario_v107_ultra.data"
+    apk = "beat_v109_supreme.data"
 
-    bundle = "mario_v107_dist"
+    bundle = "mario_ultra_v109"
 
     # the C or js loader could do that but be explicit.
-    appdir = Path(f"/data/data/{bundle}") # /data/data/mario_v107_dist
+    appdir = Path(f"/data/data/{bundle}") # /data/data/mario_ultra_v109
     appdir.mkdir()
 
 
@@ -231,29 +231,28 @@ asyncio.run( custom_site() )
 
 -->
     <script type="application/javascript">
-        // END BLOCK
+// END BL        OCK
 
 
 
-        // this dict is available under PyConfig.config from __main__
+// this dict is available under PyConfig.config from __m        ain__
 
-        config = {
-            xtermjs: "1",
-            _sdl2: "canvas",
-            user_canvas: 0,
-            user_canvas_managed: 0,
-            ume_block: 1,
-            can_close: 0,
-            archive: "mario_v107_dist",
-            gui_debug: 3,
-            cdn: "https://pygame-web.github.io/archives/0.9/",
-            autorun: 0,
-            PYBUILD: "3.12"
-        }
+conf             {
+    termj :             ,
+   _sdl2 : "ca            ",
+    usercanva            0,
+    user_canvas_anage            0,
+    um_bloc            1,
+    ca_clos            0,
+    rchive : "mario_ultra            9",
+    gi_deb             3,    cdn : "https://pygame-web.github.io/archives            /",
+   autor             0,
+   PYBUILD :         "3.12"
+}
 
     </script>
 
-    <title>mario_v107_dist</title>
+    <title>mario_ultra_v109</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -423,67 +422,22 @@ asyncio.run( custom_site() )
 
     <script type="application/javascript">
 
-        async function custom_onload(debug_hidden) {
-            // this is called before anything python is loaded
-            // make your js customization here
-            console.log(__FILE__, "custom_onload")
+    async function custom_onload(debug_hi                    // this is called before anything python is                    // make your js customizati                    console.log(__FILE__, "custom_on                    pyconsole.hidden = debug                    system.hidden = debug                    transfer.hidden = debug                    info.hidden = debug                    box. dden =  debug_        en
+         }
 
-            pyconsole.hidden = debug_hidden
-            system.hidden = debug_hidden
-            transfer.hidden = debug_hidden
-            info.hidden = debug_hidden
-            box.hidden = debug_hidden
+    function custom_ pr                    // no python main and no (MEMFS + VF                    console.log(__FILE__, "custom_pr        ")
+         }
 
-        }
+    function custom_p os                    // python main and no VFS filesyst                    console.log(__FILE__, "custom_pos                    // prevent ff horizontal                    window.addEventListener("keydown",  functi                         if([ "Space","A rrowUp","Arr owDown","Arr owLeft","ArrowRight"].indexOf(e.code)                             if (!python.config                                e.preventDef                                      }, f        );
+         }
 
-        function custom_prerun() {
-            // no python main and no (MEMFS + VFS) yet.
-            console.log(__FILE__, "custom_prerun")
+    function de                    // allow to gain access to dev tools from js                     // but only on desktop. difficult to reach when in                    python.config.debug                    custom_onload                    Module.PyRun_SimpleString("shell.upt                    window_r        e()         }
 
-        }
+    function info_inli ne                    document.getElementById("info").innerHTML        ata         }
 
-        function custom_postrun() {
-            // python main and no VFS filesystem yet.
-            console.log(__FILE__, "custom_postrun")
+    function info_online                    // display info about curr                   fetch( url /*, opti                        .then((response) => response.                        .then((htm                            info_inline                                           .catch((erro                            console.warn(                            });         }
 
-            // prevent ff horizontal scroll
-            window.addEventListener("keydown", function (e) {
-                if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
-                    if (!python.config.debug)
-                        e.preventDefault();
-                }
-            }, false);
-
-        }
-
-        function debug() {
-            // allow to gain access to dev tools from js console
-            // but only on desktop. difficult to reach when in iframe
-            python.config.debug = true
-            custom_onload(false)
-            Module.PyRun_SimpleString("shell.uptime()")
-            window_resize()
-        }
-
-        function info_inline(data) {
-            document.getElementById("info").innerHTML = data
-        }
-
-        function info_online(url) {
-            // display info about current APK
-            fetch(url /*, options */)
-                .then((response) => response.text())
-                .then((html) => {
-                    info_inline(html);
-                })
-                .catch((error) => {
-                    console.warn(error);
-                });
-        }
-
-        function frame_online(url) {
-            window.frames["iframe"].location = url;
-        }
+    function frame_online                    window.frames["iframe"].location        rl; }
 
     </script>
 
