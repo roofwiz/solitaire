@@ -242,7 +242,7 @@
     <!-- Firebase SDK (Modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, update, onValue, get, onDisconnect } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getDatabase, ref, set, update as fbUpdate, onValue, get, onDisconnect } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         // CONFIG
         const firebaseConfig = { databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com" };
@@ -273,23 +273,60 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
-        // AUDIO
-        const sfx = {};
-        const loadSFX = (name, url) => {
-            const a = new Audio(url);
-            sfx[name] = a;
+        // AUDIO SYSTEM
+        const audio = {
+            sfx: {},
+            music: null,
+            ctxStarted: false,
+            init() {
+                if (this.ctxStarted) return;
+                this.music = new Audio('victory_build/sounds/intro_theme.mp3');
+                this.music.loop = true;
+                this.music.volume = 0.3;
+                this.load('move', 'victory_build/sounds/move.wav');
+                this.load('rotate', 'victory_build/sounds/rotate.wav');
+                this.load('lock', 'victory_build/sounds/lock.wav');
+                this.load('clear', 'victory_build/sounds/clear.wav');
+                this.load('stomp', 'victory_build/sounds/stomp.wav');
+                this.load('damage', 'victory_build/sounds/pipe.wav');
+                this.ctxStarted = true;
+            },
+            load(name, url) {
+                this.sfx[name] = new Audio(url);
+            },
+            play(name) {
+                if (this.sfx[name]) {
+                    this.sfx[name].currentTime = 0;
+                    this.sfx[name].play().catch(() => { });
+                }
+            },
+            playMusic() {
+                if (this.music) this.music.play().catch(() => { });
+            }
         };
-        // Load some defaults (adjust to your available assets)
-        loadSFX('move', 'victory_build/sounds/move.wav');
-        loadSFX('rotate', 'victory_build/sounds/rotate.wav');
-        loadSFX('lock', 'victory_build/sounds/lock.wav');
-        loadSFX('clear', 'victory_build/sounds/clear.wav');
-        loadSFX('stomp', 'victory_build/sounds/stomp.wav');
-        loadSFX('damage', 'victory_build/sounds/pipe.wav');
 
-        const music = new Audio('victory_build/sounds/intro_theme.mp3');
-        music.loop = true;
-        music.volume = 0.4;
+        // SPRITE SYSTEM
+        const spriteSheet = new Image();
+        spriteSheet.src = 'assets/marioallsprite.png';
+        const sprites = {
+            loaded: false,
+            koopa: [],
+            red_koopa: []
+        };
+        spriteSheet.onload = () => {
+            // Helper to crop
+            const crop = (x, y, w, h) => {
+                const c = document.createElement('canvas');
+                c.width = w * 2; c.height = h * 2;
+                const ctx2 = c.getContext('2d');
+                ctx2.imageSmoothingEnabled = false;
+                ctx2.drawImage(spriteSheet, x, y, w, h, 0, 0, w * 2, h * 2);
+                return c;
+            };
+            sprites.koopa = [crop(206, 242, 20, 27), crop(247, 242, 20, 27)];
+            sprites.red_koopa = [crop(206, 282, 20, 27), crop(245, 283, 20, 27)];
+            sprites.loaded = true;
+        };
 
         // PIECE LOGIC
         function pull() {
@@ -363,13 +400,15 @@
                 p2: { ready: false, atk: 0, grid: "0".repeat(200), score: 0, stomps: 0, lost: false, rematch: false }
             };
 
+            audio.init();
+            audio.playMusic();
             const roomRef = ref(db, `battles/${room}`);
             const snapshot = await get(roomRef);
 
             if (!snapshot.exists() || role === 'p1') {
                 await set(roomRef, initData);
             } else {
-                await update(ref(db, `battles/${room}/p2`), { ready: false, lost: false, rematch: false });
+                await fbUpdate(ref(db, `battles/${room}/p2`), { ready: false, lost: false, rematch: false });
             }
 
             // Cleanup on disconnect
@@ -378,7 +417,6 @@
             phase = 'lobby';
             document.getElementById('menu-screen').classList.add('hidden');
             document.getElementById('lobby-screen').classList.remove('hidden');
-            music.play().catch(e => console.log("Music play blocked", e));
             startListening();
         };
 
@@ -403,7 +441,7 @@
                         pendingAtk += (opp.atk - totalRecv);
                         totalRecv = opp.atk;
                         shake = 15;
-                        sfx.damage?.play();
+                        audio.play('damage');
                     }
                 }
 
@@ -424,7 +462,7 @@
 
                 // Auto-start next round if P1 sees both ready
                 if (role === 'p1' && netState === 'waiting' && me?.ready && opp?.ready) {
-                    update(ref(db, `battles/${room}`), { state: 'countdown', countdown: Date.now() / 1000 });
+                    fbUpdate(ref(db, `battles/${room}`), { state: 'countdown', countdown: Date.now() / 1000 });
                 }
 
                 // Rematch check
@@ -453,7 +491,7 @@
                     str += colorId;
                 }
             }
-            update(ref(db, `battles/${room}/${role}`), { grid: str, score, stomps });
+            fbUpdate(ref(db, `battles/${room}/${role}`), { grid: str, score, stomps });
         }
 
         async function triggerRoundOver() {
@@ -470,12 +508,12 @@
                 upd.state = 'waiting';
                 upd.round = currentRound + 1;
                 // Auto-clear for next round
-                await update(ref(db, `battles/${room}/p1`), { atk: 0, grid: "0".repeat(200), ready: true });
-                await update(ref(db, `battles/${room}/p2`), { atk: 0, grid: "0".repeat(200), ready: true });
+                await fbUpdate(ref(db, `battles/${room}/p1`), { atk: 0, grid: "0".repeat(200), ready: true });
+                await fbUpdate(ref(db, `battles/${room}/p2`), { atk: 0, grid: "0".repeat(200), ready: true });
                 upd.state = 'countdown';
                 upd.countdown = Date.now() / 1000;
             }
-            update(ref(db, `battles/${room}`), upd);
+            fbUpdate(ref(db, `battles/${room}`), upd);
         }
 
         // GAME LOOP
@@ -525,10 +563,10 @@
                 // Stomp check
                 piece.shape.forEach(([bx, by]) => {
                     if (Math.round(en.x) === pos[0] + bx && Math.round(en.y) === pos[1] + by && en.state === 'walking') {
-                        stomps++; score += 500; sfx.stomp?.play();
+                        stomps++; score += 500; audio.play('stomp');
                         // Attack! (Send 1 garbage)
                         get(ref(db, `battles/${room}/${role}/atk`)).then(s => {
-                            update(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + 1 });
+                            fbUpdate(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + 1 });
                         });
                         return false;
                     }
@@ -555,7 +593,7 @@
                         clearT = 0.6; sfx.clear?.play();
                         // Send garbage
                         get(ref(db, `battles/${room}/${role}/atk`)).then(s => {
-                            update(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + clearing.length });
+                            fbUpdate(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + clearing.length });
                         });
                     } else {
                         pos = [GW / 2 - 1, 0]; piece = pull();
@@ -600,15 +638,30 @@
 
             // Enemies
             enemies.forEach(en => {
-                ctx.fillStyle = en.type_id === 'K' ? '#0f0' : '#f00';
                 const ex = mx + en.x * BS, ey = my + en.y * BS;
-                ctx.fillRect(ex, ey, BS, BS); // Placeholder for turtle sprite
+                const type = en.type_id === 'K' ? 'koopa' : 'red_koopa';
+                const frame = Math.floor(en.age * 8) % 2;
+
+                if (sprites.loaded && sprites[type][frame]) {
+                    const img = sprites[type][frame];
+                    const bob = Math.abs(Math.sin(Date.now() / 100) * 4);
+                    const flip = en.dir === 1;
+                    ctx.save();
+                    ctx.translate(ex + BS / 2, ey + BS - img.height / 2 - bob);
+                    if (flip) ctx.scale(-1, 1);
+                    ctx.drawImage(img, -img.width / 2, -img.height / 2);
+                    ctx.restore();
+                } else {
+                    ctx.fillStyle = en.type_id === 'K' ? '#0f0' : '#f00';
+                    ctx.fillRect(ex, ey, BS, BS);
+                }
+
                 // Timer Bar
                 if (en.state === 'walking') {
-                    ctx.fillStyle = "#333"; ctx.fillRect(ex, ey - 8, BS, 4);
-                    const pct = en.life / 12;
+                    ctx.fillStyle = "#333"; ctx.fillRect(ex, ey - 12, BS, 4);
+                    const pct = Math.max(0, en.life / 12);
                     ctx.fillStyle = `rgb(${255 * (1 - pct)}, ${255 * pct}, 0)`;
-                    ctx.fillRect(ex, ey - 8, BS * pct, 4);
+                    ctx.fillRect(ex, ey - 12, BS * pct, 4);
                 }
             });
 
@@ -644,10 +697,19 @@
         }
 
         function drawBlock(x, y, color, s) {
-            ctx.fillStyle = color; ctx.fillRect(x, y, s, s);
-            ctx.strokeStyle = "rgba(255,255,255,0.3)"; ctx.lineWidth = 1; ctx.strokeRect(x, y, s, s);
-            ctx.fillStyle = "rgba(255,255,255,0.1)"; ctx.fillRect(x, y, s, s / 4);
-            ctx.fillStyle = "rgba(0,0,0,0.1)"; ctx.fillRect(x, y + s * 0.75, s, s / 4);
+            const grd = ctx.createLinearGradient(x, y, x + s, y + s);
+            grd.addColorStop(0, color);
+            grd.addColorStop(1, '#000');
+
+            ctx.fillStyle = grd;
+            ctx.fillRect(x, y, s, s);
+
+            ctx.strokeStyle = "rgba(255,255,255,0.4)";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x, y, s, s);
+
+            ctx.fillStyle = "rgba(255,255,255,0.15)";
+            ctx.fillRect(x + 2, y + 2, s - 4, s / 3);
         }
 
         const keys = {};
@@ -670,13 +732,13 @@
             if (e.key === 'Enter' && phase === 'lobby') {
                 readyState = !readyState;
                 document.getElementById('lobby-status').innerText = readyState ? "READY!" : "WAITING FOR RIVAL...";
-                update(ref(db, `battles/${room}/${role}`), { ready: readyState });
-                sfx.move?.play();
+                fbUpdate(ref(db, `battles/${room}/${role}`), { ready: readyState });
+                audio.play('move');
             }
             if (e.key === 'r' && phase === 'gameover') {
                 rematchSent = !rematchSent;
                 document.getElementById('rematch-btn').innerText = rematchSent ? "REQUESTED..." : "REQUEST REMATCH [R]";
-                update(ref(db, `battles/${room}/${role}`), { rematch: rematchSent });
+                fbUpdate(ref(db, `battles/${room}/${role}`), { rematch: rematchSent });
             }
         };
         window.onkeyup = (e) => keys[e.key] = false;
