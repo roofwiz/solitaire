@@ -3,265 +3,696 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MARIO TETRIS SUPREME V116</title>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Battle Pro | Web Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0f0f19;
+            --panel: #19192d;
+            --emerald: #00ffc8;
+            --white: #f0f0f5;
+            --ghost: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             margin: 0;
-            background: #000;
-            color: white;
-            font-family: 'Arial Black', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
             overflow: hidden;
-            background-image: linear-gradient(to bottom, #001f3f, #000);
-        }
-
-        #header {
-            position: absolute;
-            top: 20px;
-            font-size: 32px;
-            color: #ff0000;
-            text-shadow: 2px 2px #fff, 4px 4px #000;
-            letter-spacing: 2px;
-        }
-
-        #arena {
             display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 4px solid #ff0000;
-            border-radius: 20px;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 0.3);
-        }
-
-        .board-container {
-            display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+        }
+
+        #game-container {
+            position: relative;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 200, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--panel);
+            border: 2px solid rgba(0, 255, 200, 0.3);
         }
 
         canvas {
-            background: #000;
-            border: 2px solid #555;
-            image-rendering: pixelated;
+            display: block;
         }
 
-        #my-canvas {
-            border-color: #ff0000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-        }
-
-        #opp-canvas {
-            border-color: #00ff00;
-            width: 180px;
-            height: 360px;
-        }
-
-        .tag {
-            font-size: 20px;
-            margin-bottom: 5px;
-            color: #fff;
-            text-shadow: 1px 1px #000;
-        }
-
-        #status {
+        #ui-overlay {
             position: absolute;
-            bottom: 20px;
-            font-family: monospace;
-            color: #ff0000;
-            font-size: 18px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-
-        #overlay {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            transition: 0.5s;
+            align-items: center;
+            background: rgba(15, 15, 25, 0.85);
+            backdrop-filter: blur(8px);
+            pointer-events: all;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
         }
 
-        #gate-btn {
-            padding: 25px 50px;
-            font-size: 40px;
-            background: #ff0000;
-            color: white;
-            border: 4px solid white;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 0 40px #ff0000;
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            color: var(--white);
+            letter-spacing: 8px;
+            font-weight: 700;
+            text-shadow: 0 0 30px var(--emerald);
+        }
+
+        .logo-accent {
+            color: var(--emerald);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--emerald);
+            margin-top: 10px;
+            opacity: 0.9;
+            font-weight: 400;
+            letter-spacing: 4px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        button {
+            background: rgba(0, 255, 200, 0.05);
+            border: 2px solid var(--emerald);
+            color: var(--emerald);
+            padding: 15px 45px;
+            font-size: 1.2rem;
             font-family: inherit;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
-        #gate-btn:hover {
+        button:hover {
+            background: var(--emerald);
+            color: var(--bg);
+            box-shadow: 0 0 30px var(--emerald);
+            transform: translateY(-5px);
+        }
+
+        button:active {
+            transform: translateY(0px);
+        }
+
+        .secondary-btn {
+            border-color: #555 !important;
+            color: #888 !important;
+            font-size: 0.9rem !important;
+            padding: 10px 20px !important;
+        }
+
+        .secondary-btn:hover {
+            background: #444 !important;
+            color: white !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
             transform: scale(1.1);
-            background: #00ff00;
-            box-shadow: 0 0 40px #00ff00;
         }
 
-        #wait-msg {
-            color: #fff;
-            margin-top: 20px;
-            font-size: 20px;
-            display: none;
+        #lobby-status {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--emerald);
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.4;
+            }
+        }
+
+        .hint {
+            margin-top: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        #notifications {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .notification {
+            background: var(--emerald);
+            color: var(--bg);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            animation: slideIn 0.3s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div id="header">MARIO SUPREME V116</div>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="1000" height="720"></canvas>
+        <div id="ui-overlay">
+            <!-- Menu Screen -->
+            <div id="menu-screen" class="screen">
+                <h1>MARIO <span class="logo-accent">BATTLE</span> PRO</h1>
+                <div class="subtitle">WEB EDITION • V116</div>
+                <div class="btn-group">
+                    <button id="p1-btn">JOIN AS P1</button>
+                    <button id="p2-btn">JOIN AS P2</button>
+                </div>
+                <button id="local-btn" class="secondary-btn" style="margin-top: 80px;">OPEN 2ND PLAYER WINDOW</button>
+                <div class="hint">
+                    ARROWS: MOVE & ROTATE • SPACE: HARD DROP<br>
+                    ENTER: READY UP • R: REMATCH
+                </div>
+            </div>
 
-    <div id="arena">
-        <div class="board-container">
-            <div class="tag" id="my-tag">PLAYER 1</div>
-            <canvas id="my-canvas" width="300" height="600"></canvas>
+            <!-- Lobby Screen -->
+            <div id="lobby-screen" class="screen hidden">
+                <div id="lobby-status">WAITING FOR RIVAL...</div>
+                <div class="hint">PRESS [ENTER] TO READY UP</div>
+            </div>
+
+            <!-- Game Over Screen -->
+            <div id="gameover-screen" class="screen hidden">
+                <h2 id="match-result" style="font-size: 5rem; margin: 0; text-shadow: 0 0 40px currentColor;">VICTORY!
+                </h2>
+                <div style="font-size: 1.5rem; color: #888; margin-top: 20px; letter-spacing: 5px;">MATCH FINAL</div>
+                <button id="rematch-btn" style="margin-top: 50px;">REQUEST REMATCH [R]</button>
+            </div>
         </div>
-        <div class="board-container">
-            <div class="tag" id="opp-tag">OPPONENT</div>
-            <canvas id="opp-canvas" width="180" height="360"></canvas>
-        </div>
+        <div id="notifications"></div>
     </div>
 
-    <div id="status">SEARCHING FOR ARENA...</div>
+    <!-- Firebase SDK (Modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set, update, onValue, get, onDisconnect } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    <div id="overlay">
-        <button id="gate-btn">JOIN MATCH</button>
-        <div id="wait-msg">CONNECTING TO FIREBASE...</div>
-    </div>
+        // CONFIG
+        const firebaseConfig = { databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-    <script>
-        // --- CONFIG ---
-        firebase.initializeApp({ databaseURL: "https://mario-tetris-game-default-rtdb.firebaseio.com/" });
-        const db = firebase.database();
-        const ROOM = "arena_supreme_v116";
+        // CONSTANTS
+        const WW = 1000, WH = 720, GW = 10, GH = 20, BS = 32, GRID_Y = 60;
+        const COLORS = {
+            '1': '#00f0f0', '2': '#f0f000', '3': '#a000f0',
+            '4': '#00f000', '5': '#f00000', '6': '#0000f0',
+            '7': '#f0a000', 'G': '#8c8c8c'
+        };
+        const PANEL_CLR = "#19192d", BORDER_CLR = "#00ffc8";
 
-        const C = 10, R = 20, S = 30, OS = 18;
-        const COLORS = [null, '#00f0f0', '#f0f000', '#a000f0', '#00f000', '#f00000', '#0000f0', '#f0a000', '#888'];
-        const PIECES = [null,
-            [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
-            [[2, 2], [2, 2]],
-            [[0, 3, 0], [3, 3, 3], [0, 0, 0]],
-            [[0, 4, 4], [4, 4, 0], [0, 0, 0]],
-            [[5, 5, 0], [0, 5, 5], [0, 0, 0]],
-            [[6, 0, 0], [6, 6, 6], [0, 0, 0]],
-            [[0, 0, 7], [7, 7, 7], [0, 0, 0]]
-        ];
+        // GLOBAL STATE
+        let phase = 'menu', role = null, oppRole = null, room = "battle_pro_web_main";
+        let grid = Array(GH).fill().map(() => Array(GW).fill(null));
+        let piece = null, bag = [], pos = [0, 0], score = 0, stomps = 0;
+        let p1Rounds = 0, p2Rounds = 0, currentRound = 1, enemies = [];
+        let clearing = [], clearT = 0, spawnT = 0, fallDt = 0;
+        let readyState = false, rematchSent = false, netState = 'waiting';
+        let countdownStart = 0, lastTime = 0, syncDirty = true, lastNetSync = 0;
+        let oppGrid = "0".repeat(200), oppStats = { score: 0, stomps: 0 };
+        let shake = 0, pendingAtk = 0, totalRecv = 0;
 
-        // --- STATE ---
-        let role = null, active = false, grid = Array.from({ length: R }, () => Array(C).fill(0)), oppGrid = Array(R * C).fill(0);
-        let piece = null, lastT = 0, dropC = 0;
+        // CANVAS SETUP
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
 
-        const ctx = document.getElementById('my-canvas').getContext('2d');
-        const oCtx = document.getElementById('opp-canvas').getContext('2d');
+        // AUDIO
+        const sfx = {};
+        const loadSFX = (name, url) => {
+            const a = new Audio(url);
+            sfx[name] = a;
+        };
+        // Load some defaults (adjust to your available assets)
+        loadSFX('move', 'victory_build/sounds/move.wav');
+        loadSFX('rotate', 'victory_build/sounds/rotate.wav');
+        loadSFX('lock', 'victory_build/sounds/lock.wav');
+        loadSFX('clear', 'victory_build/sounds/clear.wav');
+        loadSFX('stomp', 'victory_build/sounds/stomp.wav');
+        loadSFX('damage', 'victory_build/sounds/pipe.wav');
 
-        function createP() { return { matrix: PIECES[Math.floor(Math.random() * 7) + 1], x: 3, y: 0 }; }
-        function drawB(cx, m, scale) {
-            cx.fillStyle = '#000'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
-            m.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect(x * scale, y * scale, scale - 1, scale - 1); } }));
+        const music = new Audio('victory_build/sounds/intro_theme.mp3');
+        music.loop = true;
+        music.volume = 0.4;
+
+        // PIECE LOGIC
+        function pull() {
+            if (bag.length === 0) {
+                bag = ['I', 'O', 'T', 'S', 'Z', 'J', 'L'];
+                for (let i = bag.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [bag[i], bag[j]] = [bag[j], bag[i]];
+                }
+            }
+            const type = bag.pop();
+            const d = {
+                'I': [[0, 0], [1, 0], [2, 0], [3, 0]], 'O': [[0, 0], [1, 0], [0, 1], [1, 1]], 'T': [[1, 0], [0, 1], [1, 1], [2, 1]],
+                'S': [[1, 0], [2, 0], [0, 1], [1, 1]], 'Z': [[0, 0], [1, 0], [1, 1], [2, 1]], 'J': [[0, 0], [0, 1], [1, 1], [2, 1]], 'L': [[2, 0], [0, 1], [1, 1], [2, 1]]
+            };
+            const ids = { 'I': '1', 'O': '2', 'T': '3', 'S': '4', 'Z': '5', 'J': '6', 'L': '7' };
+            return { shape: d[type], color: COLORS[ids[type]], id: ids[type] };
         }
-        function drawP(cx, p, scale) {
-            p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) { cx.fillStyle = COLORS[v]; cx.fillRect((p.x + x) * scale, (p.y + y) * scale, scale - 1, scale - 1); } }));
-        }
-        function coll(b, p) {
-            for (let y = 0; y < p.matrix.length; y++) for (let x = 0; x < p.matrix[y].length; x++)
-                if (p.matrix[y][x] && (b[y + p.y] && b[y + p.y][x + p.x]) !== 0) return true;
+
+        function collide(p, shape) {
+            for (let [bx, by] of shape) {
+                let gx = p[0] + bx, gy = p[1] + by;
+                if (gx < 0 || gx >= GW || gy >= GH || (gy >= 0 && grid[gy][gx])) return true;
+            }
             return false;
         }
-        function merge(b, p) { p.matrix.forEach((row, y) => row.forEach((v, x) => { if (v) b[y + p.y][x + p.x] = v; })); }
-        function drop() {
-            piece.y++;
-            if (coll(grid, piece)) {
-                piece.y--; merge(grid, piece);
-                grid = grid.filter(r => !r.every(v => v !== 0));
-                while (grid.length < R) grid.unshift(Array(C).fill(0));
-                piece = createP(); sync();
-                if (coll(grid, piece)) grid.forEach(r => r.fill(0));
+
+        // ENEMY LOGIC
+        class ProTurtle {
+            constructor() {
+                this.x = Math.floor(Math.random() * 10);
+                this.y = -1;
+                this.vy = 0;
+                this.dir = Math.random() > 0.5 ? 1 : -1;
+                this.life = 12;
+                this.state = 'falling';
+                this.age = 0;
             }
-            dropC = 0;
+            update(dt) {
+                this.age += dt;
+                if (this.state === 'falling') {
+                    this.vy += 40 * dt;
+                    this.y += this.vy * dt;
+                    let ix = Math.max(0, Math.min(9, Math.round(this.x)));
+                    let iy = Math.floor(this.y + 1);
+                    if (iy < 20 && grid[iy][ix]) { this.y = iy - 1; this.vy = 0; this.state = 'walking'; }
+                    else if (this.y >= 19) { this.y = 19; this.vy = 0; this.state = 'walking'; }
+                } else {
+                    this.life -= dt;
+                    this.x += this.dir * 1.5 * dt;
+                    let nx = this.x + this.dir * 0.4;
+                    let ni = Math.max(0, Math.min(9, Math.round(nx)));
+                    if (nx < -0.2 || nx > 9.2 || grid[Math.round(this.y)][ni]) this.dir *= -1;
+                    // Pit check (gravity again)
+                    let iy = Math.floor(this.y + 1);
+                    if (iy < 20 && !grid[iy][Math.round(this.x)] && this.y < 19) this.state = 'falling';
+                }
+                return this.life <= 0 || this.y > 21;
+            }
         }
 
-        function loop(t = 0) {
-            if (!active) return;
-            const dt = t - lastT; lastT = t; dropC += dt;
-            if (dropC > 800) drop();
-            drawB(ctx, grid, S); drawP(ctx, piece, S);
-            drawOpp();
-            requestAnimationFrame(loop);
-        }
+        // NETWORKING
+        const joinGame = async (selectedRole) => {
+            role = selectedRole;
+            oppRole = role === 'p1' ? 'p2' : 'p1';
 
-        function drawOpp() {
-            oCtx.fillStyle = '#000'; oCtx.fillRect(0, 0, 180, 360);
-            oppGrid.forEach((v, i) => { if (v) { oCtx.fillStyle = COLORS[v]; oCtx.fillRect((i % 10) * OS, (Math.floor(i / 10)) * OS, OS - 1, OS - 1); } });
-        }
+            const initData = {
+                state: 'waiting', winner: '', countdown: 0,
+                p1_rounds: 0, p2_rounds: 0, round: 1,
+                p1: { ready: false, atk: 0, grid: "0".repeat(200), score: 0, stomps: 0, lost: false, rematch: false },
+                p2: { ready: false, atk: 0, grid: "0".repeat(200), score: 0, stomps: 0, lost: false, rematch: false }
+            };
 
-        function sync() { if (role) db.ref(`battles/${ROOM}/${role}`).update({ grid: grid.flat().join(''), ts: Date.now() }); }
+            const roomRef = ref(db, `battles/${room}`);
+            const snapshot = await get(roomRef);
 
-        async function join() {
-            document.getElementById('wait-msg').style.display = 'block';
-            document.getElementById('gate-btn').style.display = 'none';
-            const snap = await db.ref(`battles/${ROOM}`).get();
-            const data = snap.val(); const now = Date.now();
+            if (!snapshot.exists() || role === 'p1') {
+                await set(roomRef, initData);
+            } else {
+                await update(ref(db, `battles/${room}/p2`), { ready: false, lost: false, rematch: false });
+            }
 
-            if (!data || !data.p1 || (now - data.p1.ts > 6000)) {
-                role = 'p1'; await db.ref(`battles/${ROOM}`).set({ state: 'wait', p1: { ts: now, grid: '0'.repeat(200) }, p2: { ts: 0, grid: '0'.repeat(200) } });
-            } else if (!data.p2 || (now - data.p2.ts > 6000)) {
-                role = 'p2'; await db.ref(`battles/${ROOM}/p2`).update({ ts: now, grid: '0'.repeat(200) });
-            } else { alert("ARENA BUSY. TRY AGAIN."); location.reload(); return; }
+            // Cleanup on disconnect
+            onDisconnect(ref(db, `battles/${room}/${role}`)).update({ ready: false });
 
-            document.getElementById('my-tag').innerText = (role === 'p1' ? "MARIO (YOU)" : "LUIGI (YOU)");
-            document.getElementById('opp-tag').innerText = (role === 'p1' ? "LUIGI" : "MARIO");
+            phase = 'lobby';
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('lobby-screen').classList.remove('hidden');
+            music.play().catch(e => console.log("Music play blocked", e));
+            startListening();
+        };
 
-            db.ref(`battles/${ROOM}`).on('value', s => {
-                const v = s.val(); if (!v) return;
-                const o = (role === 'p1' ? v.p2 : v.p1);
-                if (o && (Date.now() - o.ts < 5000)) {
-                    oppGrid = o.grid.split('').map(Number);
-                    document.getElementById('status').innerText = "OPPONENT CONNECTED!";
-                    if (v.state === 'wait' && role === 'p1') db.ref(`battles/${ROOM}`).update({ state: 'play' });
-                } else document.getElementById('status').innerText = "WAITING FOR OPPONENT...";
+        function startListening() {
+            onValue(ref(db, `battles/${room}`), (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
 
-                if (v.state === 'play' && !active) {
-                    document.getElementById('overlay').style.display = 'none';
-                    active = true; piece = createP(); loop();
+                netState = data.state;
+                countdownStart = data.countdown || 0;
+                currentRound = data.round || 1;
+                p1Rounds = data.p1_rounds || 0;
+                p2Rounds = data.p2_rounds || 0;
+
+                const me = data[role];
+                const opp = data[oppRole];
+
+                if (opp) {
+                    oppGrid = opp.grid || "0".repeat(200);
+                    oppStats = { score: opp.score || 0, stomps: opp.stomps || 0 };
+                    if (opp.atk > totalRecv) {
+                        pendingAtk += (opp.atk - totalRecv);
+                        totalRecv = opp.atk;
+                        shake = 15;
+                        sfx.damage?.play();
+                    }
+                }
+
+                if (netState === 'gameover' && phase !== 'gameover') {
+                    phase = 'gameover';
+                    document.getElementById('gameover-screen').classList.remove('hidden');
+                    const isWin = data.winner === role;
+                    const res = document.getElementById('match-result');
+                    res.innerText = isWin ? "VICTORY!" : "DEFEATED";
+                    res.style.color = isWin ? "#00ffc8" : "#ff0032";
+                }
+
+                if (netState === 'countdown' && phase === 'lobby') {
+                    reset();
+                    phase = 'play';
+                    document.getElementById('lobby-screen').classList.add('hidden');
+                }
+
+                // Auto-start next round if P1 sees both ready
+                if (role === 'p1' && netState === 'waiting' && me?.ready && opp?.ready) {
+                    update(ref(db, `battles/${room}`), { state: 'countdown', countdown: Date.now() / 1000 });
+                }
+
+                // Rematch check
+                if (me?.rematch && opp?.rematch && role === 'p1') {
+                    set(ref(db, `battles/${room}`), initData);
                 }
             });
-            setInterval(sync, 1500);
         }
 
-        document.getElementById('gate-btn').onclick = join;
+        async function sync() {
+            if (!syncDirty && Date.now() - lastNetSync < 150) return;
+            lastNetSync = Date.now();
+            syncDirty = false;
 
-        document.onkeydown = e => {
-            if (!active) return;
-            if (e.code === 'ArrowLeft') { piece.x--; if (coll(grid, piece)) piece.x++; }
-            if (e.code === 'ArrowRight') { piece.x++; if (coll(grid, piece)) piece.x--; }
-            if (e.code === 'ArrowDown') drop();
-            if (e.code === 'ArrowUp') {
-                const m = piece.matrix;
-                const t = m[0].map((_, i) => m.map(r => r[i]).reverse());
-                const old = piece.matrix; piece.matrix = t;
-                if (coll(grid, piece)) piece.matrix = old;
+            const flat = grid.flat();
+            const pieceCoords = piece ? piece.shape.map(([bx, by]) => [pos[0] + bx, pos[1] + by]) : [];
+            let str = "";
+            for (let y = 0; y < GH; y++) {
+                for (let x = 0; x < GW; x++) {
+                    let colorId = "0";
+                    if (grid[y][x]) {
+                        for (let k in COLORS) if (COLORS[k] === grid[y][x]) colorId = k;
+                    } else if (piece && pieceCoords.some(([px, py]) => px === x && py === y)) {
+                        for (let k in COLORS) if (COLORS[k] === piece.color) colorId = k;
+                    }
+                    str += colorId;
+                }
             }
-            if (e.code === 'Space') { while (!coll(grid, piece)) piece.y++; piece.y--; drop(); }
+            update(ref(db, `battles/${room}/${role}`), { grid: str, score, stomps });
+        }
+
+        async function triggerRoundOver() {
+            if (role !== 'p1') return; // P1 handles logic
+            const winner = oppRole;
+            let p1r = p1Rounds, p2r = p2Rounds;
+            role === 'p1' ? p2r++ : p1r++;
+
+            const upd = { p1_rounds: p1r, p2_rounds: p2r };
+            if (p1r >= 2 || p2r >= 2) {
+                upd.state = 'gameover';
+                upd.winner = p1r >= 2 ? 'p1' : 'p2';
+            } else {
+                upd.state = 'waiting';
+                upd.round = currentRound + 1;
+                // Auto-clear for next round
+                await update(ref(db, `battles/${room}/p1`), { atk: 0, grid: "0".repeat(200), ready: true });
+                await update(ref(db, `battles/${room}/p2`), { atk: 0, grid: "0".repeat(200), ready: true });
+                upd.state = 'countdown';
+                upd.countdown = Date.now() / 1000;
+            }
+            update(ref(db, `battles/${room}`), upd);
+        }
+
+        // GAME LOOP
+        function reset() {
+            grid = Array(GH).fill().map(() => Array(GW).fill(null));
+            bag = []; pos = [GW / 2 - 1, 0];
+            piece = pull();
+            score = 0; stomps = 0; enemies = [];
+            clearing = []; clearT = 0; spawnT = 0; fallDt = 0;
+            shake = 0; totalRecv = 0; pendingAtk = 0;
+            syncDirty = true;
+        }
+
+        function update(dt) {
+            if (phase !== 'play') return;
+
+            if (shake > 0) shake -= dt * 40;
+
+            if (clearing.length > 0) {
+                clearT -= dt;
+                if (clearT <= 0) {
+                    grid = grid.filter((_, i) => !clearing.includes(i));
+                    while (grid.length < GH) grid.unshift(Array(GW).fill(null));
+                    clearing = [];
+                    pos = [GW / 2 - 1, 0]; piece = pull();
+                    if (collide(pos, piece.shape)) triggerRoundOver();
+                }
+                return;
+            }
+
+            // Garbage
+            if (pendingAtk > 0) {
+                for (let i = 0; i < pendingAtk; i++) {
+                    grid.shift();
+                    let row = Array(GW).fill('#8c8c8c');
+                    row[Math.floor(Math.random() * 10)] = null;
+                    grid.push(row);
+                }
+                pendingAtk = 0;
+            }
+
+            // Enemies
+            spawnT += dt;
+            if (spawnT > 6) { spawnT = 0; enemies.push(new ProTurtle()); }
+            enemies = enemies.filter(en => {
+                const died = en.update(dt);
+                // Stomp check
+                piece.shape.forEach(([bx, by]) => {
+                    if (Math.round(en.x) === pos[0] + bx && Math.round(en.y) === pos[1] + by && en.state === 'walking') {
+                        stomps++; score += 500; sfx.stomp?.play();
+                        // Attack! (Send 1 garbage)
+                        get(ref(db, `battles/${room}/${role}/atk`)).then(s => {
+                            update(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + 1 });
+                        });
+                        return false;
+                    }
+                });
+                return !died;
+            });
+
+            // Falling
+            fallDt += dt;
+            let spd = keys['ArrowDown'] ? 0.05 : 0.8;
+            if (fallDt > spd) {
+                fallDt = 0;
+                pos[1]++;
+                if (collide(pos, piece.shape)) {
+                    pos[1]--;
+                    piece.shape.forEach(([bx, by]) => {
+                        let gy = pos[1] + by, gx = pos[0] + bx;
+                        if (gy >= 0) grid[gy][gx] = piece.color;
+                    });
+                    sfx.lock?.play();
+                    clearing = grid.map((r, i) => r.every(c => c !== null) ? i : -1).filter(i => i !== -1);
+                    if (clearing.length > 0) {
+                        score += clearing.length * 1000;
+                        clearT = 0.6; sfx.clear?.play();
+                        // Send garbage
+                        get(ref(db, `battles/${room}/${role}/atk`)).then(s => {
+                            update(ref(db, `battles/${room}/${role}`), { atk: (s.val() || 0) + clearing.length });
+                        });
+                    } else {
+                        pos = [GW / 2 - 1, 0]; piece = pull();
+                        if (collide(pos, piece.shape)) triggerRoundOver();
+                    }
+                }
+                syncDirty = true;
+            }
             sync();
+        }
+
+        function draw() {
+            ctx.fillStyle = "#0f0f19"; ctx.fillRect(0, 0, WW, WH);
+
+            const sx = Math.random() * shake - shake / 2;
+            const sy = Math.random() * shake - shake / 2;
+            const mx = 80 + sx, my = GRID_Y + sy;
+
+            // Panel
+            ctx.fillStyle = PANEL_CLR; ctx.fillRect(mx - 6, my - 6, GW * BS + 12, GH * BS + 12);
+            ctx.strokeStyle = BORDER_CLR; ctx.lineWidth = 3; ctx.strokeRect(mx - 6, my - 6, GW * BS + 12, GH * BS + 12);
+
+            // Grid & Clearing
+            grid.forEach((row, y) => {
+                if (clearing.includes(y) && Math.floor(Date.now() / 50) % 2 === 0) {
+                    ctx.fillStyle = "white"; ctx.fillRect(mx, my + y * BS, GW * BS, BS);
+                } else {
+                    row.forEach((v, x) => v && drawBlock(mx + x * BS, my + y * BS, v, BS));
+                }
+            });
+
+            // Active Piece Ghost
+            if (piece && phase === 'play' && clearing.length === 0) {
+                let gx = pos[0], gy = pos[1];
+                while (!collide([gx, gy + 1], piece.shape)) gy++;
+                piece.shape.forEach(([bx, by]) => {
+                    ctx.fillStyle = "rgba(255,255,255,0.1)";
+                    ctx.fillRect(mx + (gx + bx) * BS, my + (gy + by) * BS, BS, BS);
+                    drawBlock(mx + (pos[0] + bx) * BS, my + (pos[1] + by) * BS, piece.color, BS);
+                });
+            }
+
+            // Enemies
+            enemies.forEach(en => {
+                ctx.fillStyle = en.type_id === 'K' ? '#0f0' : '#f00';
+                const ex = mx + en.x * BS, ey = my + en.y * BS;
+                ctx.fillRect(ex, ey, BS, BS); // Placeholder for turtle sprite
+                // Timer Bar
+                if (en.state === 'walking') {
+                    ctx.fillStyle = "#333"; ctx.fillRect(ex, ey - 8, BS, 4);
+                    const pct = en.life / 12;
+                    ctx.fillStyle = `rgb(${255 * (1 - pct)}, ${255 * pct}, 0)`;
+                    ctx.fillRect(ex, ey - 8, BS * pct, 4);
+                }
+            });
+
+            // HUD
+            ctx.fillStyle = "#fff"; ctx.font = "bold 24px Outfit"; ctx.textAlign = "center";
+            ctx.fillText(`ROUND ${currentRound}`, WW / 2, 35);
+            ctx.fillStyle = BORDER_CLR; ctx.font = "bold 48px Outfit";
+            ctx.fillText(`${p1Rounds} - ${p2Rounds}`, WW / 2, 85);
+
+            // Opponent
+            const ox = 640, oy = GRID_Y + 120, sbs = 28;
+            ctx.fillStyle = "rgba(0,0,0,0.3)"; ctx.fillRect(ox - 8, oy - 8, GW * sbs + 16, GH * sbs + 16);
+            for (let i = 0; i < 200; i++) {
+                if (oppGrid[i] !== '0') drawBlock(ox + (i % 10) * sbs, oy + Math.floor(i / 10) * sbs, COLORS[oppGrid[i]], sbs);
+            }
+            ctx.fillStyle = "white"; ctx.font = "20px Outfit"; ctx.fillText("OPPONENT LIVE", ox + GW * sbs / 2, oy - 25);
+            ctx.font = "16px Outfit"; ctx.fillText(`SCORE: ${oppStats.score}`, ox + GW * sbs / 2, oy + GH * sbs + 30);
+
+            // Stats
+            ctx.textAlign = "left"; ctx.fillStyle = BORDER_CLR;
+            ctx.fillText(`I AM: ${role?.toUpperCase()}`, 30, 30);
+            ctx.fillStyle = "white"; ctx.fillText(`SCORE: ${score}`, 30, 60);
+            ctx.fillText(`STOMPS: ${stomps}`, 30, 90);
+
+            // Countdown
+            if (netState === 'countdown') {
+                const sec = 3 - Math.floor(Date.now() / 1000 - countdownStart);
+                if (sec > 0) {
+                    ctx.fillStyle = "white"; ctx.font = "bold 120px Outfit"; ctx.textAlign = "center";
+                    ctx.fillText(sec, WW / 2, WH / 2 + 40);
+                }
+            }
+        }
+
+        function drawBlock(x, y, color, s) {
+            ctx.fillStyle = color; ctx.fillRect(x, y, s, s);
+            ctx.strokeStyle = "rgba(255,255,255,0.3)"; ctx.lineWidth = 1; ctx.strokeRect(x, y, s, s);
+            ctx.fillStyle = "rgba(255,255,255,0.1)"; ctx.fillRect(x, y, s, s / 4);
+            ctx.fillStyle = "rgba(0,0,0,0.1)"; ctx.fillRect(x, y + s * 0.75, s, s / 4);
+        }
+
+        const keys = {};
+        window.onkeydown = (e) => {
+            keys[e.key] = true;
+            if (phase === 'play' && clearing.length === 0) {
+                if (e.key === 'ArrowLeft') { pos[0]--; if (collide(pos, piece.shape)) pos[0]++; else sfx.move?.play(); }
+                if (e.key === 'ArrowRight') { pos[0]++; if (collide(pos, piece.shape)) pos[0]--; else sfx.move?.play(); }
+                if (e.key === 'ArrowUp') {
+                    const old = piece.shape;
+                    piece.shape = piece.shape.map(([x, y]) => [-y, x]);
+                    if (collide(pos, piece.shape)) piece.shape = old; else sfx.rotate?.play();
+                }
+                if (e.key === ' ') {
+                    while (!collide([pos[0], pos[1] + 1], piece.shape)) pos[1]++;
+                    fallDt = 10; sfx.lock?.play();
+                }
+                syncDirty = true;
+            }
+            if (e.key === 'Enter' && phase === 'lobby') {
+                readyState = !readyState;
+                document.getElementById('lobby-status').innerText = readyState ? "READY!" : "WAITING FOR RIVAL...";
+                update(ref(db, `battles/${room}/${role}`), { ready: readyState });
+                sfx.move?.play();
+            }
+            if (e.key === 'r' && phase === 'gameover') {
+                rematchSent = !rematchSent;
+                document.getElementById('rematch-btn').innerText = rematchSent ? "REQUESTED..." : "REQUEST REMATCH [R]";
+                update(ref(db, `battles/${room}/${role}`), { rematch: rematchSent });
+            }
         };
+        window.onkeyup = (e) => keys[e.key] = false;
+
+        document.getElementById('p1-btn').onclick = () => joinGame('p1');
+        document.getElementById('p2-btn').onclick = () => joinGame('p2');
+        document.getElementById('local-btn').onclick = () => window.open(window.location.href, '_blank', 'width=1000,height=750');
+
+        function gameLoop(time) {
+            const dt = (time - lastTime) / 1000;
+            lastTime = time;
+            update(Math.min(dt, 0.1));
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        requestAnimationFrame(gameLoop);
 
     </script>
 </body>
